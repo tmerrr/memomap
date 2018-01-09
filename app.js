@@ -33,10 +33,17 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename){
   if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
 });
 
-app.get('/users', function(req, res){
+app.get('/users', function(req, res) {
   mongoose.model('users').find(function(err, users){
     res.send(users);
-  models});
+  });
+});
+
+app.get('/users/:userId', function(req, res) {
+  console.log(req.params)
+  mongoose.model('users').find({ id: req.params.userId }, function(err, users) {
+    res.send(users);
+  });
 });
 
 

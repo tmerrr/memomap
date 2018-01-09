@@ -14,5 +14,8 @@
     "mongoose": "^4.13.9",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.10"
   }
 }
