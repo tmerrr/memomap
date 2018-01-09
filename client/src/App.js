@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import fetch from 'isomorphic-fetch';
+
 import './App.css';
 
 class App extends Component {
@@ -9,7 +10,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('/users')
+    fetch('http://localhost:3001/users')
       .then(res => res.json())
       .then(users => this.setState({ users }));
   }
