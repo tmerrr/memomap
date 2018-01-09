@@ -36,15 +36,21 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename){
 
 // Routes for get requests to MongoDB, using Mongoose
 app.get('/users', function(req, res) {
-  mongoose.model('users').find(function(err, users){
+  mongoose.model('users').find(function(err, users) {
     res.send(users);
   });
 });
 
 app.get('/users/:userId', function(req, res) {
-  console.log(req.params)
   mongoose.model('users').find({ id: req.params.userId }, function(err, users) {
     res.send(users);
+  });
+});
+
+// Get request for Pins:
+app.get('/pins', function(req, res) {
+  mongoose.model('pins').find(function(err, pins) {
+    res.send(pins);
   });
 });
 
