@@ -33,6 +33,8 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename){
   if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
 });
 
+
+// Routes for get requests to MongoDB, using Mongoose
 app.get('/users', function(req, res) {
   mongoose.model('users').find(function(err, users){
     res.send(users);
@@ -46,7 +48,7 @@ app.get('/users/:userId', function(req, res) {
   });
 });
 
-
+// Routes:
 app.use('/', index);
 app.use('/users', users);
 
