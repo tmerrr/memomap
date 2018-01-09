@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var fs = require('fs')
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -26,12 +27,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.model('users', {id: Number, name: String});
+// mongoose.model('users', {id: Number, name: String});
+
+fs.readdirSync(__dirname + '/models').forEach(function(filename){
+  if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
+});
 
 app.get('/users', function(req, res){
   mongoose.model('users').find(function(err, users){
     res.send(users);
-  });
+  models});
 });
 
 
