@@ -32,7 +32,8 @@ describe('Pins', () => {
   describe('/POST pins', () => {
     it('it should save a pin', (done) =>{
       let pin = {
-        coordinates: [5, 10]
+        longitude: 5,
+        latitude: 10
       }
       chai.request(app)
       .post('/pins/new')
@@ -40,7 +41,10 @@ describe('Pins', () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('object')
-        res.body.should.have.property('coordinates')
+        res.body.should.have.property('longitude')
+        res.body.should.have.property('latitude')
+        res.body.longitude.should.equal(5)
+        res.body.latitude.should.equal(10)
       done();
       });
     });

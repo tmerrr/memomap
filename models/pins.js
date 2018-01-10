@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var pinsSchema = new Schema({
-  coordinates: Array
+  longitude: Number,
+  latitude: Number
 });
 
 module.exports = mongoose.model('pins', pinsSchema)
