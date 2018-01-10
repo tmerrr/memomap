@@ -8,4 +8,15 @@ router.get('', function(req, res) {
   });
 });
 
+router.post('/new', function(req, res) {
+
+  var pinModel = mongoose.model('pins')
+  var pin = new pinModel(req.body)
+  pin.save(function(err) {
+    if(err) throw err;
+
+  });
+  res.send(pin)
+});
+
 module.exports = router;

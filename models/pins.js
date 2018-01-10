@@ -5,4 +5,4 @@ var pinsSchema = new Schema({
   coordinates: Array
 });
 
-mongoose.model('pins', pinsSchema)
+module.exports = mongoose.model('pins', pinsSchema)
