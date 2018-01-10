@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
 import App from './component/App';
@@ -11,25 +11,53 @@ const Map = ReactMapboxGl({
 });
 
 
+class MainApp extends Component {
+  constructor(props) {
+    super(props)
+    this.onClick = this.handleClick.bind(this)
+  }
 
-
-ReactDOM.render(<Map
-  style="mapbox://styles/mapbox/streets-v9"
-  containerStyle={{
-    height: "100vh",
-    width: "100vw"
-  }}>
-    <Layer
-      type="symbol"
-      id="marker"
-      layout={{ "icon-image": "marker-15", "icon-size": 5 }}>
-      <Feature coordinates={[-0.481747846041145, 51.3233379650232]}
-               onHover={this._onHover}
-               onEndHover={this._onEndHover}
-               onClick={this._onClickMarker}
+  renderFeature(long, lat) {
+    return(
+      <Feature coordinates={[long, lat]}
+        onHover={this._onHover}
+        onEndHover={this._onEndHover}
+        onClick={this._onClickMarker}
       />
-    </Layer>
-</Map>
+    )
+  }
 
-      , document.getElementById('root'));
+  renderMarker() {
+    return(
+      <Layer
+        type="symbol"
+        id="marker"
+        layout={{ "icon-image": "marker-15", "icon-size": 5 }}>
+        {this.renderFeature(-0.073517, 51.517337)}
+      </Layer>
+    )
+  }
+
+  handleClick(e) {
+    console.log('this ran')
+  }
+
+  render() {
+    return (
+      <Map
+        style="mapbox://styles/mapbox/streets-v9"
+        containerStyle={{
+          height: "100vh",
+          width: "100vw"
+        }}
+      >
+        {this.renderMarker()}
+      </Map>
+
+    )
+  }
+}
+
+
+ReactDOM.render(<MainApp onClick={(e) => this.handleClick(e)}/>, document.getElementById('root'))
 registerServiceWorker();
