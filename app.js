@@ -1,3 +1,4 @@
+// Dependencies:
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -6,17 +7,18 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var fs = require('fs')
+
+// Route Files:
 var index = require('./routes/index');
 var users = require('./routes/users');
+var pins = require('./routes/pins');
+
+// Set environment to Test or Development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
-
-
-var app = express();
-
-console.log(process.env.NODE_ENV)
-//development only
 mongoose.connect('mongodb://localhost/map-app-' + process.env.NODE_ENV)
+
+// Set variable for express
+var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,36 +32,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// mongoose.model('users', {id: Number, name: String});
-
+// Finds all files within models directory
 fs.readdirSync(__dirname + '/models').forEach(function(filename){
   if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
-});
-
-
-// Routes for get requests to MongoDB, using Mongoose
-app.get('/users', function(req, res) {
-  mongoose.model('users').find(function(err, users) {
-    res.send(users);
-  });
-});
-
-app.get('/users/:userId', function(req, res) {
-  mongoose.model('users').find({ id: req.params.userId }, function(err, users) {
-    res.send(users);
-  });
-});
-
-// Get request for Pins:
-app.get('/pins', function(req, res) {
-  mongoose.model('pins').find(function(err, pins) {
-    res.send(pins);
-  });
 });
 
 // Routes:
 app.use('/', index);
 app.use('/users', users);
+app.use('/pins', pins);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
