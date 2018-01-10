@@ -16,7 +16,9 @@
     "serve-favicon": "~2.4.5"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "mapbox-gl": "^0.43.0",
+    "mocha": "^4.1.0",
     "nodemon": "^1.14.10"
   }
 }
