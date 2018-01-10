@@ -20,6 +20,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "mapbox-gl": "^0.43.0",
+    "react-test-renderer": "^16.2.0",
     "sinon": "^4.1.4",
     "sinon-chai": "^2.14.0"
   }

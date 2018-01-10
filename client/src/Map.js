@@ -4,7 +4,7 @@ import mapboxgl from 'mapbox-gl'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
 
-class Application extends React.Component {
+class Map extends React.Component {
 
   constructor(props: Props) {
     super(props);
@@ -50,6 +50,6 @@ class Application extends React.Component {
   }
 }
 
-export default Application;
+export default Map;
 
 // ReactDOM.render(<Application />, document.getElementById('app'));
