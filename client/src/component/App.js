@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
 import mapboxgl from 'mapbox-gl';
 
-import './App.css';
+import '../styles/App.css';
 
 class App extends Component {
   constructor(props) {
