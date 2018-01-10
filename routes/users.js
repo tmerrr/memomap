@@ -1,23 +1,19 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
 
-/* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   // res.send('respond with a resource');
-//
-// //   res.json([{
-// //     id: 1,
-// //     name: 'Eva'
-// //   }, {
-// //     id: 2,
-// //     name: 'Dania'
-// //   }, {
-// //     id: 3,
-// //     name: 'Lewis'
-// //   }, {
-// //     id: 4,
-// //     name: 'Tom'
-// //   }])
-// });
+
+router.get('', function(req, res) {
+  mongoose.model('users').find(function(err, users) {
+    res.send(users);
+  });
+});
+
+router.get('/:userId', function(req, res) {
+  mongoose.model('users').find({ id: req.params.userId }, function(err, users) {
+    res.send(users);
+  });
+});
+
 
 module.exports = router;
