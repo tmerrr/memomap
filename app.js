@@ -8,12 +8,15 @@ var mongoose = require('mongoose');
 var fs = require('fs')
 var index = require('./routes/index');
 var users = require('./routes/users');
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+
 
 var app = express();
 
+console.log(process.env.NODE_ENV)
 //development only
-mongoose.connect('mongodb://localhost/map-app')
-
+mongoose.connect('mongodb://localhost/map-app-' + process.env.NODE_ENV)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
