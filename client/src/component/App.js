@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import registerServiceWorker from '../registerServiceWorker';
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 import axios from 'axios';
 
@@ -8,7 +7,7 @@ const Map = ReactMapboxGl({
 });
 
 
-class MainApp extends Component {
+class App extends Component {
   constructor(props) {
     super(props)
     this.renderPin = this.renderPin.bind(this)
@@ -94,4 +93,4 @@ class MainApp extends Component {
   }
 }
 
-export default MainApp;
+export default App;

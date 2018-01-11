@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import MainApp from './component/App'
-import registerServiceWorker from './registerServiceWorker';
-import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
-import axios from 'axios';
+import App from './component/App'
 
 
-ReactDOM.render(<MainApp />, document.getElementById('root'))
-registerServiceWorker();
+ReactDOM.render(<App />, document.getElementById('root'))
