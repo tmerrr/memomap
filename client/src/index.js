@@ -23,11 +23,13 @@ class MainApp extends Component {
   }
 
   componentDidMount() {
-    let self = this
     let pinsArray = this.state.pins
     axios.get('/pins')
-    .then(function (response) { response.data.map((pin) => pinsArray.push({ lng: pin.longitude, lat: pin.latitude }))
-      self.setState({
+    .then((response) => {
+      response.data.map((pin) => pinsArray.push({
+        lng: pin.longitude, lat: pin.latitude
+      }))
+      this.setState({
         pins: pinsArray
       })
     })
