@@ -23,14 +23,14 @@ describe ('Props', () => {
 describe ('renderPin', () => {
   it ('returns a FeatureDouble component', () => {
     let app = shallow(<MainAppDouble />)
-    expect(app.find(LayerDouble).find(FeatureDouble)).to.have.length(1)
+    expect(app.instance().renderPin(5, 5)).to.contain(FeatureDouble)
   })
 })
 
 describe ('renderLayer', ()=> {
   it ('returns a layer component', ()=>{
     let app = shallow(<MainAppDouble />)
-    expect(app.find(LayerDouble)).to.have.length(1)
+    expect(app.instance().renderLayer()).to.contain(LayerDouble)
   })
 })
 
