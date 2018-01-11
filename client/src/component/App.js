@@ -1,33 +1,97 @@
 import React, { Component } from 'react';
-import fetch from 'isomorphic-fetch';
-import mapboxgl from 'mapbox-gl';
+import registerServiceWorker from '../registerServiceWorker';
+import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
+import axios from 'axios';
 
-import '../styles/App.css';
+const Map = ReactMapboxGl({
+  accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
+});
 
-class App extends Component {
+
+class MainApp extends Component {
   constructor(props) {
     super(props)
-    this.state = { users: [] }
+    this.renderPin = this.renderPin.bind(this)
+    this.renderLayer = this.renderLayer.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
+    this.state = { pins: [] }
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/users')
-      .then(res => res.json())
-      .then(users => this.setState({ users }));
+    let pinsArray = this.state.pins.slice()
+    axios.get('/pins')
+    .then((response) => {
+      response.data.map((pin) => pinsArray.push({
+        lng: pin.longitude, lat: pin.latitude
+      }))
+      this.setState({
+        pins: pinsArray
+      })
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+  }
+
+  renderPin(long, lat, index) {
+    return(
+      <Feature
+        key={index}
+        coordinates={[long, lat]}
+        onHover={this._onHover}
+        onEndHover={this._onEndHover}
+        onClick={this._onClickMarker}
+      />
+    )
+  }
+
+  renderLayer() {
+    return(
+      <Layer
+        type="symbol"
+        id="marker"
+        layout={{ "icon-image": "marker-15", "icon-size": 5 }}>
+        {this.state.pins.map((pin, index) =>
+          this.renderPin(pin.lng, pin.lat, index)
+        )}
+      </Layer>
+    )
+  }
+
+  handleClick(map, evt) {
+    let pinsArray = this.state.pins.slice()
+    pinsArray.push(evt.lngLat)
+    this.setState({
+      pins: pinsArray
+    })
+    axios.post('/pins/new', {
+      longitude: evt.lngLat.lng,
+      latitude: evt.lngLat.lat
+    })
+    .then(function(response) {
+      console.log(response)
+    })
+    .catch(function(error) {
+      console.log(error)
+    });
   }
 
   render() {
+
     return (
-      <div className="App">
-        <h1>Users</h1>
-        <ul>
-          {this.state.users.map(user =>
-            <li key={user.id}>{user.name}</li>
-          )}
-        </ul>
-      </div>
-    );
+      <Map
+        style="mapbox://styles/mapbox/streets-v9"
+        containerStyle={{
+          height: "100vh",
+          width: "100vw"
+        }}
+        onClick={this.handleClick}
+      >
+      {this.renderLayer()}
+      </Map>
+    )
   }
 }
 
-export default App;
+export default MainApp;
