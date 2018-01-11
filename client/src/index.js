@@ -14,6 +14,9 @@ const Map = ReactMapboxGl({
 class MainApp extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      
+    }
     this.renderFeature = this.renderFeature.bind(this)
     this.renderMarker = this.renderMarker.bind(this)
   }
@@ -28,25 +31,25 @@ class MainApp extends Component {
     )
   }
 
-  _onClickMarker() {
-    console.log('sup!')
-  }
+  // _onClickMarker() {
+  //   console.log('sup!')
+  // }
 
   renderMarker() {
     console.log('hello')
-    return(
-      <Layer
+    this.setState({
+      layer: <Layer
         type="symbol"
         id="marker"
         layout={{ "icon-image": "marker-15", "icon-size": 5 }}>
         {this.renderFeature(-0.073517, 51.517337)}
       </Layer>
-    )
+    })
   }
-
-  handleClick() {
-    console.log('this ran')
-  }
+  //
+  // handleClick() {
+  //   console.log('this ran')
+  // }
 
   render() {
     return (
@@ -58,7 +61,7 @@ class MainApp extends Component {
         }}
         onClick={this.renderMarker}
       >
-        {/* {this.renderMarker()} */}
+      { this.state.layer ? this.state.layer : null }
       </Map>
 
     )
