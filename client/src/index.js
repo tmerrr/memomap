@@ -44,7 +44,7 @@ class MainApp extends Component {
       </Layer>
     })
   }
-  //
+
   handleClick(map, evt) {
     console.log(evt.lngLat)
     let pinsArray = this.state.pins.slice()
