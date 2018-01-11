@@ -14,13 +14,13 @@ const Map = ReactMapboxGl({
 class MainApp extends Component {
   constructor(props) {
     super(props)
-    this.renderFeature = this.renderFeature.bind(this)
-    this.renderMarker = this.renderMarker.bind(this)
+    this.renderPin = this.renderPin.bind(this)
+    this.renderLayer = this.renderLayer.bind(this)
     this.addPinToArray = this.addPinToArray.bind(this)
     this.state = { pins: [] }
   }
 
-  renderFeature(long, lat) {
+  renderPin(long, lat) {
     return(
       <Feature coordinates={[long, lat]}
         onHover={this._onHover}
@@ -30,20 +30,15 @@ class MainApp extends Component {
     )
   }
 
-  _onClickMarker() {
-    console.log('sup!')
-  }
-
-  renderMarker() {
+  renderLayer() {
     console.log('hello')
     return(
       <Layer
         type="symbol"
         id="marker"
         layout={{ "icon-image": "marker-15", "icon-size": 5 }}>
-        {/* {this.renderFeature(-0.073517, 51.517337)} */}
         {this.state.pins.map((pin) =>
-          this.renderFeature(pin.longitude, pin.latitude)
+          this.renderPin(pin.lng, pin.lat)
         )}
       </Layer>
     )
@@ -52,18 +47,10 @@ class MainApp extends Component {
   addPinToArray() {
     let long = Math.random() * 50
     let lat = Math.random() * 30
-    let pin = {longitude: long, latitude: lat}
+    let pin = {lng: long, lat: lat}
     let newPins = this.state.pins.slice();
     newPins.push(pin);
     this.setState({ pins: newPins })
-  }
-
-  handleClick() {
-    console.log('this ran')
-  }
-
-  renderPinsToMap() {
-
   }
 
   render() {
@@ -76,7 +63,7 @@ class MainApp extends Component {
         }}
         onClick={this.addPinToArray}
       >
-      {this.renderMarker()}
+      {this.renderLayer()}
       </Map>
 
     )
