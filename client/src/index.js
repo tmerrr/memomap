@@ -16,7 +16,7 @@ class MainApp extends Component {
     super(props)
     this.renderPin = this.renderPin.bind(this)
     this.renderLayer = this.renderLayer.bind(this)
-    this.addPinToArray = this.addPinToArray.bind(this)
+    this.handleClick = this.handleClick.bind(this)
     this.state = { pins: [] }
   }
 
@@ -31,7 +31,6 @@ class MainApp extends Component {
   }
 
   renderLayer() {
-    console.log('hello')
     return(
       <Layer
         type="symbol"
@@ -44,13 +43,12 @@ class MainApp extends Component {
     )
   }
 
-  addPinToArray() {
-    let long = Math.random() * 50
-    let lat = Math.random() * 30
-    let pin = {lng: long, lat: lat}
-    let newPins = this.state.pins.slice();
-    newPins.push(pin);
-    this.setState({ pins: newPins })
+  handleClick(map, evt) {
+    let pinsArray = this.state.pins.slice()
+    pinsArray.push(evt.lngLat)
+    this.setState({
+      pins: pinsArray
+    })
   }
 
   render() {
@@ -61,7 +59,7 @@ class MainApp extends Component {
           height: "100vh",
           width: "100vw"
         }}
-        onClick={this.addPinToArray}
+        onClick={this.handleClick}
       >
       {this.renderLayer()}
       </Map>
