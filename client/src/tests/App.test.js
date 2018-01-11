@@ -9,8 +9,6 @@ import renderer from 'react-test-renderer';
 
 chai.use(chaiEnzyme());
 
-import Application from './Application';
-
 it ('can add!', () => {
   expect(1 + 2).to.equal(3);
 })

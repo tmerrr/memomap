@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import './styles/index.css';
-import App from './component/App';
-// import Map from './component/Map';
-import registerServiceWorker from './registerServiceWorker';
-import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 
-const Map = ReactMapboxGl({
-  accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
-});
+export class FeatureDouble extends Component {
 
+}
 
-class MainApp extends Component {
+export class LayerDouble extends Component {
+
+}
+
+export class MapDouble extends Component {
+
+}
+
+export class MainAppDouble extends Component {
   constructor(props) {
     super(props)
     this.renderPin = this.renderPin.bind(this)
@@ -22,7 +23,7 @@ class MainApp extends Component {
 
   renderPin(long, lat) {
     return(
-      <Feature coordinates={[long, lat]}
+      <FeatureDouble coordinates={[long, lat]}
         onHover={this._onHover}
         onEndHover={this._onEndHover}
         onClick={this._onClickMarker}
@@ -32,14 +33,14 @@ class MainApp extends Component {
 
   renderLayer() {
     return(
-      <Layer
+      <LayerDouble
         type="symbol"
         id="marker"
         layout={{ "icon-image": "marker-15", "icon-size": 5 }}>
         {this.state.pins.map((pin) =>
           this.renderPin(pin.lng, pin.lat)
         )}
-      </Layer>
+      </LayerDouble>
     )
   }
 
@@ -53,7 +54,7 @@ class MainApp extends Component {
 
   render() {
     return (
-      <Map
+      <MapDouble
         style="mapbox://styles/mapbox/streets-v9"
         containerStyle={{
           height: "100vh",
@@ -62,13 +63,7 @@ class MainApp extends Component {
         onClick={this.handleClick}
       >
       {this.renderLayer()}
-      </Map>
+    </MapDouble>
     )
   }
 }
-
-export { Map };
-export default MainApp;
-
-ReactDOM.render(<MainApp />, document.getElementById('root'))
-registerServiceWorker();
