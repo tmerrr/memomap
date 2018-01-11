@@ -5,6 +5,7 @@
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-layer": "^2.0.0",
     "react-mapbox-gl": "^3.4.1",
     "react-scripts": "1.0.17"
   },

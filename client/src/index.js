@@ -42,14 +42,18 @@ class MainApp extends Component {
         id="marker"
         layout={{ "icon-image": "marker-15", "icon-size": 5 }}>
         {/* {this.renderFeature(-0.073517, 51.517337)} */}
-        {this.renderFeature((Math.random() * 50), (Math.random() * 30))}
+        {this.state.pins.map((pin) =>
+          this.renderFeature(pin.longitude, pin.latitude)
+        )}
       </Layer>
     )
   }
 
   addPinToArray() {
+    let long = Math.random() * 50
+    let lat = Math.random() * 30
+    let pin = {longitude: long, latitude: lat}
     let newPins = this.state.pins.slice();
-    let pin = this.renderMarker()
     newPins.push(pin);
     this.setState({ pins: newPins })
   }
@@ -72,7 +76,7 @@ class MainApp extends Component {
         }}
         onClick={this.addPinToArray}
       >
-
+      {this.renderMarker()}
       </Map>
 
     )
