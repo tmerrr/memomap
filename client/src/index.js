@@ -15,10 +15,11 @@ class MainApp extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      
+
     }
     this.renderFeature = this.renderFeature.bind(this)
     this.renderMarker = this.renderMarker.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   renderFeature(long, lat) {
@@ -46,10 +47,10 @@ class MainApp extends Component {
       </Layer>
     })
   }
-  //
-  // handleClick() {
-  //   console.log('this ran')
-  // }
+
+  handleClick(map, evt) {
+    console.log(evt.lngLat)
+  }
 
   render() {
     return (
@@ -59,9 +60,10 @@ class MainApp extends Component {
           height: "100vh",
           width: "100vw"
         }}
-        onClick={this.renderMarker}
+        onClick={this.handleClick}
       >
       { this.state.layer ? this.state.layer : null }
+      { console.log(this.state.layer) }
       </Map>
 
     )
