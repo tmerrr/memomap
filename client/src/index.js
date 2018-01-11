@@ -16,6 +16,8 @@ class MainApp extends Component {
     super(props)
     this.renderFeature = this.renderFeature.bind(this)
     this.renderMarker = this.renderMarker.bind(this)
+    this.addPinToArray = this.addPinToArray.bind(this)
+    this.state = { pins: [] }
   }
 
   renderFeature(long, lat) {
@@ -39,13 +41,25 @@ class MainApp extends Component {
         type="symbol"
         id="marker"
         layout={{ "icon-image": "marker-15", "icon-size": 5 }}>
-        {this.renderFeature(-0.073517, 51.517337)}
+        {/* {this.renderFeature(-0.073517, 51.517337)} */}
+        {this.renderFeature((Math.random() * 50), (Math.random() * 30))}
       </Layer>
     )
   }
 
+  addPinToArray() {
+    let newPins = this.state.pins.slice();
+    let pin = this.renderMarker()
+    newPins.push(pin);
+    this.setState({ pins: newPins })
+  }
+
   handleClick() {
     console.log('this ran')
+  }
+
+  renderPinsToMap() {
+
   }
 
   render() {
@@ -56,9 +70,9 @@ class MainApp extends Component {
           height: "100vh",
           width: "100vw"
         }}
-        onClick={this.renderMarker}
+        onClick={this.addPinToArray}
       >
-        {/* {this.renderMarker()} */}
+
       </Map>
 
     )
