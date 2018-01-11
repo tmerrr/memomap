@@ -23,7 +23,7 @@ class MainApp extends Component {
   }
 
   componentDidMount() {
-    let pinsArray = this.state.pins
+    let pinsArray = this.state.pins.slice()
     axios.get('/pins')
     .then((response) => {
       response.data.map((pin) => pinsArray.push({
@@ -34,6 +34,7 @@ class MainApp extends Component {
       })
     })
     .catch(function (error) {
+      console.log(error)
     })
   }
 
@@ -73,8 +74,10 @@ class MainApp extends Component {
       latitude: evt.lngLat.lat
     })
     .then(function(response) {
+      console.log(response)
     })
     .catch(function(error) {
+      console.log(error)
     });
   }
 
