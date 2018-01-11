@@ -15,10 +15,11 @@ class MainApp extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      
+      pins: []
     }
     this.renderFeature = this.renderFeature.bind(this)
     this.renderMarker = this.renderMarker.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   renderFeature(long, lat) {
@@ -31,9 +32,6 @@ class MainApp extends Component {
     )
   }
 
-  // _onClickMarker() {
-  //   console.log('sup!')
-  // }
 
   renderMarker() {
     console.log('hello')
@@ -47,9 +45,15 @@ class MainApp extends Component {
     })
   }
   //
-  // handleClick() {
-  //   console.log('this ran')
-  // }
+  handleClick(map, evt) {
+    console.log(evt.lngLat)
+    let pinsArray = this.state.pins.slice()
+    pinsArray.push(evt.lngLat)
+    this.setState({
+      pins: pinsArray
+    })
+    console.log(this.state.pins)
+  }
 
   render() {
     return (
@@ -59,7 +63,7 @@ class MainApp extends Component {
           height: "100vh",
           width: "100vw"
         }}
-        onClick={this.renderMarker}
+        onClick={this.handleClick}
       >
       { this.state.layer ? this.state.layer : null }
       </Map>
