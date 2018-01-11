@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 import axios from 'axios';
-
-const Map = ReactMapboxGl({
-  accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
-});
-
 
 class App extends Component {
   constructor(props) {
@@ -35,7 +29,7 @@ class App extends Component {
 
   renderPin(long, lat, index) {
     return(
-      <Feature
+      <this.props.FeatureClass
         key={index}
         coordinates={[long, lat]}
         onHover={this._onHover}
@@ -47,14 +41,14 @@ class App extends Component {
 
   renderLayer() {
     return(
-      <Layer
+      <this.props.LayerClass
         type="symbol"
         id="marker"
         layout={{ "icon-image": "marker-15", "icon-size": 5 }}>
         {this.state.pins.map((pin, index) =>
           this.renderPin(pin.lng, pin.lat, index)
         )}
-      </Layer>
+      </this.props.LayerClass>
     )
   }
 
@@ -79,7 +73,7 @@ class App extends Component {
   render() {
 
     return (
-      <Map
+      <this.props.MapClass
         style="mapbox://styles/mapbox/streets-v9"
         containerStyle={{
           height: "100vh",
@@ -88,7 +82,7 @@ class App extends Component {
         onClick={this.handleClick}
       >
       {this.renderLayer()}
-      </Map>
+    </this.props.MapClass>
     )
   }
 }
