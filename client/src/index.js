@@ -18,7 +18,22 @@ class MainApp extends Component {
     this.renderPin = this.renderPin.bind(this)
     this.renderLayer = this.renderLayer.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
     this.state = { pins: [] }
+  }
+
+  componentDidMount() {
+    let self = this
+    axios.get('/pins')
+    .then(function (response) {
+      response.data.map((pin) =>
+        self.state.pins.push([pin.longitude, pin.latitude])
+    )
+    console.log(self.state.pins)
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
   }
 
   renderPin(long, lat) {
@@ -64,6 +79,12 @@ class MainApp extends Component {
   }
 
   render() {
+    console.log(this.state.pins.length)
+    if(this.state.pins.length === 0){
+      console.log(this.state.pins)
+      return 'hello'
+    } else {
+        console.log(this.state.pins.length)
     return (
       <Map
         style="mapbox://styles/mapbox/streets-v9"
@@ -75,8 +96,8 @@ class MainApp extends Component {
       >
       {this.renderLayer()}
       </Map>
+    )}
 
-    )
   }
 }
 
