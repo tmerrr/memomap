@@ -5,6 +5,7 @@ import App from './component/App';
 // import Map from './component/Map';
 import registerServiceWorker from './registerServiceWorker';
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
+import axios from 'axios';
 
 const Map = ReactMapboxGl({
   accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
@@ -46,9 +47,20 @@ class MainApp extends Component {
   handleClick(map, evt) {
     let pinsArray = this.state.pins.slice()
     pinsArray.push(evt.lngLat)
+    console.log(evt.lngLat)
     this.setState({
       pins: pinsArray
     })
+    axios.post('/pins/new', {
+      longitude: evt.lngLat.lng,
+      latitude: evt.lngLat.lng
+    })
+    .then(function(response) {
+      console.log(response);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
   }
 
   render() {
