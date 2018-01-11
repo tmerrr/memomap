@@ -24,21 +24,22 @@ class MainApp extends Component {
 
   componentDidMount() {
     let self = this
+    let pinsArray = this.state.pins
     axios.get('/pins')
-    .then(function (response) {
-      response.data.map((pin) =>
-        self.state.pins.push([pin.longitude, pin.latitude])
-    )
-    console.log(self.state.pins)
+    .then(function (response) { response.data.map((pin) => pinsArray.push({ lng: pin.longitude, lat: pin.latitude }))
+      self.setState({
+        pins: pinsArray
+      })
     })
     .catch(function (error) {
-      console.log(error);
     })
   }
 
-  renderPin(long, lat) {
+  renderPin(long, lat, index) {
     return(
-      <Feature coordinates={[long, lat]}
+      <Feature
+        key={index}
+        coordinates={[long, lat]}
         onHover={this._onHover}
         onEndHover={this._onEndHover}
         onClick={this._onClickMarker}
@@ -52,8 +53,8 @@ class MainApp extends Component {
         type="symbol"
         id="marker"
         layout={{ "icon-image": "marker-15", "icon-size": 5 }}>
-        {this.state.pins.map((pin) =>
-          this.renderPin(pin.lng, pin.lat)
+        {this.state.pins.map((pin, index) =>
+          this.renderPin(pin.lng, pin.lat, index)
         )}
       </Layer>
     )
@@ -62,29 +63,21 @@ class MainApp extends Component {
   handleClick(map, evt) {
     let pinsArray = this.state.pins.slice()
     pinsArray.push(evt.lngLat)
-    console.log(evt.lngLat)
     this.setState({
       pins: pinsArray
     })
     axios.post('/pins/new', {
       longitude: evt.lngLat.lng,
-      latitude: evt.lngLat.lng
+      latitude: evt.lngLat.lat
     })
     .then(function(response) {
-      console.log(response);
     })
     .catch(function(error) {
-      console.log(error);
     });
   }
 
   render() {
-    console.log(this.state.pins.length)
-    if(this.state.pins.length === 0){
-      console.log(this.state.pins)
-      return 'hello'
-    } else {
-        console.log(this.state.pins.length)
+
     return (
       <Map
         style="mapbox://styles/mapbox/streets-v9"
@@ -96,8 +89,7 @@ class MainApp extends Component {
       >
       {this.renderLayer()}
       </Map>
-    )}
-
+    )
   }
 }
 
