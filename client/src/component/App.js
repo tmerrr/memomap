@@ -4,6 +4,7 @@ import axios from 'axios';
 class App extends Component {
   constructor(props) {
     super(props)
+    this.sendGetRequest = this.sendGetRequest.bind(this)
     this.renderPin = this.renderPin.bind(this)
     this.renderLayer = this.renderLayer.bind(this)
     this.handleClick = this.handleClick.bind(this)
@@ -12,6 +13,10 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.sendGetRequest();
+  }
+
+  sendGetRequest() {
     let pinsArray = this.state.pins.slice()
     axios.get('/pins')
     .then((response) => {
