@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
+import { Popup } from "react-mapbox-gl";
+import { Marker } from "react-mapbox-gl";
 import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.sendGetRequest = this.sendGetRequest.bind(this)
-    this.renderPin = this.renderPin.bind(this)
-    this.renderLayer = this.renderLayer.bind(this)
+    // this.renderPin = this.renderPin.bind(this)
+    // this.renderLayer = this.renderLayer.bind(this)
+    this.renderPopup = this.renderPopup.bind(this)
+
     this.handleClick = this.handleClick.bind(this)
+
+    this.renderLayerpopups = this.renderLayerpopups.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.state = { pins: [] }
   }
@@ -32,29 +38,65 @@ class App extends Component {
     })
   }
 
-  renderPin(long, lat, index) {
-    return(
-      <this.props.FeatureClass
-        key={index}
-        coordinates={[long, lat]}
-        onHover={this._onHover}
-        onEndHover={this._onEndHover}
-        onClick={this._onClickMarker}
-      />
-    )
+  // renderPin(long, lat, index) {
+  //   return(
+  //     <this.props.FeatureClass
+  //       key={index}
+  //       coordinates={[long, lat]}
+  //       onHover={this._onHover}
+  //       onEndHover={this._onEndHover}
+  //       onClick={this._onClickMarker}
+  //     />
+  //   )
+  // }
+  //
+  // renderLayer() {
+  //   console.log(this.state.pins)
+  //   return(
+  //     <this.props.LayerClass
+  //       type="symbol"
+  //       id="marker"
+  //       layout={{ "icon-image": "marker-15", "icon-size": 5}}>
+  //       {this.state.pins.map((pin, index) =>
+  //         this.renderPin(pin.lng, pin.lat, index)
+  //
+  //       )}
+  //     </this.props.LayerClass>
+  //
+  //   )
+  // }
+
+
+  renderLayerpopups(){
+    console.log('hello Dania Mah')
+    this.setState({
+      clicked: true
+    })
   }
 
-  renderLayer() {
+  renderPopup(){
     return(
-      <this.props.LayerClass
-        type="symbol"
-        id="marker"
-        layout={{ "icon-image": "marker-15", "icon-size": 5 }}>
-        {this.state.pins.map((pin, index) =>
-          this.renderPin(pin.lng, pin.lat, index)
-        )}
-      </this.props.LayerClass>
-    )
+    <Popup
+    coordinates={[-0.2416815, 51.5285582]}
+    offset={{
+      'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
+    }}>
+    <form><input type="text" name="name"></input>
+    <input type="submit" value="Click Me Bitches"></input>
+    </form>
+  </Popup> )
+  }
+
+  renderMarker(){
+    return (
+    <Marker
+    coordinates={[-0.2416815, 51.5285582]}
+    onClick={this.renderLayerpopups}
+    anchor="bottom"
+    >
+    <img src={"1.png"} alt="pin" style={{"width": "60px"}}/>
+    </Marker>
+      )
   }
 
   handleClick(map, evt) {
@@ -86,8 +128,13 @@ class App extends Component {
         }}
         onClick={this.handleClick}
       >
-      {this.renderLayer()}
+
       <this.props.GeocoderClass />
+
+      {this.renderMarker()}
+      {this.state.clicked ? this.renderPopup() : null}
+
+
     </this.props.MapClass>
     )
   }
