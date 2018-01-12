@@ -7,16 +7,15 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.sendGetRequest = this.sendGetRequest.bind(this)
-    // this.renderPin = this.renderPin.bind(this)
-    // this.renderLayer = this.renderLayer.bind(this)
     this.renderPopup = this.renderPopup.bind(this)
-
     this.handleClick = this.handleClick.bind(this)
-
     this.showPopup = this.showPopup.bind(this)
     this.renderLayerpopups = this.renderLayerpopups.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
-    this.state = { pins: [] }
+    this.state = {
+      pins: [],
+      clickedMarker: { isClicked: false }
+    }
   }
 
   componentDidMount() {
@@ -39,35 +38,6 @@ class App extends Component {
       console.log(error)
     })
   }
-
-  // renderPin(long, lat, index) {
-  //   return(
-  //     <this.props.FeatureClass
-  //       key={index}
-  //       coordinates={[long, lat]}
-  //       onHover={this._onHover}
-  //       onEndHover={this._onEndHover}
-  //       onClick={this._onClickMarker}
-  //     />
-  //   )
-  // }
-  //
-  // renderLayer() {
-  //   console.log(this.state.pins)
-  //   return(
-  //     <this.props.LayerClass
-  //       type="symbol"
-  //       id="marker"
-  //       layout={{ "icon-image": "marker-15", "icon-size": 5}}>
-  //       {this.state.pins.map((pin, index) =>
-  //         this.renderPin(pin.lng, pin.lat, index)
-  //
-  //       )}
-  //     </this.props.LayerClass>
-  //
-  //   )
-  // }
-
 
   renderLayerpopups(){
     console.log('hello Dania Mah')
@@ -110,9 +80,7 @@ class App extends Component {
 
   handlePopupClick(lng, lat) {
     this.setState({
-      clicked: true,
-      lng: lng,
-      lat: lat
+      clickedMarker: {isClicked: true, lng: lng, lat: lat}
     })
   }
 
@@ -121,7 +89,6 @@ class App extends Component {
       <Marker
         key={index}
         coordinates={[lng, lat]}
-        // onClick={() => this.showPopup(lng, lat)}
         onClick={() => this.handlePopupClick(lng, lat)}
         anchor="bottom"
       >
@@ -131,6 +98,9 @@ class App extends Component {
   }
 
   handleClick(map, evt) {
+    this.setState({
+      clickedMarker: { isClicked: false }
+    })
     let pinsArray = this.state.pins.slice()
     pinsArray.push(evt.lngLat)
     this.setState({
@@ -165,7 +135,7 @@ class App extends Component {
       >
       {allPins}
       <this.props.GeocoderClass />
-      {this.state.clicked ? this.showPopup(this.state.lng, this.state.lat) : null}
+      {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.lng, this.state.clickedMarker.lat) : null}
     </this.props.MapClass>
     )
   }
