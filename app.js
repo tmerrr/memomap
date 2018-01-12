@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 var fs = require('fs')
 
 // Route Files:
-var index = require('./routes/index');
+//var index = require('./routes/index');
 var users = require('./routes/users');
 var pins = require('./routes/pins');
 
@@ -38,7 +38,7 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename){
 });
 
 // Routes:
-app.use('/', index);
+//app.use('/', index);
 app.use('/users', users);
 app.use('/pins', pins);
 
