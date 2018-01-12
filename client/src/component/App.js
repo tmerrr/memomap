@@ -32,6 +32,7 @@ class App extends Component {
       this.setState({
         pins: pinsArray
       })
+      console.log(this.state)
     })
     .catch(function (error) {
       console.log(error)
@@ -87,16 +88,17 @@ class App extends Component {
   </Popup> )
   }
 
-  renderMarker(){
+  renderMarker(lng, lat, index){
     return (
-    <Marker
-    coordinates={[-0.2416815, 51.5285582]}
-    onClick={this.renderLayerpopups}
-    anchor="bottom"
-    >
-    <img src={"1.png"} alt="pin" style={{"width": "60px"}}/>
-    </Marker>
-      )
+      <Marker
+        key={index}
+        coordinates={[lng, lat]}
+        onClick={this.renderLayerpopups}
+        anchor="bottom"
+      >
+        <img src={"1.png"} alt="pin" style={{"width": "60px"}}/>
+      </Marker>
+    )
   }
 
   handleClick(map, evt) {
@@ -118,7 +120,11 @@ class App extends Component {
   }
 
   render() {
-
+    const allPins = this.state.pins.map((pin, index) => {
+      console.log(pin)
+      return this.renderMarker(pin.lng, pin.lat, index)
+    })
+    console.log(allPins)
     return (
       <this.props.MapClass
         style="mapbox://styles/mapbox/streets-v9"
@@ -128,13 +134,9 @@ class App extends Component {
         }}
         onClick={this.handleClick}
       >
-
+      {allPins}
       <this.props.GeocoderClass />
-
-      {this.renderMarker()}
       {this.state.clicked ? this.renderPopup() : null}
-
-
     </this.props.MapClass>
     )
   }
