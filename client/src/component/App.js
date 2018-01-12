@@ -13,6 +13,7 @@ class App extends Component {
 
     this.handleClick = this.handleClick.bind(this)
 
+    this.showPopup = this.showPopup.bind(this)
     this.renderLayerpopups = this.renderLayerpopups.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.state = { pins: [] }
@@ -82,10 +83,37 @@ class App extends Component {
     offset={{
       'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
     }}>
-    <form><input type="text" name="name"></input>
-    <input type="submit" value="Click Me Bitches"></input>
+    <form>
+      <input type="text" name="name"></input>
+      <input type="submit" value="Click Me Bitches"></input>
     </form>
   </Popup> )
+  }
+
+  showPopup(lng, lat) {
+    console.log(lng, lat)
+
+    return(
+      <Popup
+      coordinates={[lng, lat]}
+      offset={{
+        'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
+      }}
+    >
+      <form>
+        <input type="text" name="name"></input>
+        <input type="submit" value="Click Me Bitches"></input>
+      </form>
+    </Popup>
+  )
+  }
+
+  handlePopupClick(lng, lat) {
+    this.setState({
+      clicked: true,
+      lng: lng,
+      lat: lat
+    })
   }
 
   renderMarker(lng, lat, index){
@@ -93,7 +121,8 @@ class App extends Component {
       <Marker
         key={index}
         coordinates={[lng, lat]}
-        onClick={this.renderLayerpopups}
+        // onClick={() => this.showPopup(lng, lat)}
+        onClick={() => this.handlePopupClick(lng, lat)}
         anchor="bottom"
       >
         <img src={"1.png"} alt="pin" style={{"width": "60px"}}/>
@@ -136,7 +165,7 @@ class App extends Component {
       >
       {allPins}
       <this.props.GeocoderClass />
-      {this.state.clicked ? this.renderPopup() : null}
+      {this.state.clicked ? this.showPopup(this.state.lng, this.state.lat) : null}
     </this.props.MapClass>
     )
   }
