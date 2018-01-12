@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Popup } from "react-mapbox-gl";
 import axios from 'axios';
 
 class App extends Component {
@@ -44,11 +45,12 @@ class App extends Component {
       <this.props.LayerClass
         type="symbol"
         id="marker"
-        layout={{ "icon-image": "marker-15", "icon-size": 5 }}>
+        layout={{ "icon-image": "marker-15", "icon-size": 5}}>
         {this.state.pins.map((pin, index) =>
-          this.renderPin(pin.lng, pin.lat, index)
+            this.renderPin(pin.lng, pin.lat, index)
         )}
       </this.props.LayerClass>
+
     )
   }
 
@@ -82,6 +84,13 @@ class App extends Component {
         onClick={this.handleClick}
       >
       {this.renderLayer()}
+      <Popup
+      coordinates={[-0.13235092163085938,51.518250335096376]}
+      offset={{
+        'bottom-left': [12, -38],  'bottom': [0, -38], 'bottom-right': [-12, -38]
+      }}>
+      <h1>Hello</h1>
+      </Popup>
     </this.props.MapClass>
     )
   }

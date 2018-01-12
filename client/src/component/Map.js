@@ -16,8 +16,16 @@ class Map extends Component {
     })
   }
 
+    const popup = new mapboxgl.Popup({
+      setLngLat: [-96, 37.8],
+      setHTML: '<h1>Hello World!</h1>',
+      addTo: Map
+    })
+
+
   render() {
     return (
+      popup
       <div className='Map' ref={(x) => { this.container = x }}>
       </div>
     )
