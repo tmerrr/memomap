@@ -74,7 +74,9 @@ class App extends Component {
     offset={{
       'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
     }}>
-    <h1>Hello</h1>
+    <form><input type="text" name="name"></input>
+    <input type="submit" value="Click Me Bitches"></input>
+    </form>
   </Popup> )
   }
 
@@ -85,7 +87,7 @@ class App extends Component {
     onClick={this.renderLayerpopups}
     anchor="bottom"
     >
-    <img src={'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-circle-outline-128.png'}/>
+    <img src={"1.png"} alt="pin" style={{"width": "60px"}}/>
     </Marker>
       )
   }
