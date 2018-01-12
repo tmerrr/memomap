@@ -29,7 +29,7 @@ describe('Pins', () => {
     });
   });
 
-  describe('/POST pins', () => {
+  describe('/POST pins/new', () => {
     it('it should save a pin', (done) =>{
       let pin = {
         longitude: 5,
@@ -47,6 +47,36 @@ describe('Pins', () => {
         res.body.latitude.should.equal(10)
       done();
       });
+    });
+  });
+
+  describe('POST pins/delete', () => {
+    it('should delete a pin from the database', () => {
+      var pinModel = mongoose.model('pins')
+      var pin = new pinModel({
+        latitude: 0.50,
+        longitude: 0.50
+      });
+      pin.save(function(err) {
+        if (err) throw err;
+      })
+      chai.request(app)
+      .post('/pins/delete')
+      .send(pin)
+      .end((err, res) => {
+        if (err) throw err
+        console.log(res.status)
+        res.status.should.equal(2200)
+        res.message.should.equal("delehvhjvjhted")
+      done();
+      });
+      let hi;
+      pinModel.find({}, function (err, pins) {
+        if (err) throw err
+        hi = pins.length
+        console.log(pins.length)
+      });
+      (hi).should.equal(0);
     });
   });
 
