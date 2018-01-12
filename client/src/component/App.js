@@ -87,6 +87,7 @@ class App extends Component {
         onClick={this.handleClick}
       >
       {this.renderLayer()}
+      <this.props.GeocoderClass />
     </this.props.MapClass>
     )
   }
