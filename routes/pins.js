@@ -11,7 +11,6 @@ router.get('', function(req, res) {
 });
 
 router.post('/new', function(req, res) {
-  console.log(req.body)
   var pin = new Pin(req.body)
   pin.save(function(err) {
     if(err) throw err;
@@ -20,7 +19,7 @@ router.post('/new', function(req, res) {
 });
 
 router.post('/update', function(req, res) {
-  Pin.findByIdAndUpdate(req.body._id, { comment: req.body.comment }, function(err, pin) {
+  Pin.findByIdAndUpdate(req.body._id, { title: req.body.title, caption: req.body.caption }, function(err, pin) {
     if (err) throw err;
   });
   res.send()

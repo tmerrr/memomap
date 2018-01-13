@@ -28,7 +28,7 @@ class App extends Component {
     .then((response) => {
       console.log(response.data[0])
       response.data.map((pin) => pinsArray.push(
-        {lng: pin.longitude, lat: pin.latitude , _id: pin._id, comment: pin.comment}
+        {lng: pin.longitude, lat: pin.latitude , _id: pin._id, title: pin.title, caption: pin.caption}
       ))
       this.setState({
         pins: pinsArray,
@@ -41,9 +41,11 @@ class App extends Component {
 
   postComment(evt){
     evt.preventDefault();
-    var forminput = document.getElementById('comment').value
+    var caption = document.getElementById('caption').value
+    var title = document.getElementById('title').value
     axios.post('/pins/update', {
-      comment: forminput,
+      title: title,
+      caption: caption,
       _id: this.state.clickedMarker._id
     })
     .then(function(response) {
@@ -54,41 +56,42 @@ class App extends Component {
     })
   }
 
-  showPopup(lng, lat, comment) {
-    console.log(comment)
+  showPopup(lng, lat, title, caption) {
     return(
       <Popup
       coordinates={[lng, lat]}
-    
       offset={{
         'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
       }}
     >
       <form >
-        <input id="comment" type="text" name="name"></input>
+        <h2> Title </h2>
+        <input id="title" type="text" name="name"></input>
+        <h3> Caption </h3>
+        <input id="caption" type="text" name="name"></input>
         <button onClick={this.postComment} type="submit">"Click Me"</button>
-        <h1> {comment} </h1>
+        <h1> {title} </h1>
+        <h2> {caption} </h2>
       </form>
     </Popup>
   )
   }
 
-  handlePopupClick(lng, lat, _id, comment) {
-     console.log(comment)
+  handlePopupClick(lng, lat, _id, title, caption) {
     this.setState({
-      clickedMarker: {isClicked: true, lng: lng, lat: lat, _id: _id, comment: comment}
+      clickedMarker: {isClicked: true, lng: lng, lat: lat, _id: _id, title: title, caption: caption}
     })
   }
 
-  renderMarker(lng, lat, index, _id, comment){
-    console.log(comment)
+  renderMarker(lng, lat, index, _id, title, caption){
     return (
       <Marker
         key={index}
         id={_id}
         coordinates={[lng, lat]}
-        comment={comment}
-        onClick={() => this.handlePopupClick(lng, lat, _id, comment)}
+        title={title}
+        caption={caption}
+        onClick={() => this.handlePopupClick(lng, lat, _id, title, caption)}
         anchor="bottom"
       >
         <img src={"1.png"} alt="pin" style={{"width": "60px"}}/>
@@ -120,8 +123,7 @@ class App extends Component {
 
   render() {
     const allPins = this.state.pins.map((pin, index) => {
-      console.log(pin.comment)
-      return this.renderMarker(pin.lng, pin.lat, index, pin._id, pin.comment)
+      return this.renderMarker(pin.lng, pin.lat, index, pin._id, pin.title, pin.caption)
     })
     console.log(allPins)
     return (
@@ -135,7 +137,7 @@ class App extends Component {
       >
       {allPins}
       <this.props.GeocoderClass />
-      {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.lng, this.state.clickedMarker.lat, this.state.clickedMarker.comment) : null}
+      {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.lng, this.state.clickedMarker.lat, this.state.clickedMarker.title, this.state.clickedMarker.caption) : null}
     </this.props.MapClass>
     )
   }
