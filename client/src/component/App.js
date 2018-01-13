@@ -10,7 +10,6 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.showPopup = this.showPopup.bind(this)
     this.postComment = this.postComment.bind(this)
-    this.renderLayerpopups = this.renderLayerpopups.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.state = {
       pins: [],
@@ -40,21 +39,13 @@ class App extends Component {
     })
   }
 
-  renderLayerpopups(){
-    console.log('hello Dania Mah')
-    this.setState({
-      clicked: true
-    })
-  }
-
-  postComment( evt){
+  postComment(evt){
     evt.preventDefault();
-    console.log('Hello')
-    console.log(document)
 
     var forminput = document.getElementById('comment').value
-    axios.post('/pins/update/:id', {
-      comment: forminput
+    axios.post('/pins/update', {
+      comment: forminput,
+      _id: this.state.clickedMarker._id
     })
     .then(function(response) {
       console.log(response)
@@ -82,9 +73,9 @@ class App extends Component {
   )
   }
 
-  handlePopupClick(lng, lat) {
+  handlePopupClick(lng, lat, _id) {
     this.setState({
-      clickedMarker: {isClicked: true, lng: lng, lat: lat}
+      clickedMarker: {isClicked: true, lng: lng, lat: lat, _id: _id}
     })
   }
 
@@ -94,7 +85,7 @@ class App extends Component {
         key={index}
         id={_id}
         coordinates={[lng, lat]}
-        onClick={() => this.handlePopupClick(lng, lat)}
+        onClick={() => this.handlePopupClick(lng, lat, _id)}
         anchor="bottom"
       >
         <img src={"1.png"} alt="pin" style={{"width": "60px"}}/>
@@ -104,6 +95,7 @@ class App extends Component {
 
   handleClick(map, evt) {
     this.setState({
+
       clickedMarker: { isClicked: false }
     })
     let pinsArray = this.state.pins.slice()

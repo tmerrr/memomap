@@ -11,20 +11,21 @@ router.get('', function(req, res) {
 });
 
 router.post('/new', function(req, res) {
+  console.log(req.body)
   var pin = new Pin(req.body)
-  console.log(req)
-  console.log(res)
+  // console.log(req)
+  // console.log(res)
   pin.save(function(err) {
     if(err) throw err;
   });
   res.send(pin)
 });
 
-router.post('/update/:id', function(req, res) {
-  console.log(res)
-  var pin = {"_id": req.body.id};
-  console.log(pin)
-  // console.log(req.body.comment)
+router.post('/update', function(req, res) {
+  Pin.findByIdAndUpdate(req.body._id, { comment: req.body.comment }, function(err, pin) {
+    if (err) throw err;
+  });
+  res.send()
 });
 
 router.post('/delete', function(req, res) {
