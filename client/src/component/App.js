@@ -52,6 +52,7 @@ class App extends Component {
     .catch(function(error) {
       console.log(error)
     })
+    this.sendGetRequest()
   }
 
   showPopup(lng, lat, comment) {
@@ -59,7 +60,7 @@ class App extends Component {
     return(
       <Popup
       coordinates={[lng, lat]}
-    
+
       offset={{
         'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
       }}
@@ -81,7 +82,8 @@ class App extends Component {
   }
 
   renderMarker(lng, lat, index, _id, comment){
-    console.log(comment)
+    console.log("comment", comment)
+    console.log("ID", _id)
     return (
       <Marker
         key={index}
@@ -98,13 +100,7 @@ class App extends Component {
 
   handleClick(map, evt) {
     this.setState({
-
       clickedMarker: { isClicked: false }
-    })
-    let pinsArray = this.state.pins.slice()
-    pinsArray.push(evt.lngLat)
-    this.setState({
-      pins: pinsArray
     })
     axios.post('/pins/new', {
       longitude: evt.lngLat.lng,
@@ -116,6 +112,7 @@ class App extends Component {
     .catch(function(error) {
       console.log(error)
     });
+    this.sendGetRequest()
   }
 
   render() {
