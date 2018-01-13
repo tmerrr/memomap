@@ -105,6 +105,7 @@ class App extends Component {
       clickedMarker: { isClicked: false }
     })
     if (this.state.isDropPin.on ) {
+      this.toggleDropPin()
       let pinsArray = this.state.pins.slice()
       pinsArray.push(evt.lngLat)
       this.setState({
@@ -124,7 +125,6 @@ class App extends Component {
   }
 
   toggleDropPin() {
-    console.log('Toggled')
     let newDropPinStatus = this.state.isDropPin.on ? false : true;
     this.setState({
       isDropPin: { on: newDropPinStatus }
