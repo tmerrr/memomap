@@ -7,9 +7,9 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.sendGetRequest = this.sendGetRequest.bind(this)
-    this.renderPopup = this.renderPopup.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.showPopup = this.showPopup.bind(this)
+    this.postComment = this.postComment.bind(this)
     this.renderLayerpopups = this.renderLayerpopups.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.state = {
@@ -46,18 +46,23 @@ class App extends Component {
     })
   }
 
-  renderPopup(){
-    return(
-    <Popup
-    coordinates={[-0.2416815, 51.5285582]}
-    offset={{
-      'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
-    }}>
-    <form>
-      <input type="text" name="name"></input>
-      <input type="submit" value="Click Me Bitches"></input>
-    </form>
-  </Popup> )
+  postComment( evt){
+    evt.preventDefault();
+    console.log('Hello')
+    console.log(document)
+    console.log(document.getElementById('comment'))
+    console.log(document.getElementById('comment').value)
+    // console.log(evt)
+    var forminput = document.getElementById('comment').value
+    axios.post('/pins/update', {
+      comment: forminput
+    })
+    .then(function(response) {
+      console.log(response)
+    })
+    .catch(function(error) {
+      console.log(error)
+    })
   }
 
   showPopup(lng, lat) {
@@ -70,9 +75,9 @@ class App extends Component {
         'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
       }}
     >
-      <form>
-        <input type="text" name="name"></input>
-        <input type="submit" value="Click Me Bitches"></input>
+      <form >
+        <input id="comment" type="text" name="name"></input>
+        <button onClick={this.postComment} type="submit">"Click Me"</button>
       </form>
     </Popup>
   )

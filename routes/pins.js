@@ -12,10 +12,16 @@ router.get('', function(req, res) {
 
 router.post('/new', function(req, res) {
   var pin = new Pin(req.body)
+  console.log(req)
+  console.log(res)
   pin.save(function(err) {
     if(err) throw err;
   });
   res.send(pin)
+});
+
+router.post('/update', function(req, res) {
+  console.log(req.body.comment)
 });
 
 router.post('/delete', function(req, res) {
