@@ -13,8 +13,6 @@ router.get('', function(req, res) {
 router.post('/new', function(req, res) {
   console.log(req.body)
   var pin = new Pin(req.body)
-  // console.log(req)
-  // console.log(res)
   pin.save(function(err) {
     if(err) throw err;
   });
