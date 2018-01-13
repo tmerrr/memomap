@@ -20,8 +20,11 @@ router.post('/new', function(req, res) {
   res.send(pin)
 });
 
-router.post('/update', function(req, res) {
-  console.log(req.body.comment)
+router.post('/update/:id', function(req, res) {
+  console.log(res)
+  var pin = {"_id": req.body.id};
+  console.log(pin)
+  // console.log(req.body.comment)
 });
 
 router.post('/delete', function(req, res) {

@@ -26,9 +26,10 @@ class App extends Component {
     let pinsArray = this.state.pins.slice()
     axios.get('/pins')
     .then((response) => {
-      response.data.map((pin) => pinsArray.push({
-        lng: pin.longitude, lat: pin.latitude
-      }))
+      console.log(response.data[0])
+      response.data.map((pin) => pinsArray.push(
+        {lng: pin.longitude, lat: pin.latitude , _id: pin._id}
+      ))
       this.setState({
         pins: pinsArray
       })
@@ -50,11 +51,9 @@ class App extends Component {
     evt.preventDefault();
     console.log('Hello')
     console.log(document)
-    console.log(document.getElementById('comment'))
-    console.log(document.getElementById('comment').value)
-    // console.log(evt)
+
     var forminput = document.getElementById('comment').value
-    axios.post('/pins/update', {
+    axios.post('/pins/update/:id', {
       comment: forminput
     })
     .then(function(response) {
@@ -89,10 +88,11 @@ class App extends Component {
     })
   }
 
-  renderMarker(lng, lat, index){
+  renderMarker(lng, lat, index, _id){
     return (
       <Marker
         key={index}
+        id={_id}
         coordinates={[lng, lat]}
         onClick={() => this.handlePopupClick(lng, lat)}
         anchor="bottom"
@@ -126,7 +126,7 @@ class App extends Component {
   render() {
     const allPins = this.state.pins.map((pin, index) => {
       console.log(pin)
-      return this.renderMarker(pin.lng, pin.lat, index)
+      return this.renderMarker(pin.lng, pin.lat, index, pin._id)
     })
     console.log(allPins)
     return (
