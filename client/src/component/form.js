@@ -31,19 +31,39 @@ class Form extends Component {
 
   postComment(evt) {
     evt.preventDefault();
-    console.log(this.state._id)
-    console.log(document.getElementById('comment').value)
+    var image = document.getElementById('image')
+    console.log(image.files[0])
+    var formData = new FormData()
+    // console.log(image.files[0].name)
+    var imageurl = '../../uploads/' + image.files[0].name
     var forminput = document.getElementById('comment').value
-    axios.post('/pins/update', {
-      comment: forminput,
-      _id: this.state._id
+    console.log(imageurl)
+    formData.append('image', image.files[0])
+    formData.append('comment', forminput)
+    formData.append('_id', this.state._id)
+    formData.append('imageurl', imageurl)
+
+    axios.post('pins/update', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     })
     .then(function(response) {
       console.log(response)
     })
     .catch(function(error) {
       console.log(error)
-    })
+    });
+    // axios.post('/pins/update', {
+    //   comment: forminput,
+    //   _id: this.state._id
+    // })
+    // .then(function(response) {
+    //   console.log(response)
+    // })
+    // .catch(function(error) {
+    //   console.log(error)
+    // })
     // this.sendGetRequest()
     this.setState({
       comment: forminput
@@ -56,8 +76,9 @@ class Form extends Component {
     return (
       <div>
         { this.state.comment ? <h1>{this.state.comment}</h1> :
-        <form >
+        <form id="form" encType="multipart/form-data">
           <input id="comment" type="text" name="name"></input>
+          <input id="image" type="file" name="image"></input>
           <button onClick={this.postComment} type="submit">"Click Me"</button>
         </form> }
     </div>

@@ -1,8 +1,21 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var multer = require('multer')
+var bodyParser = require('body-parser')
 
 let Pin = require('../models/pins.js')
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+});
+
+var upload = multer({ storage: storage }).single('image');
 
 router.get('', function(req, res) {
   mongoose.model('pins').find(function(err, pins) {
@@ -20,11 +33,22 @@ router.post('/new', function(req, res) {
 });
 
 router.post('/update', function(req, res) {
-  console.log(req.body._id)
-  Pin.findByIdAndUpdate(req.body._id, { comment: req.body.comment }, function(err, pin) {
-    if (err) throw err;
-  });
-  res.send()
+  upload(req, res, function (err) {
+    console.log("BODY", req.body)
+      Pin.findByIdAndUpdate(req.body._id, { comment: req.body.comment }, function(err, pin) {
+        if (err) throw err;
+      });
+      res.send()
+    if (err) {
+      console.log("image not uploaded")
+      // An error occurred when uploading
+    }
+    // res.json({
+    //   success: true,
+    //   message: 'Image uploaded'
+    // })
+    // Everything went fine
+  })
 });
 
 router.post('/delete', function(req, res) {
