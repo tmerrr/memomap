@@ -8,7 +8,7 @@ class Form extends Component {
   }
 
   componentWillReceiveProps(newProps){
-    this.setState({comment: newProps.comment, _id: newProps.id})
+    this.setState({comment: newProps.comment, _id: newProps.id, imageurl: newProps.imageurl})
   }
 
   componentWillMount() {
@@ -16,7 +16,8 @@ class Form extends Component {
     console.log(this.props.id)
     this.setState({
       comment: this.props.comment,
-      _id: this.props.id
+      _id: this.props.id,
+      imageurl: this.props.imageurl
     })
   }
 
@@ -35,7 +36,7 @@ class Form extends Component {
     console.log(image.files[0])
     var formData = new FormData()
     // console.log(image.files[0].name)
-    var imageurl = '../../uploads/' + image.files[0].name
+    var imageurl = image.files[0].name
     var forminput = document.getElementById('comment').value
     console.log(imageurl)
     formData.append('image', image.files[0])
@@ -75,7 +76,7 @@ class Form extends Component {
     console.log(this.state)
     return (
       <div>
-        { this.state.comment ? <h1>{this.state.comment}</h1> :
+        { this.state.comment ? <div><img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/> <h1>{this.state.comment}</h1></div> :
         <form id="form" encType="multipart/form-data">
           <input id="comment" type="text" name="name"></input>
           <input id="image" type="file" name="image"></input>

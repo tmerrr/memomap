@@ -8,7 +8,7 @@ let Pin = require('../models/pins.js')
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/')
+    cb(null, 'client/public/')
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
@@ -35,7 +35,7 @@ router.post('/new', function(req, res) {
 router.post('/update', function(req, res) {
   upload(req, res, function (err) {
     console.log("BODY", req.body)
-      Pin.findByIdAndUpdate(req.body._id, { comment: req.body.comment }, function(err, pin) {
+      Pin.findByIdAndUpdate(req.body._id, { comment: req.body.comment, imageurl: req.body.imageurl }, function(err, pin) {
         if (err) throw err;
       });
       res.send()

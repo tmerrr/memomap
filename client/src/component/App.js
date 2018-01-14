@@ -29,11 +29,12 @@ class App extends Component {
     axios.get('/pins')
     .then((response) => {
       response.data.map((pin) => pinsArray.push(
-        {lng: pin.longitude, lat: pin.latitude , _id: pin._id, comment: pin.comment}
+        {lng: pin.longitude, lat: pin.latitude , _id: pin._id, comment: pin.comment, imageurl: pin.imageurl}
       ))
       this.setState({
         pins: pinsArray,
       })
+      console.log(this.state.pins)
     })
     .catch(function (error) {
       console.log(error)
@@ -60,31 +61,30 @@ class App extends Component {
     console.log("HERE", this.state)
   }
 
-  showPopup(lng, lat, comment) {
+  showPopup(lng, lat, comment, imageurl) {
     console.log(this.state.clickedMarker.comment)
     console.log(this.state.clickedMarker._id)
     return(
       <Popup
       coordinates={[lng, lat]}
-
       offset={{
         'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
       }}
     >
-      <Form comment={comment} id={this.state.clickedMarker._id}/>
+      <Form comment={comment} id={this.state.clickedMarker._id} imageurl={imageurl} />
     </Popup>
   )
   }
 
-  handlePopupClick(lng, lat, _id, comment) {
+  handlePopupClick(lng, lat, _id, comment, imageurl) {
      console.log(comment)
      this.sendGetRequest()
     this.setState({
-      clickedMarker: {isClicked: true, lng: lng, lat: lat, _id: _id, comment: comment}
+      clickedMarker: {isClicked: true, lng: lng, lat: lat, _id: _id, comment: comment, imageurl: imageurl}
     })
   }
 
-  renderMarker(lng, lat, index, _id, comment){
+  renderMarker(lng, lat, index, _id, comment, imageurl){
     console.log("comment", comment)
     console.log("ID", _id)
     return (
@@ -93,7 +93,7 @@ class App extends Component {
         id={_id}
         coordinates={[lng, lat]}
         comment={comment}
-        onClick={() => this.handlePopupClick(lng, lat, _id, comment)}
+        onClick={() => this.handlePopupClick(lng, lat, _id, comment, imageurl)}
         anchor="bottom"
       >
         <img src={"1.png"} alt="pin" style={{"width": "60px"}}/>
@@ -120,7 +120,7 @@ class App extends Component {
 
   render() {
     const allPins = this.state.pins.map((pin, index) => {
-      return this.renderMarker(pin.lng, pin.lat, index, pin._id, pin.comment)
+      return this.renderMarker(pin.lng, pin.lat, index, pin._id, pin.comment, pin.imageurl)
     })
     return (
       <this.props.MapClass
@@ -133,7 +133,7 @@ class App extends Component {
       >
       {allPins}
       <this.props.GeocoderClass />
-      {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.lng, this.state.clickedMarker.lat, this.state.clickedMarker.comment) : null}
+      {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.lng, this.state.clickedMarker.lat, this.state.clickedMarker.comment, this.state.clickedMarker.imageurl) : null}
     </this.props.MapClass>
     )
   }
