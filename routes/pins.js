@@ -20,6 +20,7 @@ router.post('/new', function(req, res) {
 });
 
 router.post('/update', function(req, res) {
+  console.log(req.body._id)
   Pin.findByIdAndUpdate(req.body._id, { comment: req.body.comment }, function(err, pin) {
     if (err) throw err;
   });

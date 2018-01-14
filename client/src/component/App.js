@@ -3,6 +3,8 @@ import { Popup } from "react-mapbox-gl";
 import { Marker } from "react-mapbox-gl";
 import axios from 'axios';
 
+import Form from './form';
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -26,7 +28,6 @@ class App extends Component {
     let pinsArray = this.state.pins.slice()
     axios.get('/pins')
     .then((response) => {
-      console.log(response.data[0])
       response.data.map((pin) => pinsArray.push(
         {lng: pin.longitude, lat: pin.latitude , _id: pin._id, comment: pin.comment}
       ))
@@ -53,14 +54,15 @@ class App extends Component {
       console.log(error)
     })
     this.sendGetRequest()
-    this.setState({
-      clickedMarker: {comment: forminput}
-    })
+    // this.setState({
+    //   clickedMarker: {comment: forminput}
+    // })
     console.log("HERE", this.state)
   }
 
   showPopup(lng, lat, comment) {
-    console.log(comment)
+    console.log(this.state.clickedMarker.comment)
+    console.log(this.state.clickedMarker._id)
     return(
       <Popup
       coordinates={[lng, lat]}
@@ -69,18 +71,14 @@ class App extends Component {
         'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
       }}
     >
-
-      { this.state.clickedMarker.comment ? <h1> {comment} </h1> :
-        <form >
-        <input id="comment" type="text" name="name"></input>
-        <button onClick={this.postComment} type="submit">"Click Me"</button>
-      </form> }
+      <Form comment={comment} id={this.state.clickedMarker._id}/>
     </Popup>
   )
   }
 
   handlePopupClick(lng, lat, _id, comment) {
      console.log(comment)
+     this.sendGetRequest()
     this.setState({
       clickedMarker: {isClicked: true, lng: lng, lat: lat, _id: _id, comment: comment}
     })
@@ -122,10 +120,8 @@ class App extends Component {
 
   render() {
     const allPins = this.state.pins.map((pin, index) => {
-      console.log(pin.comment)
       return this.renderMarker(pin.lng, pin.lat, index, pin._id, pin.comment)
     })
-    console.log(allPins)
     return (
       <this.props.MapClass
         style="mapbox://styles/mapbox/streets-v9"
