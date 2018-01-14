@@ -53,6 +53,10 @@ class App extends Component {
       console.log(error)
     })
     this.sendGetRequest()
+    this.setState({
+      clickedMarker: {comment: forminput}
+    })
+    console.log("HERE", this.state)
   }
 
   showPopup(lng, lat, comment) {
@@ -65,11 +69,12 @@ class App extends Component {
         'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
       }}
     >
-      <form >
+
+      { this.state.clickedMarker.comment ? <h1> {comment} </h1> :
+        <form >
         <input id="comment" type="text" name="name"></input>
         <button onClick={this.postComment} type="submit">"Click Me"</button>
-        <h1> {comment} </h1>
-      </form>
+      </form> }
     </Popup>
   )
   }
