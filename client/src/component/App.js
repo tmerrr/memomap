@@ -142,6 +142,7 @@ class App extends Component {
         <button name="dropPinToggle" onClick={this.toggleDropPin}>Drop Pin</button>
         <this.props.MapClass
           style="mapbox://styles/mapbox/streets-v9"
+
           containerStyle={{
             height: "100vh",
             width: "100vw"
