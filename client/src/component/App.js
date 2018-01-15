@@ -4,6 +4,8 @@ import { Marker } from "react-mapbox-gl";
 import axios from 'axios';
 
 import Form from './form';
+import Sidebar from './Sidebar'
+import Hamburger from './Hamburger'
 
 class App extends Component {
   constructor(props) {
@@ -13,13 +15,15 @@ class App extends Component {
     this.showPopup = this.showPopup.bind(this)
     this.postComment = this.postComment.bind(this)
     this.toggleDropPin = this.toggleDropPin.bind(this)
+    this.clickHamburger = this.clickHamburger.bind(this)
 
     this.state = {
       pins: [],
       comments: [],
       clickedMarker: { isClicked: false },
       isDropPin: { on: false },
-      sidebar: true
+      sidebar: false,
+      hamburger: true
     }
   }
 
@@ -124,21 +128,36 @@ class App extends Component {
     });
   }
 
+  clickHamburger(){
+    if(this.state.hamburger === true){
+      this.setState({
+        sidebar: true,
+        hamburger: false
+      })
+    }
+
+    else {
+      this.setState({
+        sidebar: false,
+        hamburger: true
+      })
+    }
+  }
+
   render() {
     var sidebar = null
 
     if (this.state.sidebar) {
       sidebar = (
-        <div
-          style={{position: "absolute",
-            backgroundColor: "blue",
-            left: 0,
-            top: 0,
-            zIndex: 1000
-          }}
-          >
-          <button name="dropPinToggle" onClick={this.toggleDropPin}>Drop Pin</button>
-        </div>
+        <Sidebar clickHamburger={this.clickHamburger}/>
+      )
+    }
+
+    var hamburger = null
+
+    if (this.state.hamburger){
+      hamburger = (
+        <Hamburger clickHamburger={this.clickHamburger}/>
       )
     }
 
@@ -147,7 +166,9 @@ class App extends Component {
     })
     return (
       <div>
+        {hamburger}
         {sidebar}
+
         <this.props.MapClass
           style="mapbox://styles/mapbox/streets-v9"
           containerStyle={{
