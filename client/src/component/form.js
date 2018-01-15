@@ -80,7 +80,8 @@ class Form extends Component {
         <form id="form" encType="multipart/form-data">
           <input id="comment" type="text" name="name"></input>
           <input id="image" type="file" name="image"></input>
-          <button onClick={this.postComment} type="submit">"Click Me"</button>
+          <button onClick={this.postComment} type="submit">Click Me</button>
+          <button onClick={this.props.deletePin}>Delete Pin</button>
         </form> }
     </div>
     )

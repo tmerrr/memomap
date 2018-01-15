@@ -13,6 +13,7 @@ class App extends Component {
     this.showPopup = this.showPopup.bind(this)
     this.postComment = this.postComment.bind(this)
     this.toggleDropPin = this.toggleDropPin.bind(this)
+    this.deletePin = this.deletePin.bind(this)
 
     this.state = {
       pins: [],
@@ -60,6 +61,23 @@ class App extends Component {
     this.sendGetRequest()
   }
 
+  deletePin(evt) {
+    evt.preventDefault();
+    console.log(' ------  DELETE ------')
+    console.log(this.state._id)
+    let pinId = this.state._id
+    axios.post('pins/delete', {
+      pinId: pinId
+    })
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+    this.sendGetRequest();
+  }
+
   showPopup(lng, lat, comment, imageurl) {
     console.log(this.state.clickedMarker.comment)
     console.log(this.state.clickedMarker._id)
@@ -70,7 +88,12 @@ class App extends Component {
         'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
       }}
     >
-      <Form comment={comment} id={this.state.clickedMarker._id} imageurl={imageurl} />
+      <Form
+        comment={comment}
+        id={this.state.clickedMarker._id}
+        imageurl={imageurl}
+        deletePin={this.deletePin}
+      />
     </Popup>
   )
   }
