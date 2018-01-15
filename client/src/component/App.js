@@ -58,10 +58,6 @@ class App extends Component {
       console.log(error)
     })
     this.sendGetRequest()
-    // this.setState({
-    //   clickedMarker: {comment: forminput}
-    // })
-    console.log("HERE", this.state)
   }
 
   showPopup(lng, lat, comment, imageurl) {
@@ -80,7 +76,6 @@ class App extends Component {
   }
 
   handlePopupClick(lng, lat, _id, comment, imageurl) {
-     console.log(comment)
      this.sendGetRequest()
     this.setState({
       clickedMarker: {isClicked: true, lng: lng, lat: lat, _id: _id, comment: comment, imageurl: imageurl}
@@ -88,8 +83,6 @@ class App extends Component {
   }
 
   renderMarker(lng, lat, index, _id, comment, imageurl){
-    console.log("comment", comment)
-    console.log("ID", _id)
     return (
       <Marker
         key={index}
@@ -129,7 +122,6 @@ class App extends Component {
     this.setState({
       isDropPin: { on: newDropPinStatus }
     });
-    this.sendGetRequest()
   }
 
   render() {
