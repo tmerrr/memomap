@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   sendGetRequest() {
-    let pinsArray = this.state.pins.slice()
+    let pinsArray = []
     axios.get('/pins')
     .then((response) => {
       response.data.map((pin) => pinsArray.push(
