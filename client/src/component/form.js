@@ -8,10 +8,17 @@ class Form extends Component {
   }
 
   componentWillReceiveProps(newProps){
-    this.setState({pin: newProps.pin})
+    console.log(newProps.pin)
+    this.setState({
+      place: newProps.pin.place,
+      memory: newProps.pin.memory,
+      _id: newProps.pin._id,
+      imageurl: newProps.pin.imageurl
+    })
   }
 
   componentWillMount() {
+    console.log(this.props.pin)
     this.setState({
       place: this.props.pin.place,
       memory: this.props.pin.memory,
@@ -48,7 +55,6 @@ class Form extends Component {
     });
     this.setState({
       place: placeInput,
-      memory: memoryInput
     })
     console.log("HERE", this.state)
   }
@@ -57,10 +63,10 @@ class Form extends Component {
     console.log(this.state)
     return (
       <div>
-        { (this.state.place && this.state.memory) ? <div><img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/> <h1>{this.state.place}</h1><h2>{this.state.memory}</h2></div> :
+        { this.state.place ? <div><img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/> <h1>Place: {this.state.place}</h1><h2>Title: {this.state.memory}</h2></div> :
         <form id="form" encType="multipart/form-data">
-          <input id="place" type="text" name="place"></input>
-          <input id="memory" type="text" name="memory"></input>
+          <input id="place" type="text" name="place" placeholder="Place"></input>
+          <input id="memory" type="text" name="memory" placeholder="Memory"></input>
           <input id="image" type="file" name="image"></input>
           <button onClick={this.postComment} type="submit">"Click Me"</button>
         </form> }

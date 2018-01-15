@@ -64,7 +64,7 @@ class App extends Component {
   }
 
   showPopup(pin) {
-    console.log(this.state.clickedMarker.pin)
+    console.log(pin)
     return(
       <Popup
       coordinates={[pin.longitude, pin.latitude]}
@@ -78,7 +78,8 @@ class App extends Component {
   }
 
   handlePopupClick(pin) {
-     this.sendGetRequest()
+    console.log(pin)
+    this.sendGetRequest()
     this.setState({
       clickedMarker: {isClicked: true, pin: pin}
     })
@@ -91,7 +92,6 @@ class App extends Component {
         key={index}
         id={pin._id}
         coordinates={[pin.longitude, pin.latitude]}
-        comment={pin.comment}
         onClick={() => this.handlePopupClick(pin)}
         anchor="bottom"
       >
@@ -165,6 +165,7 @@ class App extends Component {
     const allPins = this.state.pins.map((pin, index) => {
       return this.renderMarker(pin, index)
     })
+    console.log(this.state.clickedMarker.pin)
     return (
       <div>
 
