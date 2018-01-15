@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Validate from "react-validate-form";
 import axios from 'axios';
 
 class Form extends Component {
@@ -6,6 +7,10 @@ class Form extends Component {
     super(props)
     this.postComment = this.postComment.bind(this)
     this.dateConverter = this.dateConverter.bind(this)
+
+    this.state = {
+      placeValidation: ''
+    }
   }
 
   componentWillReceiveProps(newProps){
@@ -68,17 +73,32 @@ class Form extends Component {
     console.log("HERE", this.state)
   }
 
+  handlePlaceChange = (evt) => {
+    console.log(this.state.placeValidation.length)
+    this.setState ({ placeValidation: evt.target.value })
+  }
+
+  handleSubmit = (evt) => {
+    console.log(this.state.placeValidation.length)
+    if(this.state.placeValidation.length < 1){
+      return true
+    } else {
+      return false
+    }
+  }
+
   render() {
     console.log(this.state)
+    const Placeresult = this.handleSubmit();
     return (
       <div>
         { this.state.place ? <div><img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/>
         <h1>Place: {this.state.place}</h1><h2>Title: {this.state.memory}</h2><h5>Day: {this.state.date}</h5></div> :
         <form id="form" encType="multipart/form-data">
-          <input id="place" type="text" name="place" placeholder="Place"></input>
+          <input id="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
           <input id="memory" type="text" name="memory" placeholder="Memory"></input>
           <input id="image" type="file" name="image"></input>
-          <button onClick={this.postComment} type="submit">"Click Me"</button>
+          <button disabled={Placeresult} onClick={this.postComment} type="submit">"Click Me"</button>
         </form> }
     </div>
     )
