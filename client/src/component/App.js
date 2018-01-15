@@ -12,18 +12,18 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.showPopup = this.showPopup.bind(this)
     this.postComment = this.postComment.bind(this)
-    this.componentDidMount = this.componentDidMount.bind(this)
     this.toggleDropPin = this.toggleDropPin.bind(this)
 
     this.state = {
       pins: [],
       comments: [],
       clickedMarker: { isClicked: false },
-      isDropPin: { on: false }
+      isDropPin: { on: false },
+      sidebar: true
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.sendGetRequest();
   }
 
@@ -75,21 +75,21 @@ class App extends Component {
   )
   }
 
-  handlePopupClick(lng, lat, _id, comment, imageurl) {
+  handlePopupClick(pin) {
      this.sendGetRequest()
     this.setState({
-      clickedMarker: {isClicked: true, lng: lng, lat: lat, _id: _id, comment: comment, imageurl: imageurl}
+      clickedMarker: {isClicked: true, lng: pin.lng, lat: pin.lat, _id: pin._id, comment: pin.comment, imageurl: pin.imageurl}
     })
   }
 
-  renderMarker(lng, lat, index, _id, comment, imageurl){
+  renderMarker(pin,index){
     return (
       <Marker
         key={index}
-        id={_id}
-        coordinates={[lng, lat]}
-        comment={comment}
-        onClick={() => this.handlePopupClick(lng, lat, _id, comment, imageurl)}
+        id={pin._id}
+        coordinates={[pin.lng, pin.lat]}
+        comment={pin.comment}
+        onClick={() => this.handlePopupClick(pin)}
         anchor="bottom"
       >
         <img src={"1.png"} alt="pin" style={{"width": "60px"}}/>
@@ -125,25 +125,44 @@ class App extends Component {
   }
 
   render() {
+    var sidebar = null
+
+    if (this.state.sidebar) {
+      sidebar = (
+        <div
+          style={{position: "absolute",
+            backgroundColor: "blue",
+            left: 0,
+            top: 0,
+            zIndex: 1000
+          }}
+          >
+          <button name="dropPinToggle" onClick={this.toggleDropPin}>Drop Pin</button>
+        </div>
+      )
+    }
+
     const allPins = this.state.pins.map((pin, index) => {
-      return this.renderMarker(pin.lng, pin.lat, index, pin._id, pin.comment, pin.imageurl)
+      return this.renderMarker(pin, index)
     })
     return (
       <div>
-        <button name="dropPinToggle" onClick={this.toggleDropPin}>Drop Pin</button>
+        {sidebar}
         <this.props.MapClass
           style="mapbox://styles/mapbox/streets-v9"
-
           containerStyle={{
             height: "100vh",
             width: "100vw"
           }}
           onClick={this.handleClick}
-          >
-            {allPins}
-            <this.props.GeocoderClass />
-              {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.lng, this.state.clickedMarker.lat, this.state.clickedMarker.comment, this.state.clickedMarker.imageurl) : null}
-          </this.props.MapClass>
+        >
+          {allPins}
+          <this.props.GeocoderClass />
+          {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.lng,
+                                                               this.state.clickedMarker.lat,
+                                                               this.state.clickedMarker.comment,
+                                                               this.state.clickedMarker.imageurl) : null}
+        </this.props.MapClass>
 
       </div>
     )
