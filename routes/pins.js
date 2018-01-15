@@ -52,9 +52,9 @@ router.post('/update', function(req, res) {
 });
 
 router.post('/delete', function(req, res) {
-  Pin.remove({}, function(err, res) {
+  Pin.findOneAndRemove({_id: req.body._id}, function(err){
     if (err) throw err
-  });
+  })
   res.sendStatus(200)
 });
 

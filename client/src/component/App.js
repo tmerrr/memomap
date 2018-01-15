@@ -63,11 +63,8 @@ class App extends Component {
 
   deletePin(evt) {
     evt.preventDefault();
-    console.log(' ------  DELETE ------')
-    console.log(this.state._id)
-    let pinId = this.state._id
     axios.post('pins/delete', {
-      pinId: pinId
+      _id: this.state.clickedMarker._id
     })
     .then((res) => {
       console.log(res)
@@ -76,6 +73,7 @@ class App extends Component {
       console.log(error)
     })
     this.sendGetRequest();
+    this.setState({clickedMarker: { isClicked: false }})
   }
 
   showPopup(lng, lat, comment, imageurl) {
