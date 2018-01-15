@@ -39,6 +39,7 @@ class App extends Component {
       let pinsArray = response.data.map(pin => pin)
       this.setState({
         pins: pinsArray,
+        numberOfMemories: pinsArray.length
       })
       console.log(this.state.pins)
     })
@@ -150,7 +151,7 @@ class App extends Component {
 
     if (this.state.sidebar) {
       sidebar = (
-        <Sidebar clickHamburger={this.clickHamburger}/>
+        <Sidebar numberOfMemories={this.state.numberOfMemories} clickHamburger={this.clickHamburger}/>
       )
     }
 
