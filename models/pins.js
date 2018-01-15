@@ -6,6 +6,7 @@ var pinsSchema = new Schema({
   latitude: Number,
   place: String,
   memory: String,
+  date: {type: Date, default: Date.now},
   imageurl: String
 });
 
