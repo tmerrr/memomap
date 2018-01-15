@@ -166,6 +166,7 @@ class App extends Component {
     })
     return (
       <div>
+        <button onClick={this.toggleDropPin} style={{position: "absolute", zIndex: 1000, top: 55, right: 80, backgroundColor: "white"}}>Toggle</button>
         {hamburger}
         {sidebar}
 

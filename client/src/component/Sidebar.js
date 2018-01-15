@@ -10,7 +10,7 @@ class Sidebar extends Component{
       <div
         style={{position: "absolute",
           backgroundColor: "#0784f798",
-          width: "25vw",
+          width: "20vw",
           height: "100vh",
           left: 0,
           top: 0,
@@ -18,7 +18,6 @@ class Sidebar extends Component{
         }}
         >
         <button name="dropPinToggle" onClick={this.props.clickHamburger}>Close Menu</button>
-        <button name="dropPinToggle" onClick={this.toggleDropPin}>Drop Pin</button>
       </div>
     )
   }
