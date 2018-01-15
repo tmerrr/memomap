@@ -9,19 +9,21 @@ import LogIn from './login.js';
 class App extends Component {
   constructor(props) {
     super(props)
-    this.sendGetRequest = this.sendGetRequest.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.showPopup = this.showPopup.bind(this)
-    this.postComment = this.postComment.bind(this)
-    this.toggleDropPin = this.toggleDropPin.bind(this)
-    this.deletePin = this.deletePin.bind(this)
+    this.sendGetRequest   = this.sendGetRequest.bind(this)
+    this.handleClick      = this.handleClick.bind(this)
+    this.showPopup        = this.showPopup.bind(this)
+    this.postComment      = this.postComment.bind(this)
+    this.toggleDropPin    = this.toggleDropPin.bind(this)
+    this.deletePin        = this.deletePin.bind(this)
+    this.login            = this.login.bind(this)
 
     this.state = {
       pins: [],
       comments: [],
-      clickedMarker: { isClicked: false },
-      isDropPin: { on: false },
-      sidebar: true
+      clickedMarker:  { isClicked: false },
+      isDropPin:      { on: false },
+      sidebar:        true,
+      user:           false
     }
   }
 
@@ -146,6 +148,14 @@ class App extends Component {
     });
   }
 
+  login(facebookResponse) {
+    if (facebookResponse.status != 'not_authorized') {
+      this.setState({
+        user: facebookResponse
+      })
+    }
+  }
+
   render() {
     var sidebar = null
 
@@ -167,7 +177,10 @@ class App extends Component {
     const allPins = this.state.pins.map((pin, index) => {
       return this.renderMarker(pin, index)
     })
-    return (
+
+    const loginContainer = <LogIn responseFacebook={this.login} />
+
+    const MapContainer = (
       <div>
         {sidebar}
         <this.props.MapClass
@@ -188,6 +201,8 @@ class App extends Component {
 
       </div>
     )
+
+    return this.state.user ? MapContainer : loginContainer
   }
 }
 
