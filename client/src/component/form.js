@@ -5,6 +5,7 @@ class Form extends Component {
   constructor(props) {
     super(props)
     this.postComment = this.postComment.bind(this)
+    this.dateConverter = this.dateConverter.bind(this)
   }
 
   componentWillReceiveProps(newProps){
@@ -13,18 +14,26 @@ class Form extends Component {
       place: newProps.pin.place,
       memory: newProps.pin.memory,
       _id: newProps.pin._id,
-      imageurl: newProps.pin.imageurl
+      imageurl: newProps.pin.imageurl,
+      date: this.dateConverter(this.props.pin.date)
     })
   }
 
   componentWillMount() {
     console.log(this.props.pin)
+    console.log(this.props.pin.date)
     this.setState({
       place: this.props.pin.place,
       memory: this.props.pin.memory,
       _id: this.props.pin._id,
-      imageurl: this.props.pin.imageurl
+      imageurl: this.props.pin.imageurl,
+      date: this.dateConverter(this.props.pin.date)
     })
+  }
+
+  dateConverter(date){
+    var dateone = date.split("T")[0]
+    return dateone.split("-").reverse().join("-")
   }
 
   postComment(evt) {
@@ -63,7 +72,8 @@ class Form extends Component {
     console.log(this.state)
     return (
       <div>
-        { this.state.place ? <div><img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/> <h1>Place: {this.state.place}</h1><h2>Title: {this.state.memory}</h2></div> :
+        { this.state.place ? <div><img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/>
+        <h1>Place: {this.state.place}</h1><h2>Title: {this.state.memory}</h2><h5>Day: {this.state.date}</h5></div> :
         <form id="form" encType="multipart/form-data">
           <input id="place" type="text" name="place" placeholder="Place"></input>
           <input id="memory" type="text" name="memory" placeholder="Memory"></input>
