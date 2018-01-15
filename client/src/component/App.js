@@ -34,12 +34,10 @@ class App extends Component {
   }
 
   sendGetRequest() {
-    let pinsArray = this.state.pins.slice()
     axios.get('/pins')
     .then((response) => {
-      response.data.map((pin) => pinsArray.push(
-        {lng: pin.longitude, lat: pin.latitude , _id: pin._id, comment: pin.comment, imageurl: pin.imageurl}
-      ))
+      console.log(response.data)
+      let pinsArray = response.data.map(pin => pin)
       this.setState({
         pins: pinsArray,
       })
@@ -66,17 +64,16 @@ class App extends Component {
     this.sendGetRequest()
   }
 
-  showPopup(lng, lat, comment, imageurl) {
-    console.log(this.state.clickedMarker.comment)
-    console.log(this.state.clickedMarker._id)
+  showPopup(pin) {
+    console.log(this.state.clickedMarker.pin)
     return(
       <Popup
-      coordinates={[lng, lat]}
+      coordinates={[pin.longitude, pin.latitude]}
       offset={{
         'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
       }}
     >
-      <Form comment={comment} id={this.state.clickedMarker._id} imageurl={imageurl} />
+      <Form comment={pin.comment} id={this.state.clickedMarker.pin._id} imageurl={pin.imageurl} />
     </Popup>
   )
   }
@@ -84,16 +81,17 @@ class App extends Component {
   handlePopupClick(pin) {
      this.sendGetRequest()
     this.setState({
-      clickedMarker: {isClicked: true, lng: pin.lng, lat: pin.lat, _id: pin._id, comment: pin.comment, imageurl: pin.imageurl}
+      clickedMarker: {isClicked: true, pin: pin}
     })
   }
 
   renderMarker(pin,index){
+    console.log(pin)
     return (
       <Marker
         key={index}
         id={pin._id}
-        coordinates={[pin.lng, pin.lat]}
+        coordinates={[pin.longitude, pin.latitude]}
         comment={pin.comment}
         onClick={() => this.handlePopupClick(pin)}
         anchor="bottom"
@@ -184,10 +182,7 @@ class App extends Component {
         >
           {allPins}
           <this.props.GeocoderClass />
-          {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.lng,
-                                                               this.state.clickedMarker.lat,
-                                                               this.state.clickedMarker.comment,
-                                                               this.state.clickedMarker.imageurl) : null}
+          {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.pin) : null}
         </this.props.MapClass>
 
       </div>
