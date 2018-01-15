@@ -13,10 +13,13 @@ class App extends Component {
     this.showPopup = this.showPopup.bind(this)
     this.postComment = this.postComment.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.toggleDropPin = this.toggleDropPin.bind(this)
+
     this.state = {
       pins: [],
       comments: [],
-      clickedMarker: { isClicked: false }
+      clickedMarker: { isClicked: false },
+      isDropPin: { on: false }
     }
   }
 
@@ -105,15 +108,26 @@ class App extends Component {
     this.setState({
       clickedMarker: { isClicked: false }
     })
-    axios.post('/pins/new', {
-      longitude: evt.lngLat.lng,
-      latitude: evt.lngLat.lat
-    })
-    .then(function(response) {
-      console.log(response)
-    })
-    .catch(function(error) {
-      console.log(error)
+    if (this.state.isDropPin.on ) {
+      this.toggleDropPin()
+      axios.post('/pins/new', {
+        longitude: evt.lngLat.lng,
+        latitude: evt.lngLat.lat
+      })
+      .then(function(response) {
+        console.log(response)
+      })
+      .catch(function(error) {
+        console.log(error)
+      });
+      this.sendGetRequest()
+    }
+  }
+
+  toggleDropPin() {
+    let newDropPinStatus = this.state.isDropPin.on ? false : true;
+    this.setState({
+      isDropPin: { on: newDropPinStatus }
     });
     this.sendGetRequest()
   }
@@ -123,18 +137,23 @@ class App extends Component {
       return this.renderMarker(pin.lng, pin.lat, index, pin._id, pin.comment, pin.imageurl)
     })
     return (
-      <this.props.MapClass
-        style="mapbox://styles/mapbox/streets-v9"
-        containerStyle={{
-          height: "100vh",
-          width: "100vw"
-        }}
-        onClick={this.handleClick}
-      >
-      {allPins}
-      <this.props.GeocoderClass />
-      {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.lng, this.state.clickedMarker.lat, this.state.clickedMarker.comment, this.state.clickedMarker.imageurl) : null}
-    </this.props.MapClass>
+      <div>
+        <button name="dropPinToggle" onClick={this.toggleDropPin}>Drop Pin</button>
+        <this.props.MapClass
+          style="mapbox://styles/mapbox/streets-v9"
+
+          containerStyle={{
+            height: "100vh",
+            width: "100vw"
+          }}
+          onClick={this.handleClick}
+          >
+            {allPins}
+            <this.props.GeocoderClass />
+              {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.lng, this.state.clickedMarker.lat, this.state.clickedMarker.comment, this.state.clickedMarker.imageurl) : null}
+          </this.props.MapClass>
+
+      </div>
     )
   }
 }
