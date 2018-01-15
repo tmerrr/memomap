@@ -74,16 +74,26 @@ class Form extends Component {
 
   render() {
     console.log(this.state)
+    let content;
+    if (this.state.comment){
+      content = (<div>
+        <img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/>
+        <h1>{this.state.comment}</h1>
+      </div>)
+    } else {
+      content =
+      (<form id="form" encType="multipart/form-data">
+        <input id="comment" type="text" name="name"></input>
+        <input id="image" type="file" name="image"></input>
+        <button onClick={this.postComment} type="submit">Click Me</button>
+      </form>)
+    }
+
     return (
       <div>
-        { this.state.comment ? <div><img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/> <h1>{this.state.comment}</h1></div> :
-        <form id="form" encType="multipart/form-data">
-          <input id="comment" type="text" name="name"></input>
-          <input id="image" type="file" name="image"></input>
-          <button onClick={this.postComment} type="submit">Click Me</button>
-          <button onClick={this.props.deletePin}>Delete Pin</button>
-        </form> }
-    </div>
+        {content}
+        <button onClick={this.props.deletePin}>Delete Pin</button>
+      </div>
     )
   }
 
