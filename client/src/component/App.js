@@ -6,6 +6,7 @@ import axios from 'axios';
 import Form from './form';
 import Sidebar from './Sidebar'
 import Hamburger from './Hamburger'
+import PinToggle from './PinToggle'
 
 class App extends Component {
   constructor(props) {
@@ -23,7 +24,8 @@ class App extends Component {
       clickedMarker: { isClicked: false },
       isDropPin: { on: false },
       sidebar: false,
-      hamburger: true
+      hamburger: true,
+      toggleBG: 'red'
     }
   }
 
@@ -123,8 +125,10 @@ class App extends Component {
 
   toggleDropPin() {
     let newDropPinStatus = this.state.isDropPin.on ? false : true;
+    let newDropPinBackground = this.state.isDropPin.on ? "red" : "blue";
     this.setState({
-      isDropPin: { on: newDropPinStatus }
+      isDropPin: { on: newDropPinStatus },
+      toggleBG: newDropPinBackground
     });
   }
 
@@ -166,10 +170,10 @@ class App extends Component {
     })
     return (
       <div>
-        <button onClick={this.toggleDropPin} style={{position: "absolute", zIndex: 1000, top: 55, right: 80, backgroundColor: "white"}}>Toggle</button>
+
         {hamburger}
         {sidebar}
-
+        <PinToggle toggleBG={this.state.toggleBG} toggleDropPin={this.toggleDropPin}/>
         <this.props.MapClass
           style="mapbox://styles/mapbox/streets-v9"
           containerStyle={{

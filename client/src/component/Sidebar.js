@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Sidebar extends Component{
+class PinToggle extends Component{
   constructor(props){
     super(props)
   }
@@ -17,10 +17,10 @@ class Sidebar extends Component{
           zIndex: 1000
         }}
         >
-        <button name="dropPinToggle" onClick={this.props.clickHamburger}>Close Menu</button>
+        <button name="hamburger" onClick={this.props.clickHamburger}>Close Menu</button>
       </div>
     )
   }
 }
 
-export default Sidebar;
+export default PinToggle;
