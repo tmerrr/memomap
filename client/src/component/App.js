@@ -20,7 +20,6 @@ class App extends Component {
 
     this.state = {
       pins: [],
-      comments: [],
       clickedMarker: { isClicked: false },
       isDropPin: { on: false },
       sidebar: false,
@@ -73,7 +72,7 @@ class App extends Component {
         'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
       }}
     >
-      <Form comment={pin.comment} id={this.state.clickedMarker.pin._id} imageurl={pin.imageurl} />
+      <Form pin={pin} />
     </Popup>
   )
   }

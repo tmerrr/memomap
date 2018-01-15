@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var pinsSchema = new Schema({
   longitude: Number,
   latitude: Number,
-  comment: String,
+  place: String,
+  memory: String,
   imageurl: String
 });
 

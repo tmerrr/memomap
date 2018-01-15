@@ -8,39 +8,30 @@ class Form extends Component {
   }
 
   componentWillReceiveProps(newProps){
-    this.setState({comment: newProps.comment, _id: newProps.id, imageurl: newProps.imageurl})
+    this.setState({pin: newProps.pin})
   }
 
   componentWillMount() {
-    console.log(this.props.comment)
-    console.log(this.props.id)
     this.setState({
-      comment: this.props.comment,
-      _id: this.props.id,
-      imageurl: this.props.imageurl
+      place: this.props.pin.place,
+      memory: this.props.pin.memory,
+      _id: this.props.pin._id,
+      imageurl: this.props.pin.imageurl
     })
   }
 
-  // componentDidMount() {
-  //   console.log(this.props.comment)
-  //   console.log(this.props.id)
-  //   this.setState({
-  //     comment: this.props.comment,
-  //     _id: this.props.id
-  //   })
-  // }
-
   postComment(evt) {
     evt.preventDefault();
+    var formData = new FormData()
     var image = document.getElementById('image')
     console.log(image.files[0])
-    var formData = new FormData()
-    // console.log(image.files[0].name)
     var imageurl = image.files[0].name
-    var forminput = document.getElementById('comment').value
+    var placeInput = document.getElementById('place').value
+    var memoryInput = document.getElementById('memory').value
     console.log(imageurl)
     formData.append('image', image.files[0])
-    formData.append('comment', forminput)
+    formData.append('place', placeInput)
+    formData.append('memory', memoryInput)
     formData.append('_id', this.state._id)
     formData.append('imageurl', imageurl)
 
@@ -55,19 +46,9 @@ class Form extends Component {
     .catch(function(error) {
       console.log(error)
     });
-    // axios.post('/pins/update', {
-    //   comment: forminput,
-    //   _id: this.state._id
-    // })
-    // .then(function(response) {
-    //   console.log(response)
-    // })
-    // .catch(function(error) {
-    //   console.log(error)
-    // })
-    // this.sendGetRequest()
     this.setState({
-      comment: forminput
+      place: placeInput,
+      memory: memoryInput
     })
     console.log("HERE", this.state)
   }
@@ -76,9 +57,10 @@ class Form extends Component {
     console.log(this.state)
     return (
       <div>
-        { this.state.comment ? <div><img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/> <h1>{this.state.comment}</h1></div> :
+        { (this.state.place && this.state.memory) ? <div><img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/> <h1>{this.state.place}</h1><h2>{this.state.memory}</h2></div> :
         <form id="form" encType="multipart/form-data">
-          <input id="comment" type="text" name="name"></input>
+          <input id="place" type="text" name="place"></input>
+          <input id="memory" type="text" name="memory"></input>
           <input id="image" type="file" name="image"></input>
           <button onClick={this.postComment} type="submit">"Click Me"</button>
         </form> }
