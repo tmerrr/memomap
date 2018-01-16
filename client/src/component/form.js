@@ -23,6 +23,7 @@ class Form extends Component {
       _id: newProps.pin._id,
       imageurl: newProps.pin.imageurl,
       activity: newProps.pin.activity,
+      rating: newProps.pin.rating,
       date: this.dateConverter(this.props.pin.date)
     })
   }
@@ -34,6 +35,7 @@ class Form extends Component {
       _id: this.props.pin._id,
       imageurl: this.props.pin.imageurl,
       activity: this.props.pin.activity,
+      rating: this.props.pin.rating,
       date: this.dateConverter(this.props.pin.date)
     })
   }
@@ -51,7 +53,7 @@ class Form extends Component {
     var placeInput = document.getElementById('place').value
     var memoryInput = document.getElementById('memory').value
     var activity = document.getElementById('activity').value
-    var rating = this.state.rating
+    var rating = document.getElementById('rating').innerHTML
     formData.append('image', image.files[0])
     formData.append('place', placeInput)
     formData.append('memory', memoryInput)
@@ -73,7 +75,8 @@ class Form extends Component {
       self.setState({
         place: placeInput,
         memory: memoryInput,
-        imageurl: imageurl
+        imageurl: imageurl,
+        rating: rating
       })
     })
     .catch(function(error) {
@@ -104,13 +107,6 @@ class Form extends Component {
     } else {
       return false
     }
-  }
-
-  handleRating = (evt) => {
-    console.log(evt)
-    // this.setState({
-    //   rating: evt
-    // })
   }
 
   render() {
@@ -149,7 +145,8 @@ class Form extends Component {
           <h1>Place: {this.state.place}</h1>
           <h2>Title: {this.state.memory}</h2>
           <h5>Day: {this.state.date}</h5>
-          <h7>{this.state.activity}</h7>
+          <h5>{this.state.activity}</h5>
+          <h5>Rating: {this.state.rating}</h5>
         </div>
       )
     } else {
