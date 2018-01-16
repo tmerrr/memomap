@@ -22,9 +22,9 @@ technologies ( Mongo, Express, React and Node )
 | Mapbox        | Express       | Mocha   |
 |               | Mongo         | Chai    |
 
-<div align="center">
+
 How we set it up => [Set Up](https://hackernoon.com/episode-43-the-art-of-setting-up-a-mern-stack-final-project-week-d554bffe2c0e)
-</div>
+
 
 
 
@@ -63,9 +63,9 @@ PS: Yes, R3TRO was a thing in our team.
 
 <h2 align="center"> Team </h2>
 
-<div align="center">
-🐱 [Dania Mah](https://github.com/thatdania)
-| 🐰 [Eva Dinckel](https://github.com/evadinckel)
-| 🐸 [Lewis Youl](https://github.com/LewisYoul)
-| 🐨 [Tom Moir](https://github.com/tmerrr)
-</div>
+
+- 🐱 [Dania Mah](https://github.com/thatdania)
+- 🐰 [Eva Dinckel](https://github.com/evadinckel)
+- 🐸 [Lewis Youl](https://github.com/LewisYoul)
+- 🐨 [Tom Moir](https://github.com/tmerrr)
+
