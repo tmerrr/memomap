@@ -57,6 +57,8 @@ class Form extends Component {
     formData.append('_id', this.state._id)
     formData.append('imageurl', imageurl)
 
+    var self = this
+
     axios.post('pins/update', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -64,6 +66,12 @@ class Form extends Component {
     })
     .then(function(response) {
       console.log(response)
+      console.log(self)
+      self.setState({
+        place: placeInput,
+        memory: memoryInput,
+        imageurl: imageurl
+      })
     })
     .catch(function(error) {
       console.log(error)
