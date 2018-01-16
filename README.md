@@ -6,10 +6,10 @@
 
 <div align="center"> For More Info: </div>
 
-***
+
 <h2> How to Use: </h2>
 
-***
+
 
 <h2> Technologies:  </h2>
 
@@ -26,7 +26,7 @@ technologies ( Mongo, Express, React and Node )
 How we set it up => [Set Up](https://hackernoon.com/episode-43-the-art-of-setting-up-a-mern-stack-final-project-week-d554bffe2c0e)
 </div>
 
-***
+
 
 <h2> Approach: </h2>
 
@@ -53,13 +53,13 @@ down what we achieved today to reflect upon and decide what needed to be done to
 PS: Yes, R3TRO was a thing in our team.
 <br>
 
-***
+
 
 <h2> MVP & Functionalities: </h2>
 
 
 
-***
+
 
 <h2 align="center"> Team </h2>
 
