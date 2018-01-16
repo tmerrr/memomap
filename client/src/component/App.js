@@ -54,33 +54,35 @@ class App extends Component {
 
   postComment(evt){
     evt.preventDefault();
+    const self = this
     var forminput = document.getElementById('comment').value
     console.log(forminput)
     axios.post('/pins/update', {
       comment: forminput,
-      _id: this.state.clickedMarker._id
+      _id: this.state.clickedMarker.pin._id
     })
     .then(function(response) {
       console.log(response)
+      self.sendPostRequestForPins()
     })
     .catch(function(error) {
       console.log(error)
     })
-    this.sendPostRequestForPins()
   }
 
   deletePin(evt) {
     evt.preventDefault();
+    const self = this
     axios.post('pins/delete', {
-      _id: this.state.clickedMarker._id
+      _id: this.state.clickedMarker.pin._id
     })
     .then((res) => {
       console.log(res)
+      self.sendPostRequestForPins();
     })
     .catch((error) => {
       console.log(error)
     })
-    this.sendPostRequestForPins();
     this.setState({ clickedMarker: { isClicked: false } })
   }
 
@@ -92,7 +94,10 @@ class App extends Component {
           'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
         }}
       >
-        <Form pin={pin} />
+        <Form
+          pin={pin}
+          deletePin={this.deletePin}
+         />
       </Popup>
     )
   }
@@ -119,6 +124,7 @@ class App extends Component {
   }
 
   handleClick(map, evt) {
+    const self = this
     this.setState({
       clickedMarker: { isClicked: false }
     })
@@ -131,11 +137,11 @@ class App extends Component {
       })
       .then(function(response) {
         console.log(response)
+        self.sendPostRequestForPins();
       })
       .catch(function(error) {
         console.log(error)
       });
-      this.sendPostRequestForPins();
     }
   }
 
