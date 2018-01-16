@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Sidebar extends Component{
+class PinToggle extends Component{
   constructor(props){
     super(props)
   }
@@ -22,4 +22,4 @@ class Sidebar extends Component{
   }
 }
 
-export default Sidebar;
+export default PinToggle;

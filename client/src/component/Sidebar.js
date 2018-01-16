@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class PinToggle extends Component{
+class Sidebar extends Component{
   constructor(props){
     super(props)
     this.memoryChecker = this.memoryChecker.bind(this)
@@ -48,4 +48,4 @@ class PinToggle extends Component{
   }
 }
 
-export default PinToggle;
+export default Sidebar;
