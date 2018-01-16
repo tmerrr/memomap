@@ -149,6 +149,7 @@ class App extends Component {
   }
 
   sendLoginRequest(data){
+    console.log(data)
     axios.post('/users/login', {
       fbId: data.id,
       name: data.name,

@@ -16,9 +16,9 @@ router.get('/:userId', function(req, res) {
 });
 
 router.post('/login', function(req, res) {
-  User.find({ id: req.body.id}, function(err, user){
-    if (user){
-      res.send(user);
+  User.find({ fbId: req.body.fbId}, function(err, user){
+    if (user[0] !== undefined){
+      res.send(user[0]);
     } else {
       var newUser = new User({
         fbId: req.body.fbId,
