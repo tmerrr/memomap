@@ -12,6 +12,7 @@ class Form extends Component {
       placeValidation: '',
       memoryValidation: '',
       fileValidation: false
+      // rating: 0
     }
   }
 
@@ -50,12 +51,14 @@ class Form extends Component {
     var placeInput = document.getElementById('place').value
     var memoryInput = document.getElementById('memory').value
     var activity = document.getElementById('activity').value
+    var rating = this.state.rating
     formData.append('image', image.files[0])
     formData.append('place', placeInput)
     formData.append('memory', memoryInput)
     formData.append('_id', this.state._id)
     formData.append('imageurl', imageurl)
     formData.append('activity', activity)
+    formData.append('rating', rating)
 
     var self = this
 
@@ -101,6 +104,13 @@ class Form extends Component {
     } else {
       return false
     }
+  }
+
+  handleRating = (evt) => {
+    console.log(evt)
+    // this.setState({
+    //   rating: evt
+    // })
   }
 
   render() {
@@ -151,10 +161,13 @@ class Form extends Component {
           {dropdownMenu}
           <input id="image" type="file" name="image" onChange={this.handleFileUpload}></input>
           {memoryMessage}
-          <Rating
-            emptySymbol="fa fa-heart-o fa-2x"
-            fullSymbol="fa fa-heart fa-2x"
-          />
+            <Rating
+              emptySymbol="fa fa-heart-o fa-2x"
+              fullSymbol="fa fa-heart fa-2x"
+              fractions={2}
+              onChange={(rating) => document.getElementById('rating').innerHTML = rating || 0}
+            />
+          <h1 id="rating">0</h1>
           <button disabled={Placeresult} onClick={this.postComment} type="submit">"Click Me"</button>
         </form>
       )

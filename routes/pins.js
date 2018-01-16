@@ -48,7 +48,8 @@ router.post('/update', function(req, res) {
         place: req.body.place,
         memory: req.body.memory,
         imageurl: req.body.imageurl,
-        activity: req.body.activity
+        activity: req.body.activity,
+        rating: req.body.rating
        }, function(err, pin) {
         if (err) throw err;
       });
