@@ -15,6 +15,7 @@ class PinToggle extends Component{
   }
 
   render(){
+    console.log(this.props.userDetails)
     return(
       <div
         style={{position: "absolute",
@@ -28,6 +29,7 @@ class PinToggle extends Component{
         >
         <h1>{this.props.userDetails.name}</h1>
         <h2>{this.props.userDetails.email}</h2>
+        <img src={this.props.userDetails.picture.data.url}/>
         <button name="hamburger" onClick={this.props.clickHamburger}>Close Menu</button>
         <h3>{this.memoryChecker(this.props.numberOfMemories)}</h3>
       </div>

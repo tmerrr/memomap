@@ -187,11 +187,13 @@ class App extends Component {
     axios.post('/users/login', {
       fbId:  data.id,
       name:  data.name,
-      email: data.email
+      email: data.email,
+      imageUrl: data.imageUrl
     })
   }
 
   login(facebookResponse) {
+    console.log(facebookResponse)
     if (facebookResponse.status != 'not_authorized') {
       this.sendLoginRequest(facebookResponse)
       this.setState({

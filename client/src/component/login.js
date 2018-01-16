@@ -17,7 +17,7 @@ export default class LogIn extends Component {
       <FacebookLogin
         appId="1382418925218617"
         autoLoad={false}
-        fields="name,email,friends"
+        fields="name,email,friends,picture"
         scope="public_profile,email,user_friends"
         callback={this.props.responseFacebook}
         reAuthenticate={true}
