@@ -15,7 +15,6 @@ class Form extends Component {
   }
 
   componentWillReceiveProps(newProps){
-    console.log(newProps.pin)
     this.setState({
       place: newProps.pin.place,
       memory: newProps.pin.memory,
@@ -26,8 +25,6 @@ class Form extends Component {
   }
 
   componentWillMount() {
-    console.log(this.props.pin)
-    console.log(this.props.pin.date)
     this.setState({
       place: this.props.pin.place,
       memory: this.props.pin.memory,
@@ -46,16 +43,16 @@ class Form extends Component {
     evt.preventDefault();
     var formData = new FormData()
     var image = document.getElementById('image')
-    console.log(image.files[0])
     var imageurl = image.files[0].name
     var placeInput = document.getElementById('place').value
     var memoryInput = document.getElementById('memory').value
-    console.log(imageurl)
+    var activity = document.getElementById('activity').value
     formData.append('image', image.files[0])
     formData.append('place', placeInput)
     formData.append('memory', memoryInput)
     formData.append('_id', this.state._id)
     formData.append('imageurl', imageurl)
+    formData.append('activity', activity)
 
     axios.post('pins/update', formData, {
       headers: {
@@ -71,7 +68,6 @@ class Form extends Component {
     this.setState({
       place: placeInput,
     })
-    console.log("HERE", this.state)
   }
 
   handlePlaceChange = (evt) => {
@@ -83,16 +79,12 @@ class Form extends Component {
   }
 
   handleFileUpload = (evt) => {
-    console.log(evt.target.files[0])
     if(evt.target.files.length === 1) {
       this.setState ({fileValidation: true})
     }
-    console.log(this.state.fileValidation)
   }
 
   handleSubmit = (evt) => {
-    console.log(this.state.placeValidation.length)
-    console.log(this.state.memoryValidation.length)
     if((this.state.placeValidation.length < 1) || (this.state.memoryValidation.length < 1) || (!this.state.fileValidation)){
       return true
     } else {
@@ -118,6 +110,16 @@ class Form extends Component {
       )
     }
 
+    const activityOptions = ['Nature', 'Monument', 'Restaurant', 'Activity']
+
+    let dropdownMenu = (
+      <select id="activity" name="activity">
+        {activityOptions.map((type, index) => {
+          return(<option key={index} value={type}>{type}</option>)
+        })}
+      </select>
+    )
+
     let content;
     if (this.state.place) {
       content = (
@@ -134,8 +136,9 @@ class Form extends Component {
           <input id="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
           {placeMessage}
           <input id="memory" type="text" name="memory" placeholder="Memory" onChange={this.handleMemoryChange}></input>
-          {memoryMessage}
+          {dropdownMenu}
           <input id="image" type="file" name="image" onChange={this.handleFileUpload}></input>
+          {memoryMessage}
           <button disabled={Placeresult} onClick={this.postComment} type="submit">"Click Me"</button>
         </form>
       )

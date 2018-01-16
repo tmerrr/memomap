@@ -12,15 +12,14 @@ import LogIn from './login.js';
 class App extends Component {
   constructor(props) {
     super(props)
-    this.sendGetRequest = this.sendGetRequest.bind(this)
-    this.handleClick =    this.handleClick.bind(this)
-    this.showPopup = this.showPopup.bind(this)
-    this.postComment = this.postComment.bind(this)
-    this.toggleDropPin = this.toggleDropPin.bind(this)
+    this.handleClick    = this.handleClick.bind(this)
+    this.showPopup      = this.showPopup.bind(this)
+    this.postComment    = this.postComment.bind(this)
+    this.toggleDropPin  = this.toggleDropPin.bind(this)
     this.clickHamburger = this.clickHamburger.bind(this)
-    this.deletePin        = this.deletePin.bind(this)
-    this.login            = this.login.bind(this)
-    this.logout           = this.logout.bind(this)
+    this.deletePin      = this.deletePin.bind(this)
+    this.login          = this.login.bind(this)
+    this.logout         = this.logout.bind(this)
 
     this.state = {
       pins: [],
@@ -31,27 +30,6 @@ class App extends Component {
       toggleBG:       'red',
       user:           false
     }
-  }
-
-  componentWillMount() {
-    // this.sendGetRequest();
-    // this.sendPostRequestForPins();
-  }
-
-  sendGetRequest() {
-    axios.get('/pins')
-    .then((response) => {
-      console.log(response.data)
-      let pinsArray = response.data.map(pin => pin)
-      this.setState({
-        pins: pinsArray,
-        numberOfMemories: pinsArray.length
-      })
-      console.log(this.state.pins)
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
   }
 
   sendPostRequestForPins() {
@@ -78,6 +56,7 @@ class App extends Component {
   postComment(evt){
     evt.preventDefault();
     var forminput = document.getElementById('comment').value
+    console.log(forminput)
     axios.post('/pins/update', {
       comment: forminput,
       _id: this.state.clickedMarker._id
@@ -88,7 +67,7 @@ class App extends Component {
     .catch(function(error) {
       console.log(error)
     })
-    this.sendGetRequest()
+    this.sendPostRequestForPins()
   }
 
   deletePin(evt) {
@@ -157,7 +136,7 @@ class App extends Component {
       .catch(function(error) {
         console.log(error)
       });
-      this.sendPostRequestForPins()
+      this.sendPostRequestForPins();
     }
   }
 

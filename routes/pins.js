@@ -44,7 +44,12 @@ router.post('/new', function(req, res) {
 router.post('/update', function(req, res) {
   upload(req, res, function (err) {
     console.log("BODY", req.body)
-      Pin.findByIdAndUpdate(req.body._id, { place: req.body.place, memory: req.body.memory, imageurl: req.body.imageurl }, function(err, pin) {
+      Pin.findByIdAndUpdate(req.body._id, {
+        place: req.body.place,
+        memory: req.body.memory,
+        imageurl: req.body.imageurl,
+        activity: req.body.activity
+       }, function(err, pin) {
         if (err) throw err;
       });
       res.send()
