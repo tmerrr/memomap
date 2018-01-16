@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Validate from "react-validate-form";
 import axios from 'axios';
 
 class Form extends Component {
