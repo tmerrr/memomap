@@ -20,6 +20,7 @@ class Form extends Component {
       memory: newProps.pin.memory,
       _id: newProps.pin._id,
       imageurl: newProps.pin.imageurl,
+      activity: newProps.pin.activity,
       date: this.dateConverter(this.props.pin.date)
     })
   }
@@ -30,6 +31,7 @@ class Form extends Component {
       memory: this.props.pin.memory,
       _id: this.props.pin._id,
       imageurl: this.props.pin.imageurl,
+      activity: this.props.pin.activity,
       date: this.dateConverter(this.props.pin.date)
     })
   }
@@ -128,6 +130,7 @@ class Form extends Component {
           <h1>Place: {this.state.place}</h1>
           <h2>Title: {this.state.memory}</h2>
           <h5>Day: {this.state.date}</h5>
+          <h7>{this.state.activity}</h7>
         </div>
       )
     } else {

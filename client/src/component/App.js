@@ -198,6 +198,7 @@ class App extends Component {
           numberOfMemories={this.state.numberOfMemories}
           clickHamburger={this.clickHamburger}
           userDetails={this.state.user}
+          pins={this.state.pins}
           logout={this.logout}/>
       )
     }
