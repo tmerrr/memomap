@@ -4,6 +4,7 @@ class PinToggle extends Component{
   constructor(props){
     super(props)
     this.memoryChecker = this.memoryChecker.bind(this)
+    this.getnumberOf = this.getnumberOf.bind(this)
   }
 
   memoryChecker(number) {
@@ -12,6 +13,12 @@ class PinToggle extends Component{
     } else {
       return "You have " + number + " memories"
     }
+  }
+
+  getnumberOf(activity) {
+    let type = this.props.pins.filter(pin => pin.activity === activity)
+    return type.length
+
   }
 
   render(){
@@ -26,8 +33,16 @@ class PinToggle extends Component{
           zIndex: 1000
         }}
         >
+        <h1>{this.props.userDetails.name}</h1>
+        <h2>{this.props.userDetails.email}</h2>
+        <img src={this.props.userDetails.picture.data.url}/>
         <button name="hamburger" onClick={this.props.clickHamburger}>Close Menu</button>
-        <h1>{this.memoryChecker(this.props.numberOfMemories)}</h1>
+        <button name="logout" onClick={this.props.logout}>Logout</button>
+        <h3>{this.memoryChecker(this.props.pins.length)}</h3>
+        <h4> Nature: {this.getnumberOf("Nature")} </h4>
+        <h4> Monument: {this.getnumberOf("Monuments")} </h4>
+        <h4> Restaurant: {this.getnumberOf("Restaurant")} </h4>
+        <h4> Activity: {this.getnumberOf("Activity")} </h4>
       </div>
     )
   }

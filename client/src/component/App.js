@@ -12,14 +12,14 @@ import LogIn from './login.js';
 class App extends Component {
   constructor(props) {
     super(props)
-    this.sendGetRequest = this.sendGetRequest.bind(this)
-    this.handleClick =    this.handleClick.bind(this)
-    this.showPopup = this.showPopup.bind(this)
-    this.postComment = this.postComment.bind(this)
-    this.toggleDropPin = this.toggleDropPin.bind(this)
+    this.handleClick    = this.handleClick.bind(this)
+    this.showPopup      = this.showPopup.bind(this)
+    this.postComment    = this.postComment.bind(this)
+    this.toggleDropPin  = this.toggleDropPin.bind(this)
     this.clickHamburger = this.clickHamburger.bind(this)
-    this.deletePin        = this.deletePin.bind(this)
-    this.login            = this.login.bind(this)
+    this.deletePin      = this.deletePin.bind(this)
+    this.login          = this.login.bind(this)
+    this.logout         = this.logout.bind(this)
 
     this.state = {
       pins: [],
@@ -30,27 +30,6 @@ class App extends Component {
       toggleBG:       'red',
       user:           false
     }
-  }
-
-  componentWillMount() {
-    // this.sendGetRequest();
-    // this.sendPostRequestForPins();
-  }
-
-  sendGetRequest() {
-    axios.get('/pins')
-    .then((response) => {
-      console.log(response.data)
-      let pinsArray = response.data.map(pin => pin)
-      this.setState({
-        pins: pinsArray,
-        numberOfMemories: pinsArray.length
-      })
-      console.log(this.state.pins)
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
   }
 
   sendPostRequestForPins() {
@@ -64,8 +43,7 @@ class App extends Component {
         newPins.push(pin)
       })
       this.setState({
-        pins: newPins,
-        numberOfMemories: newPins.length
+        pins: newPins
       })
       console.log(res)
     })
@@ -76,32 +54,35 @@ class App extends Component {
 
   postComment(evt){
     evt.preventDefault();
+    const self = this
     var forminput = document.getElementById('comment').value
+    console.log(forminput)
     axios.post('/pins/update', {
       comment: forminput,
-      _id: this.state.clickedMarker._id
+      _id: this.state.clickedMarker.pin._id
     })
     .then(function(response) {
       console.log(response)
+      self.sendPostRequestForPins()
     })
     .catch(function(error) {
       console.log(error)
     })
-    this.sendGetRequest()
   }
 
   deletePin(evt) {
     evt.preventDefault();
+    const self = this
     axios.post('pins/delete', {
-      _id: this.state.clickedMarker._id
+      _id: this.state.clickedMarker.pin._id
     })
     .then((res) => {
       console.log(res)
+      self.sendPostRequestForPins();
     })
     .catch((error) => {
       console.log(error)
     })
-    this.sendPostRequestForPins();
     this.setState({ clickedMarker: { isClicked: false } })
   }
 
@@ -113,7 +94,10 @@ class App extends Component {
           'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
         }}
       >
-        <Form pin={pin} />
+        <Form
+          pin={pin}
+          deletePin={this.deletePin}
+         />
       </Popup>
     )
   }
@@ -140,6 +124,7 @@ class App extends Component {
   }
 
   handleClick(map, evt) {
+    const self = this
     this.setState({
       clickedMarker: { isClicked: false }
     })
@@ -152,6 +137,7 @@ class App extends Component {
       })
       .then(function(response) {
         console.log(response)
+        self.sendPostRequestForPins();
       })
       .catch(function(error) {
         console.log(error)
@@ -187,11 +173,13 @@ class App extends Component {
     axios.post('/users/login', {
       fbId:  data.id,
       name:  data.name,
-      email: data.email
+      email: data.email,
+      imageUrl: data.imageUrl
     })
   }
 
   login(facebookResponse) {
+    console.log(facebookResponse)
     if (facebookResponse.status != 'not_authorized') {
       this.sendLoginRequest(facebookResponse)
       this.setState({
@@ -201,12 +189,22 @@ class App extends Component {
     }
   }
 
+  logout() {
+    this.setState({
+      user: false
+    })
+  }
+
   render() {
     var sidebar = null
 
     if (this.state.sidebar) {
       sidebar = (
-        <Sidebar numberOfMemories={this.state.numberOfMemories} clickHamburger={this.clickHamburger} />
+        <Sidebar
+          clickHamburger={this.clickHamburger}
+          userDetails={this.state.user}
+          pins={this.state.pins}
+          logout={this.logout}/>
       )
     }
 
