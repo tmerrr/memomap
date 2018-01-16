@@ -2,34 +2,39 @@ import React, { Component } from 'react';
 import { Popup } from "react-mapbox-gl";
 import { Marker } from "react-mapbox-gl";
 import axios from 'axios';
-
 import Form from './form';
 import Sidebar from './Sidebar'
 import Hamburger from './Hamburger'
 import PinToggle from './PinToggle'
+import LogIn from './login.js';
+
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.sendGetRequest = this.sendGetRequest.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.handleClick =    this.handleClick.bind(this)
     this.showPopup = this.showPopup.bind(this)
     this.postComment = this.postComment.bind(this)
     this.toggleDropPin = this.toggleDropPin.bind(this)
     this.clickHamburger = this.clickHamburger.bind(this)
+    this.deletePin        = this.deletePin.bind(this)
+    this.login            = this.login.bind(this)
 
     this.state = {
       pins: [],
-      clickedMarker: { isClicked: false },
-      isDropPin: { on: false },
-      sidebar: false,
-      hamburger: true,
-      toggleBG: 'red'
+      clickedMarker:  { isClicked: false },
+      isDropPin:      { on: false },
+      sidebar:        false,
+      hamburger:      true,
+      toggleBG:       'red',
+      user:           false
     }
   }
 
   componentWillMount() {
-    this.sendGetRequest();
+    // this.sendGetRequest();
+    // this.sendPostRequestForPins();
   }
 
   sendGetRequest() {
@@ -45,6 +50,27 @@ class App extends Component {
     })
     .catch(function (error) {
       console.log(error)
+    })
+  }
+
+  sendPostRequestForPins() {
+    let newPins = []
+    axios.post('/pins/users_pins', {
+      userFbId: this.state.user.id
+    })
+    .then((res) => {
+      console.log(res)
+      res.data.forEach((pin) => {
+        newPins.push(pin)
+      })
+      this.setState({
+        pins: newPins,
+        numberOfMemories: newPins.length
+      })
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
     })
   }
 
@@ -64,30 +90,42 @@ class App extends Component {
     this.sendGetRequest()
   }
 
+  deletePin(evt) {
+    evt.preventDefault();
+    axios.post('pins/delete', {
+      _id: this.state.clickedMarker._id
+    })
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+    this.sendPostRequestForPins();
+    this.setState({ clickedMarker: { isClicked: false } })
+  }
+
   showPopup(pin) {
-    console.log(pin)
     return(
       <Popup
-      coordinates={[pin.longitude, pin.latitude]}
-      offset={{
-        'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
-      }}
-    >
-      <Form pin={pin} />
-    </Popup>
-  )
+        coordinates={[pin.longitude, pin.latitude]}
+        offset={{
+          'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
+        }}
+      >
+        <Form pin={pin} />
+      </Popup>
+    )
   }
 
   handlePopupClick(pin) {
-    console.log(pin)
-    this.sendGetRequest()
+    this.sendPostRequestForPins()
     this.setState({
       clickedMarker: {isClicked: true, pin: pin}
     })
   }
 
-  renderMarker(pin,index){
-    console.log(pin)
+  renderMarker(pin, index){
     return (
       <Marker
         key={index}
@@ -108,8 +146,9 @@ class App extends Component {
     if (this.state.isDropPin.on ) {
       this.toggleDropPin()
       axios.post('/pins/new', {
-        longitude: evt.lngLat.lng,
-        latitude: evt.lngLat.lat
+        longitude:  evt.lngLat.lng,
+        latitude:   evt.lngLat.lat,
+        userFbId:   this.state.user.id
       })
       .then(function(response) {
         console.log(response)
@@ -117,7 +156,7 @@ class App extends Component {
       .catch(function(error) {
         console.log(error)
       });
-      this.sendGetRequest()
+      this.sendPostRequestForPins()
     }
   }
 
@@ -130,19 +169,35 @@ class App extends Component {
     });
   }
 
-  clickHamburger(){
-    if(this.state.hamburger === true){
+  clickHamburger() {
+    if(this.state.hamburger === true) {
       this.setState({
         sidebar: true,
         hamburger: false
       })
-    }
-
-    else {
+    } else {
       this.setState({
         sidebar: false,
         hamburger: true
       })
+    }
+  }
+
+  sendLoginRequest(data){
+    axios.post('/users/login', {
+      fbId:  data.id,
+      name:  data.name,
+      email: data.email
+    })
+  }
+
+  login(facebookResponse) {
+    if (facebookResponse.status != 'not_authorized') {
+      this.sendLoginRequest(facebookResponse)
+      this.setState({
+        user: facebookResponse
+      })
+      this.sendPostRequestForPins();
     }
   }
 
@@ -151,7 +206,7 @@ class App extends Component {
 
     if (this.state.sidebar) {
       sidebar = (
-        <Sidebar numberOfMemories={this.state.numberOfMemories} clickHamburger={this.clickHamburger}/>
+        <Sidebar numberOfMemories={this.state.numberOfMemories} clickHamburger={this.clickHamburger} />
       )
     }
 
@@ -159,17 +214,18 @@ class App extends Component {
 
     if (this.state.hamburger){
       hamburger = (
-        <Hamburger clickHamburger={this.clickHamburger}/>
+        <Hamburger clickHamburger={this.clickHamburger} />
       )
     }
 
     const allPins = this.state.pins.map((pin, index) => {
       return this.renderMarker(pin, index)
     })
-    console.log(this.state.clickedMarker.pin)
-    return (
-      <div>
 
+    const loginContainer = <LogIn responseFacebook={this.login} />
+
+    const MapContainer = (
+      <div>
         {hamburger}
         {sidebar}
         <PinToggle toggleBG={this.state.toggleBG} toggleDropPin={this.toggleDropPin}/>
@@ -185,9 +241,10 @@ class App extends Component {
           <this.props.GeocoderClass />
           {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.pin) : null}
         </this.props.MapClass>
-
       </div>
     )
+
+    return this.state.user ? MapContainer : loginContainer
   }
 }
 

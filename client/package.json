@@ -26,6 +26,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "mapbox-gl": "^0.43.0",
     "mapbox-gl-geocoder": "^2.0.1",
+    "react-facebook-login": "^3.7.2",
     "react-test-renderer": "^16.2.0",
     "react-validate-form": "^1.0.6",
     "sinon": "^4.1.4",

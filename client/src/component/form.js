@@ -101,7 +101,6 @@ class Form extends Component {
   }
 
   render() {
-    console.log(this.state)
     const Placeresult = this.handleSubmit();
 
     var placeMessage = null
@@ -113,18 +112,24 @@ class Form extends Component {
     }
 
     var memoryMessage = null
-
-    if(this.state.memoryValidation.length < 1) {
+    if (this.state.memoryValidation.length < 1) {
       memoryMessage = (
         <h1>Please enter a Memory</h1>
       )
     }
 
-
-    return (
-      <div>
-        { this.state.place ? <div><img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/>
-        <h1>Place: {this.state.place}</h1><h2>Title: {this.state.memory}</h2><h5>Day: {this.state.date}</h5></div> :
+    let content;
+    if (this.state.place) {
+      content = (
+        <div>
+          <img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/>
+          <h1>Place: {this.state.place}</h1>
+          <h2>Title: {this.state.memory}</h2>
+          <h5>Day: {this.state.date}</h5>
+        </div>
+      )
+    } else {
+      content = (
         <form id="form" encType="multipart/form-data">
           <input id="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
           {placeMessage}
@@ -132,8 +137,15 @@ class Form extends Component {
           {memoryMessage}
           <input id="image" type="file" name="image" onChange={this.handleFileUpload}></input>
           <button disabled={Placeresult} onClick={this.postComment} type="submit">"Click Me"</button>
-        </form> }
-    </div>
+        </form>
+      )
+    }
+
+    return (
+      <div>
+        {content}
+        <button onClick={this.props.deletePin}>Delete Pin</button>
+      </div>
     )
   }
 
