@@ -20,6 +20,7 @@ class App extends Component {
     this.clickHamburger = this.clickHamburger.bind(this)
     this.deletePin        = this.deletePin.bind(this)
     this.login            = this.login.bind(this)
+    this.logout           = this.logout.bind(this)
 
     this.state = {
       pins: [],
@@ -203,6 +204,12 @@ class App extends Component {
     }
   }
 
+  logout() {
+    this.setState({
+      user: false
+    })
+  }
+
   render() {
     var sidebar = null
 
@@ -211,7 +218,8 @@ class App extends Component {
         <Sidebar
           numberOfMemories={this.state.numberOfMemories}
           clickHamburger={this.clickHamburger}
-          userDetails={this.state.user}/>
+          userDetails={this.state.user}
+          logout={this.logout}/>
       )
     }
 

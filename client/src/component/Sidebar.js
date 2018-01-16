@@ -31,6 +31,7 @@ class PinToggle extends Component{
         <h2>{this.props.userDetails.email}</h2>
         <img src={this.props.userDetails.picture.data.url}/>
         <button name="hamburger" onClick={this.props.clickHamburger}>Close Menu</button>
+        <button name="logout" onClick={this.props.logout}>Logout</button>
         <h3>{this.memoryChecker(this.props.numberOfMemories)}</h3>
       </div>
     )
