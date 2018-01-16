@@ -17,13 +17,11 @@ class PinToggle extends Component{
 
   getnumberOf(activity) {
     let type = this.props.pins.filter(pin => pin.activity === activity)
-    console.log(type.length)
     return type.length
 
   }
 
   render(){
-    console.log(this.props.pins)
     return(
       <div
         style={{position: "absolute",
@@ -40,7 +38,7 @@ class PinToggle extends Component{
         <img src={this.props.userDetails.picture.data.url}/>
         <button name="hamburger" onClick={this.props.clickHamburger}>Close Menu</button>
         <button name="logout" onClick={this.props.logout}>Logout</button>
-        <h3>{this.memoryChecker(this.props.numberOfMemories)}</h3>
+        <h3>{this.memoryChecker(this.props.pins.length)}</h3>
         <h4> Nature: {this.getnumberOf("Nature")} </h4>
         <h4> Monument: {this.getnumberOf("Monuments")} </h4>
         <h4> Restaurant: {this.getnumberOf("Restaurant")} </h4>

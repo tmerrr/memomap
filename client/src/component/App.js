@@ -43,8 +43,7 @@ class App extends Component {
         newPins.push(pin)
       })
       this.setState({
-        pins: newPins,
-        numberOfMemories: newPins.length
+        pins: newPins
       })
       console.log(res)
     })
@@ -195,7 +194,6 @@ class App extends Component {
     if (this.state.sidebar) {
       sidebar = (
         <Sidebar
-          numberOfMemories={this.state.numberOfMemories}
           clickHamburger={this.clickHamburger}
           userDetails={this.state.user}
           pins={this.state.pins}
