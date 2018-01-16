@@ -104,11 +104,19 @@ class Form extends Component {
     console.log(this.state)
     const Placeresult = this.handleSubmit();
 
-    var placeresults = null
+    var placeMessage = null
 
-    if(this.state.placeValidation.length < 1){
-      placeresults = (
+    if(this.state.placeValidation.length < 1) {
+      placeMessage = (
         <h1>Please enter a Place</h1>
+      )
+    }
+
+    var memoryMessage = null
+
+    if(this.state.memoryValidation.length < 1) {
+      memoryMessage = (
+        <h1>Please enter a Memory</h1>
       )
     }
 
@@ -119,8 +127,9 @@ class Form extends Component {
         <h1>Place: {this.state.place}</h1><h2>Title: {this.state.memory}</h2><h5>Day: {this.state.date}</h5></div> :
         <form id="form" encType="multipart/form-data">
           <input id="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
-          {placeresults}
+          {placeMessage}
           <input id="memory" type="text" name="memory" placeholder="Memory" onChange={this.handleMemoryChange}></input>
+          {memoryMessage}
           <input id="image" type="file" name="image" onChange={this.handleFileUpload}></input>
           <button disabled={Placeresult} onClick={this.postComment} type="submit">"Click Me"</button>
         </form> }
