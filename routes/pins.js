@@ -8,7 +8,7 @@ let Pin = require('../models/pins.js')
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'client/public/')
+    cb(null, 'public/')
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
