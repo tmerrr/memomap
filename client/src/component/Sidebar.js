@@ -26,8 +26,10 @@ class PinToggle extends Component{
           zIndex: 1000
         }}
         >
+        <h1>{this.props.userDetails.name}</h1>
+        <h2>{this.props.userDetails.email}</h2>
         <button name="hamburger" onClick={this.props.clickHamburger}>Close Menu</button>
-        <h1>{this.memoryChecker(this.props.numberOfMemories)}</h1>
+        <h3>{this.memoryChecker(this.props.numberOfMemories)}</h3>
       </div>
     )
   }

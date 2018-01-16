@@ -206,7 +206,10 @@ class App extends Component {
 
     if (this.state.sidebar) {
       sidebar = (
-        <Sidebar numberOfMemories={this.state.numberOfMemories} clickHamburger={this.clickHamburger} />
+        <Sidebar
+          numberOfMemories={this.state.numberOfMemories}
+          clickHamburger={this.clickHamburger}
+          userDetails={this.state.user}/>
       )
     }
 
