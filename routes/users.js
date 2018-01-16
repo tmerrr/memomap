@@ -21,9 +21,9 @@ router.post('/login', function(req, res) {
       res.send(user[0]);
     } else {
       var newUser = new User({
-        fbId: req.body.fbId,
-        name: req.body.name,
-        email: req.body.email
+        fbId:   req.body.fbId,
+        name:   req.body.name,
+        email:  req.body.email
       })
       newUser.save(function(err){
         if(err) throw(err);

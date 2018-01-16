@@ -18,10 +18,19 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).single('image');
 
 router.get('', function(req, res) {
-  mongoose.model('pins').find(function(err, pins) {
+  Pin.find(function(err, pins) {
     res.send(pins);
   });
 });
+
+router.post('/users_pins', function(req, res) {
+  console.log('--- Post Request for Pins Ran ---')
+  console.log(req.body)
+  Pin.find({ userFbId: req.body.userFbId }, function(err, pins) {
+    console.log('--- Pins: ', pins)
+    res.send(pins)
+  })
+})
 
 router.post('/new', function(req, res) {
   console.log(req.body)

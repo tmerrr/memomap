@@ -76,10 +76,12 @@ class Form extends Component {
     console.log(this.state)
     let content;
     if (this.state.comment){
-      content = (<div>
-        <img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/>
-        <h1>{this.state.comment}</h1>
-      </div>)
+      content = (
+        <div>
+          <img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/>
+          <h1>{this.state.comment}</h1>
+        </div>
+      )
     } else {
       content =
       (<form id="form" encType="multipart/form-data">

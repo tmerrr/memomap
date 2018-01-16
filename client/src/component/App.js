@@ -28,7 +28,8 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.sendGetRequest();
+    // this.sendGetRequest();
+    // this.sendPostRequestForPins();
   }
 
   sendGetRequest() {
@@ -45,6 +46,26 @@ class App extends Component {
     })
     .catch(function (error) {
       console.log(error)
+    })
+  }
+
+  sendPostRequestForPins() {
+    let newPins = []
+    axios.post('/pins/users_pins', {
+      userFbId: this.state.user.id
+    })
+    .then((res) => {
+      console.log(res)
+      res.data.forEach((pin) => {
+        newPins.push(pin)
+      })
+      this.setState({
+        pins: newPins
+      })
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
     })
   }
 
@@ -100,9 +121,9 @@ class App extends Component {
   }
 
   handlePopupClick(pin) {
-     this.sendGetRequest()
+    this.sendGetRequest()
     this.setState({
-      clickedMarker: {isClicked: true, lng: pin.lng, lat: pin.lat, _id: pin._id, comment: pin.comment, imageurl: pin.imageurl}
+      clickedMarker: {isClicked: true, pin: pin}
     })
   }
 
@@ -111,7 +132,7 @@ class App extends Component {
       <Marker
         key={index}
         id={pin._id}
-        coordinates={[pin.lng, pin.lat]}
+        coordinates={[pin.longitude, pin.latitude]}
         comment={pin.comment}
         onClick={() => this.handlePopupClick(pin)}
         anchor="bottom"
@@ -128,8 +149,9 @@ class App extends Component {
     if (this.state.isDropPin.on ) {
       this.toggleDropPin()
       axios.post('/pins/new', {
-        longitude: evt.lngLat.lng,
-        latitude: evt.lngLat.lat
+        longitude:  evt.lngLat.lng,
+        latitude:   evt.lngLat.lat,
+        userFbId:   this.state.user.id
       })
       .then(function(response) {
         console.log(response)
@@ -137,7 +159,7 @@ class App extends Component {
       .catch(function(error) {
         console.log(error)
       });
-      this.sendGetRequest()
+      this.sendPostRequestForPins()
     }
   }
 
@@ -151,8 +173,8 @@ class App extends Component {
   sendLoginRequest(data){
     console.log(data)
     axios.post('/users/login', {
-      fbId: data.id,
-      name: data.name,
+      fbId:  data.id,
+      name:  data.name,
       email: data.email
     })
   }
@@ -164,6 +186,7 @@ class App extends Component {
       this.setState({
         user: facebookResponse
       })
+      this.sendPostRequestForPins();
     }
   }
 
@@ -204,10 +227,7 @@ class App extends Component {
         >
           {allPins}
           <this.props.GeocoderClass />
-          {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.lng,
-                                                               this.state.clickedMarker.lat,
-                                                               this.state.clickedMarker.comment,
-                                                               this.state.clickedMarker.imageurl) : null}
+          {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.pin) : null}
         </this.props.MapClass>
 
       </div>
