@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Rating from 'react-rating';
 
 class Form extends Component {
   constructor(props) {
@@ -150,6 +151,10 @@ class Form extends Component {
           {dropdownMenu}
           <input id="image" type="file" name="image" onChange={this.handleFileUpload}></input>
           {memoryMessage}
+          <Rating
+            emptySymbol="fa fa-heart-o fa-2x"
+            fullSymbol="fa fa-heart fa-2x"
+          />
           <button disabled={Placeresult} onClick={this.postComment} type="submit">"Click Me"</button>
         </form>
       )
