@@ -106,11 +106,13 @@ class Form extends Component {
 
     var placeresults = null
 
-    if(Placeresult === true){
+    if(this.state.placeValidation.length < 1){
       placeresults = (
-        <h1> Not a Valid Place</h1>
+        <h1>Please enter a Place</h1>
       )
     }
+
+
     return (
       <div>
         { this.state.place ? <div><img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/>
