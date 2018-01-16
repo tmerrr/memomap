@@ -8,7 +8,8 @@ class Form extends Component {
     this.dateConverter = this.dateConverter.bind(this)
 
     this.state = {
-      placeValidation: ''
+      placeValidation: '',
+      memoryValidation: ''
     }
   }
 
@@ -77,9 +78,15 @@ class Form extends Component {
     this.setState ({ placeValidation: evt.target.value })
   }
 
+  handleMemoryChange = (evt) => {
+    this.setState ({memoryValidation: evt.target.value})
+    console.log(evt.target.value)
+  }
+
   handleSubmit = (evt) => {
     console.log(this.state.placeValidation.length)
-    if(this.state.placeValidation.length < 1){
+    console.log(this.state.memoryValidation.length)
+    if((this.state.placeValidation.length < 1) || (this.state.memoryValidation.length < 1)){
       return true
     } else {
       return false
@@ -104,7 +111,7 @@ class Form extends Component {
         <form id="form" encType="multipart/form-data">
           <input id="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
           {placeresults}
-          <input id="memory" type="text" name="memory" placeholder="Memory"></input>
+          <input id="memory" type="text" name="memory" placeholder="Memory" onChange={this.handleMemoryChange}></input>
           <input id="image" type="file" name="image"></input>
           <button disabled={Placeresult} onClick={this.postComment} type="submit">"Click Me"</button>
         </form> }
