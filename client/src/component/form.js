@@ -5,42 +5,55 @@ class Form extends Component {
   constructor(props) {
     super(props)
     this.postComment = this.postComment.bind(this)
+    this.dateConverter = this.dateConverter.bind(this)
+
+    this.state = {
+      placeValidation: '',
+      memoryValidation: '',
+      fileValidation: false
+    }
   }
 
   componentWillReceiveProps(newProps){
-    this.setState({comment: newProps.comment, _id: newProps.id, imageurl: newProps.imageurl})
-  }
-
-  componentWillMount() {
-    console.log(this.props.comment)
-    console.log(this.props.id)
+    console.log(newProps.pin)
     this.setState({
-      comment: this.props.comment,
-      _id: this.props.id,
-      imageurl: this.props.imageurl
+      place: newProps.pin.place,
+      memory: newProps.pin.memory,
+      _id: newProps.pin._id,
+      imageurl: newProps.pin.imageurl,
+      date: this.dateConverter(this.props.pin.date)
     })
   }
 
-  // componentDidMount() {
-  //   console.log(this.props.comment)
-  //   console.log(this.props.id)
-  //   this.setState({
-  //     comment: this.props.comment,
-  //     _id: this.props.id
-  //   })
-  // }
+  componentWillMount() {
+    console.log(this.props.pin)
+    console.log(this.props.pin.date)
+    this.setState({
+      place: this.props.pin.place,
+      memory: this.props.pin.memory,
+      _id: this.props.pin._id,
+      imageurl: this.props.pin.imageurl,
+      date: this.dateConverter(this.props.pin.date)
+    })
+  }
+
+  dateConverter(date){
+    var dateone = date.split("T")[0]
+    return dateone.split("-").reverse().join("-")
+  }
 
   postComment(evt) {
     evt.preventDefault();
+    var formData = new FormData()
     var image = document.getElementById('image')
     console.log(image.files[0])
-    var formData = new FormData()
-    // console.log(image.files[0].name)
     var imageurl = image.files[0].name
-    var forminput = document.getElementById('comment').value
+    var placeInput = document.getElementById('place').value
+    var memoryInput = document.getElementById('memory').value
     console.log(imageurl)
     formData.append('image', image.files[0])
-    formData.append('comment', forminput)
+    formData.append('place', placeInput)
+    formData.append('memory', memoryInput)
     formData.append('_id', this.state._id)
     formData.append('imageurl', imageurl)
 
@@ -55,32 +68,70 @@ class Form extends Component {
     .catch(function(error) {
       console.log(error)
     });
-    // axios.post('/pins/update', {
-    //   comment: forminput,
-    //   _id: this.state._id
-    // })
-    // .then(function(response) {
-    //   console.log(response)
-    // })
-    // .catch(function(error) {
-    //   console.log(error)
-    // })
-    // this.sendGetRequest()
     this.setState({
-      comment: forminput
+      place: placeInput,
     })
     console.log("HERE", this.state)
   }
 
+  handlePlaceChange = (evt) => {
+    this.setState ({ placeValidation: evt.target.value })
+  }
+
+  handleMemoryChange = (evt) => {
+    this.setState ({memoryValidation: evt.target.value})
+  }
+
+  handleFileUpload = (evt) => {
+    console.log(evt.target.files[0])
+    if(evt.target.files.length === 1) {
+      this.setState ({fileValidation: true})
+    }
+    console.log(this.state.fileValidation)
+  }
+
+  handleSubmit = (evt) => {
+    console.log(this.state.placeValidation.length)
+    console.log(this.state.memoryValidation.length)
+    if((this.state.placeValidation.length < 1) || (this.state.memoryValidation.length < 1) || (!this.state.fileValidation)){
+      return true
+    } else {
+      return false
+    }
+  }
+
   render() {
     console.log(this.state)
+    const Placeresult = this.handleSubmit();
+
+    var placeMessage = null
+
+    if(this.state.placeValidation.length < 1) {
+      placeMessage = (
+        <h1>Please enter a Place</h1>
+      )
+    }
+
+    var memoryMessage = null
+
+    if(this.state.memoryValidation.length < 1) {
+      memoryMessage = (
+        <h1>Please enter a Memory</h1>
+      )
+    }
+
+
     return (
       <div>
-        { this.state.comment ? <div><img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/> <h1>{this.state.comment}</h1></div> :
+        { this.state.place ? <div><img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/>
+        <h1>Place: {this.state.place}</h1><h2>Title: {this.state.memory}</h2><h5>Day: {this.state.date}</h5></div> :
         <form id="form" encType="multipart/form-data">
-          <input id="comment" type="text" name="name"></input>
-          <input id="image" type="file" name="image"></input>
-          <button onClick={this.postComment} type="submit">"Click Me"</button>
+          <input id="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
+          {placeMessage}
+          <input id="memory" type="text" name="memory" placeholder="Memory" onChange={this.handleMemoryChange}></input>
+          {memoryMessage}
+          <input id="image" type="file" name="image" onChange={this.handleFileUpload}></input>
+          <button disabled={Placeresult} onClick={this.postComment} type="submit">"Click Me"</button>
         </form> }
     </div>
     )

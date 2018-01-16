@@ -35,7 +35,7 @@ router.post('/new', function(req, res) {
 router.post('/update', function(req, res) {
   upload(req, res, function (err) {
     console.log("BODY", req.body)
-      Pin.findByIdAndUpdate(req.body._id, { comment: req.body.comment, imageurl: req.body.imageurl }, function(err, pin) {
+      Pin.findByIdAndUpdate(req.body._id, { place: req.body.place, memory: req.body.memory, imageurl: req.body.imageurl }, function(err, pin) {
         if (err) throw err;
       });
       res.send()
@@ -43,11 +43,6 @@ router.post('/update', function(req, res) {
       console.log("image not uploaded")
       // An error occurred when uploading
     }
-    // res.json({
-    //   success: true,
-    //   message: 'Image uploaded'
-    // })
-    // Everything went fine
   })
 });
 

@@ -4,6 +4,9 @@ import { Marker } from "react-mapbox-gl";
 import axios from 'axios';
 
 import Form from './form';
+import Sidebar from './Sidebar'
+import Hamburger from './Hamburger'
+import PinToggle from './PinToggle'
 
 class App extends Component {
   constructor(props) {
@@ -13,13 +16,15 @@ class App extends Component {
     this.showPopup = this.showPopup.bind(this)
     this.postComment = this.postComment.bind(this)
     this.toggleDropPin = this.toggleDropPin.bind(this)
+    this.clickHamburger = this.clickHamburger.bind(this)
 
     this.state = {
       pins: [],
-      comments: [],
       clickedMarker: { isClicked: false },
       isDropPin: { on: false },
-      sidebar: true
+      sidebar: false,
+      hamburger: true,
+      toggleBG: 'red'
     }
   }
 
@@ -28,14 +33,13 @@ class App extends Component {
   }
 
   sendGetRequest() {
-    let pinsArray = []
     axios.get('/pins')
     .then((response) => {
-      response.data.map((pin) => pinsArray.push(
-        {lng: pin.longitude, lat: pin.latitude , _id: pin._id, comment: pin.comment, imageurl: pin.imageurl}
-      ))
+      console.log(response.data)
+      let pinsArray = response.data.map(pin => pin)
       this.setState({
         pins: pinsArray,
+        numberOfMemories: pinsArray.length
       })
       console.log(this.state.pins)
     })
@@ -60,35 +64,35 @@ class App extends Component {
     this.sendGetRequest()
   }
 
-  showPopup(lng, lat, comment, imageurl) {
-    console.log(this.state.clickedMarker.comment)
-    console.log(this.state.clickedMarker._id)
+  showPopup(pin) {
+    console.log(pin)
     return(
       <Popup
-      coordinates={[lng, lat]}
+      coordinates={[pin.longitude, pin.latitude]}
       offset={{
         'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
       }}
     >
-      <Form comment={comment} id={this.state.clickedMarker._id} imageurl={imageurl} />
+      <Form pin={pin} />
     </Popup>
   )
   }
 
   handlePopupClick(pin) {
-     this.sendGetRequest()
+    console.log(pin)
+    this.sendGetRequest()
     this.setState({
-      clickedMarker: {isClicked: true, lng: pin.lng, lat: pin.lat, _id: pin._id, comment: pin.comment, imageurl: pin.imageurl}
+      clickedMarker: {isClicked: true, pin: pin}
     })
   }
 
   renderMarker(pin,index){
+    console.log(pin)
     return (
       <Marker
         key={index}
         id={pin._id}
-        coordinates={[pin.lng, pin.lat]}
-        comment={pin.comment}
+        coordinates={[pin.longitude, pin.latitude]}
         onClick={() => this.handlePopupClick(pin)}
         anchor="bottom"
       >
@@ -119,9 +123,27 @@ class App extends Component {
 
   toggleDropPin() {
     let newDropPinStatus = this.state.isDropPin.on ? false : true;
+    let newDropPinBackground = this.state.isDropPin.on ? "red" : "blue";
     this.setState({
-      isDropPin: { on: newDropPinStatus }
+      isDropPin: { on: newDropPinStatus },
+      toggleBG: newDropPinBackground
     });
+  }
+
+  clickHamburger(){
+    if(this.state.hamburger === true){
+      this.setState({
+        sidebar: true,
+        hamburger: false
+      })
+    }
+
+    else {
+      this.setState({
+        sidebar: false,
+        hamburger: true
+      })
+    }
   }
 
   render() {
@@ -129,25 +151,28 @@ class App extends Component {
 
     if (this.state.sidebar) {
       sidebar = (
-        <div
-          style={{position: "absolute",
-            backgroundColor: "blue",
-            left: 0,
-            top: 0,
-            zIndex: 1000
-          }}
-          >
-          <button name="dropPinToggle" onClick={this.toggleDropPin}>Drop Pin</button>
-        </div>
+        <Sidebar numberOfMemories={this.state.numberOfMemories} clickHamburger={this.clickHamburger}/>
+      )
+    }
+
+    var hamburger = null
+
+    if (this.state.hamburger){
+      hamburger = (
+        <Hamburger clickHamburger={this.clickHamburger}/>
       )
     }
 
     const allPins = this.state.pins.map((pin, index) => {
       return this.renderMarker(pin, index)
     })
+    console.log(this.state.clickedMarker.pin)
     return (
       <div>
+
+        {hamburger}
         {sidebar}
+        <PinToggle toggleBG={this.state.toggleBG} toggleDropPin={this.toggleDropPin}/>
         <this.props.MapClass
           style="mapbox://styles/mapbox/streets-v9"
           containerStyle={{
@@ -158,10 +183,7 @@ class App extends Component {
         >
           {allPins}
           <this.props.GeocoderClass />
-          {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.lng,
-                                                               this.state.clickedMarker.lat,
-                                                               this.state.clickedMarker.comment,
-                                                               this.state.clickedMarker.imageurl) : null}
+          {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.pin) : null}
         </this.props.MapClass>
 
       </div>
