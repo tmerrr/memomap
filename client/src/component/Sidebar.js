@@ -5,6 +5,7 @@ class Sidebar extends Component{
     super(props)
     this.memoryChecker = this.memoryChecker.bind(this)
     this.getnumberOf = this.getnumberOf.bind(this)
+    this.travellerType = this.travellerType.bind(this)
   }
 
   memoryChecker(number) {
@@ -20,6 +21,22 @@ class Sidebar extends Component{
     return type.length
 
   }
+
+  travellerType(){
+    if (this.props.pins.length < 5) {
+      return 'Hermit'
+    } else if (this.props.pins.length < 10) {
+      return 'House Cat'
+    } else if (this.props.pins.length < 20){
+      return 'Swallow'
+    } else if (this.props.pins.length < 30){
+      return 'Atlantic Salmon'
+    } else {
+      return 'Wandering Albatross'
+    }
+  }
+
+
 
   render(){
     return(
@@ -43,6 +60,7 @@ class Sidebar extends Component{
         <h4> Monument: {this.getnumberOf("Monuments")} </h4>
         <h4> Restaurant: {this.getnumberOf("Restaurant")} </h4>
         <h4> Activity: {this.getnumberOf("Activity")} </h4>
+        <h4> traveller level: {this.travellerType()} </h4>
       </div>
     )
   }
