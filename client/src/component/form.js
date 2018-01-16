@@ -9,7 +9,8 @@ class Form extends Component {
 
     this.state = {
       placeValidation: '',
-      memoryValidation: ''
+      memoryValidation: '',
+      fileValidation: false
     }
   }
 
@@ -74,19 +75,25 @@ class Form extends Component {
   }
 
   handlePlaceChange = (evt) => {
-    console.log(this.state.placeValidation.length)
     this.setState ({ placeValidation: evt.target.value })
   }
 
   handleMemoryChange = (evt) => {
     this.setState ({memoryValidation: evt.target.value})
-    console.log(evt.target.value)
+  }
+
+  handleFileUpload = (evt) => {
+    console.log(evt.target.files[0])
+    if(evt.target.files.length === 1) {
+      this.setState ({fileValidation: true})
+    }
+    console.log(this.state.fileValidation)
   }
 
   handleSubmit = (evt) => {
     console.log(this.state.placeValidation.length)
     console.log(this.state.memoryValidation.length)
-    if((this.state.placeValidation.length < 1) || (this.state.memoryValidation.length < 1)){
+    if((this.state.placeValidation.length < 1) || (this.state.memoryValidation.length < 1) || (!this.state.fileValidation)){
       return true
     } else {
       return false
@@ -112,7 +119,7 @@ class Form extends Component {
           <input id="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
           {placeresults}
           <input id="memory" type="text" name="memory" placeholder="Memory" onChange={this.handleMemoryChange}></input>
-          <input id="image" type="file" name="image"></input>
+          <input id="image" type="file" name="image" onChange={this.handleFileUpload}></input>
           <button disabled={Placeresult} onClick={this.postComment} type="submit">"Click Me"</button>
         </form> }
     </div>
