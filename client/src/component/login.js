@@ -14,6 +14,7 @@ export default class LogIn extends Component {
 
   render() {
     return(
+      <div>
       <FacebookLogin
         appId="1382418925218617"
         autoLoad={false}
@@ -22,6 +23,8 @@ export default class LogIn extends Component {
         callback={this.props.responseFacebook}
         reAuthenticate={true}
       />
+      <a href="https://www.facebook.com/" target="_blank">Change User</a>
+      </div>
     )
   }
 }
