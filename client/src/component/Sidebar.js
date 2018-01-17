@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from '../styles/Sidebar.css'
 
 class Sidebar extends Component{
   constructor(props){
@@ -40,27 +41,38 @@ class Sidebar extends Component{
 
   render(){
     return(
-      <div
-        style={{position: "absolute",
-          backgroundColor: "#0784f798",
-          width: "20vw",
-          height: "100vh",
-          left: 0,
-          top: 0,
-          zIndex: 1000
-        }}
-        >
-        <h1>{this.props.userDetails.name}</h1>
-        <h2>{this.props.userDetails.email}</h2>
-        <img src={this.props.userDetails.picture.data.url}/>
-        <button name="hamburger" onClick={this.props.clickHamburger}>Close Menu</button>
-        <button name="logout" onClick={this.props.logout}>Logout</button>
-        <h3>{this.memoryChecker(this.props.pins.length)}</h3>
-        <h4> Nature: {this.getnumberOf("Nature")} </h4>
-        <h4> Monument: {this.getnumberOf("Monuments")} </h4>
-        <h4> Restaurant: {this.getnumberOf("Restaurant")} </h4>
-        <h4> Activity: {this.getnumberOf("Activity")} </h4>
-        <h4> traveller level: {this.travellerType()} </h4>
+      <div id="navbar">
+        <div id='menu'></div>
+        <button id="hamburger" name="hamburger" onClick={this.props.clickHamburger}><img src = "menuicon.png"/></button>
+        <div id="usershadow"></div>
+        <img id="image" src={this.props.userDetails.picture.data.url}/>
+        <h1 id="name">{this.props.userDetails.name}</h1>
+        <h2 id="email">{this.props.userDetails.email}</h2>
+
+        <div id="block"></div>
+
+        <h3 id ="memory">{this.memoryChecker(this.props.pins.length)}</h3>
+
+        <h4 id="nature"> {this.getnumberOf("Nature")} </h4>
+        <h5 id="naturecaption"> Nature </h5>
+        <img id="icon1" src = "natureicon.png"/>
+
+        <h4 id="monument"> {this.getnumberOf("Monuments")} </h4>
+        <h5 id="monumentcaption"> Monument </h5>
+        <img id="icon2" src = "monumenticon.png"/>
+
+        <h4 id="restaurant"> {this.getnumberOf("Restaurant")} </h4>
+        <h5 id="restaurantcaption"> Restaurant </h5>
+        <img id="icon3" src = "restauranticon.png"/>
+
+        <h4 id="activity"> {this.getnumberOf("Activity")} </h4>
+        <img id="icon0" src = "activityicon.png"/>
+        <h5 id="activitycaption"> Activity </h5>
+
+        <h4 id="header"> Currently, you are a</h4>
+        <h4 id="level"> {this.travellerType()} </h4>
+
+          <button id="logout" name="logout" onClick={this.props.logout}>Logout</button>
       </div>
     )
   }
