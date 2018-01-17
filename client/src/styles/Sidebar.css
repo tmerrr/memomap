@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+
+#navbar {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    background: linear-gradient(to top, #003d71, #0a256a);
+    opacity: 0.95;
+    width: 27vw;
+    height: 100vh;
+    left: 0%;
+    top: 0%;
+    z-Index: 1000;
+    font-family: 'Josefin Sans', sans-serif;
+    color: white;
+}
+
+#menu {
+  width: 330px;
+  height: 60px;
+  border-radius: 20px;
+  background-color: #171a36;
+  opacity: 0.75;
+  position: absolute;
+  top: 6%;
+  left: 48%;
+  transform: translate(-50%, -50%);
+}
+
+#hamburger {
+  position: absolute;
+  top: 6%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+}
+
+#image{
+  position: absolute;
+  top: 10%;
+  left: 25%;
+  width: 44%;
+  height: 24%;
+  -webkit-clip-path: circle(45% at 45% 45%);
+  clip-path: circle(40% at 50% 45%);
+}
+
+#usershadow {
+  width: 160px;
+	height: 160px;
+	background: red;
+	-moz-border-radius: 1000px;
+	-webkit-border-radius: 1000px;
+	border-radius: 1000px;
+  background-color: #0b0d22;
+  position: absolute;
+  top: 23%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+  margin: 0px;
+  opacity: 0.95;
+}
+
+#name {
+  font-weight: 500;
+  font-size: 25px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 36%;
+  left: 47%;
+}
+
+#email {
+  position: absolute;
+  top: 39%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+}
+
+#block {
+  width: 350px;
+	height: 170px;
+  opacity: 0.8;
+	background: #0b0d22;
+  border-radius: 30px;
+  position: absolute;
+  top: 53%;
+  left: 48.5%;
+  transform: translate(-50%, -50%);
+}
+
+#memory {
+  font-size: 20px;
+  position: absolute;
+  top: 46%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+  margin: 0px;
+}
+
+#nature {
+  font-size: 20px;
+  font-weight: 500;
+  position: absolute;
+  top: 61%;
+  left: 18%;
+  transform: translate(-50%, -50%);
+}
+
+#naturecaption {
+  position: absolute;
+  top: 57%;
+  left: 18%;
+  transform: translate(-50%, -50%);
+}
+
+#icon1 {
+  width: 80px;
+  height: 60px;
+  position: absolute;
+  top: 52%;
+  left: 18%;
+  transform: translate(-50%, -50%);
+}
+
+#monument {
+  font-size: 20px;
+  font-weight: 500;
+  position: absolute;
+  top: 61%;
+  left: 38%;
+  transform: translate(-50%, -50%);
+}
+
+#monumentcaption {
+  position: absolute;
+  top: 57%;
+  left: 38%;
+  transform: translate(-50%, -50%);
+}
+
+#icon2 {
+  width: 80px;
+  height: 60px;
+  position: absolute;
+  top: 52%;
+  left: 38%;
+  transform: translate(-50%, -50%);
+}
+
+#restaurant {
+  font-size: 20px;
+  font-weight: 500;
+  position: absolute;
+  top: 61%;
+  left: 58%;
+  transform: translate(-50%, -50%);
+}
+
+#restaurantcaption {
+  position: absolute;
+  top: 57%;
+  left: 58%;
+  transform: translate(-50%, -50%);
+}
+
+#icon3 {
+  width: 80px;
+  height: 60px;
+  position: absolute;
+  top: 52%;
+  left: 58%;
+  transform: translate(-50%, -50%);
+}
+
+#activity {
+  font-size: 20px;
+  font-weight: 500;
+  position: absolute;
+  top: 61%;
+  left: 78%;
+  transform: translate(-50%, -50%);
+}
+
+#activitycaption {
+  position: absolute;
+  top: 57%;
+  left: 78%;
+  transform: translate(-50%, -50%);
+}
+
+#icon0 {
+  width: 80px;
+  height: 60px;
+  position: absolute;
+  top: 52%;
+  left: 78%;
+  transform: translate(-50%, -50%);
+}
+
+#header {
+  font-size: 25px;
+  position: absolute;
+  top: 68%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+}
+
+
+#level {
+  line-height: 35px;
+  font-size: 30px;
+  font-weight: 500;
+  position: absolute;
+  top: 72%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+}
+
+#logout {
+  font-size: 25px;
+  position: absolute;
+  top: 90%;
+  left: 10%;
+  background-color: #171a36;
+  width: 330px;
+  height: 60px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+#logout:active{
+  transform: translateY(3px);
+  box-shadow: 0 0 20px #fbefde;
+}
+
+#logout:focus{
+
+}
