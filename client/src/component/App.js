@@ -136,9 +136,11 @@ class App extends Component {
     let newDropPinStatus = this.state.isDropPin.on ? false : true;
     let newDropPinBackground = this.state.isDropPin.on ? "red" : "blue";
     this.setState({
+      clickedMarker:  { isClicked: false },
       isDropPin: { on: newDropPinStatus },
       toggleBG: newDropPinBackground
     });
+    this.sendPostRequestForPins()
   }
 
   clickHamburger = () => {

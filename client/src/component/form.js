@@ -9,32 +9,7 @@ class Form extends Component {
       placeValidation: '',
       memoryValidation: '',
       fileValidation: false
-      // rating: 0
     }
-  }
-
-  componentWillReceiveProps(newProps){
-    this.setState({
-      place: newProps.pin.place,
-      memory: newProps.pin.memory,
-      _id: newProps.pin._id,
-      imageurl: newProps.pin.imageurl,
-      activity: newProps.pin.activity,
-      rating: newProps.pin.rating,
-      date: this.dateConverter(this.props.pin.date)
-    })
-  }
-
-  componentWillMount() {
-    this.setState({
-      place: this.props.pin.place,
-      memory: this.props.pin.memory,
-      _id: this.props.pin._id,
-      imageurl: this.props.pin.imageurl,
-      activity: this.props.pin.activity,
-      rating: this.props.pin.rating,
-      date: this.dateConverter(this.props.pin.date)
-    })
   }
 
   dateConverter = (date) => {
@@ -54,7 +29,7 @@ class Form extends Component {
     formData.append('image', image.files[0])
     formData.append('place', placeInput)
     formData.append('memory', memoryInput)
-    formData.append('_id', this.state._id)
+    formData.append('_id', this.props.pin._id)
     formData.append('imageurl', imageurl)
     formData.append('activity', activity)
     formData.append('rating', rating)
@@ -67,21 +42,15 @@ class Form extends Component {
       }
     })
     .then(function(response) {
+      return response
+    })
+    .then(function(response) {
       console.log(response)
-      console.log(self)
-      self.setState({
-        place: placeInput,
-        memory: memoryInput,
-        imageurl: imageurl,
-        rating: rating
-      })
+      self.props.reRenderPinPopup(response.data)
     })
     .catch(function(error) {
       console.log(error)
     });
-    this.setState({
-      place: placeInput,
-    })
   }
 
   handlePlaceChange = (evt) => {
@@ -99,11 +68,7 @@ class Form extends Component {
   }
 
   handleSubmit = (evt) => {
-    if((this.state.placeValidation.length < 1) || (this.state.memoryValidation.length < 1) || (!this.state.fileValidation)){
-      return true
-    } else {
-      return false
-    }
+    return ((this.state.placeValidation.length < 1) || (this.state.memoryValidation.length < 1) || (!this.state.fileValidation))
   }
 
   render() {
@@ -134,20 +99,8 @@ class Form extends Component {
       </select>
     )
 
-    let content;
-    if (this.state.place) {
-      content = (
-        <div>
-          <img src={this.state.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/>
-          <h1>Place: {this.state.place}</h1>
-          <h2>Title: {this.state.memory}</h2>
-          <h5>Day: {this.state.date}</h5>
-          <h5>{this.state.activity}</h5>
-          <h5>Rating: {this.state.rating}</h5>
-        </div>
-      )
-    } else {
-      content = (
+    return (
+      <div>
         <form id="form" encType="multipart/form-data">
           <input id="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
           {placeMessage}
@@ -164,12 +117,6 @@ class Form extends Component {
           <h1 id="rating">0</h1>
           <button disabled={Placeresult} onClick={this.postComment} type="submit">"Click Me"</button>
         </form>
-      )
-    }
-
-    return (
-      <div>
-        {content}
         <button onClick={this.props.deletePin}>Delete Pin</button>
       </div>
     )

@@ -52,12 +52,19 @@ router.post('/update', function(req, res) {
         rating: req.body.rating
        }, function(err, pin) {
         if (err) throw err;
+        console.log(pin)
       });
-      res.send()
     if (err) {
       console.log("image not uploaded")
       // An error occurred when uploading
     }
+      res.send({
+        place: req.body.place,
+        memory: req.body.memory,
+        imageurl: req.body.imageurl,
+        activity: req.body.activity,
+        rating: req.body.rating
+      })
   })
 });
 

@@ -1,8 +1,55 @@
 import React, { Component } from 'react';
 import { Popup } from "react-mapbox-gl";
 import Form from './form';
+import PinContent from './PinContent';
 
 export default class PinPopup extends Component {
+  constructor(props) {
+    super(props)
+
+  }
+
+  componentWillReceiveProps(newProps){
+    this.setState({
+      pin: newProps.pin
+    })
+  }
+
+  componentWillMount() {
+    this.setState({
+      pin: this.props.pin
+    })
+  }
+
+  reRenderPinPopup = (pin) => {
+    this.setState({
+      pin: {
+        userFbId: this.props.pin.userFbId,
+        _id: this.props.pin._id,
+        longitude: this.props.pin.longitude,
+        latitude: this.props.pin.latitude,
+        place: pin.place,
+        memory: pin.memory,
+        imageurl: pin.imageurl,
+        activity: pin.activity,
+        rating: pin.rating
+      }
+    })
+  }
+
+  renderPopupBody = () => {
+    if(this.state.pin.place) {
+      return <PinContent pin={this.state.pin} />
+    } else {
+      return (
+        <Form
+          pin={this.state.pin}
+          deletePin={this.props.deletePin}
+          reRenderPinPopup={this.reRenderPinPopup}
+        />
+      )
+    }
+  }
   render() {
     return(
       <Popup
@@ -11,10 +58,7 @@ export default class PinPopup extends Component {
           'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
         }}
       >
-        <Form
-          pin={this.props.pin}
-          deletePin={this.props.deletePin}
-        />
+        {this.renderPopupBody()}
       </Popup>
     )
   }
