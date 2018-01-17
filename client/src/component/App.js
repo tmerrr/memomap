@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Marker } from "react-mapbox-gl";
 import axios from 'axios';
-import Form from './form';
 import Sidebar from './Sidebar'
 import Hamburger from './Hamburger'
 import PinToggle from './PinToggle'
 import LogIn from './login.js';
 import PinPopup from './PinPopup'
+import Pin from './Pin'
 
 
 class App extends Component {
@@ -97,15 +96,12 @@ class App extends Component {
   // MARKER COMPONENT
   renderMarker = (pin, index) => {
     return (
-      <Marker
-        key={index}
-        id={pin._id}
-        coordinates={[pin.longitude, pin.latitude]}
-        onClick={() => this.handlePopupClick(pin)}
-        anchor="bottom"
-      >
-        <img src={"1.png"} alt="pin" style={{"width": "60px"}}/>
-      </Marker>
+      <Pin
+        index={index}
+        pin={pin}
+        handlePopupClick={this.handlePopupClick}
+      />
+
     )
   }
 

@@ -20,22 +20,15 @@ class Form extends Component {
   postComment = (evt) => {
     evt.preventDefault();
     var formData = new FormData()
-    var image = document.getElementById('image')
-    var imageurl = image.files[0].name
-    var placeInput = document.getElementById('place').value
-    var memoryInput = document.getElementById('memory').value
-    var activity = document.getElementById('activity').value
-    var rating = document.getElementById('rating').innerHTML
-    formData.append('image', image.files[0])
-    formData.append('place', placeInput)
-    formData.append('memory', memoryInput)
+    formData.append('image', document.getElementById('image').files[0])
+    formData.append('place', document.getElementById('place').value)
+    formData.append('memory', document.getElementById('memory').value)
     formData.append('_id', this.props.pin._id)
-    formData.append('imageurl', imageurl)
-    formData.append('activity', activity)
-    formData.append('rating', rating)
+    formData.append('imageurl', document.getElementById('image').files[0].name)
+    formData.append('activity', document.getElementById('activity').value)
+    formData.append('rating', document.getElementById('rating').innerHTML)
 
     var self = this
-
     axios.post('pins/update', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -113,7 +106,6 @@ class Form extends Component {
           <h1 id="rating">0</h1>
           <button disabled={Placeresult} onClick={this.postComment} type="submit">"Click Me"</button>
         </form>
-        <button onClick={this.props.deletePin}>Delete Pin</button>
       </div>
     )
   }

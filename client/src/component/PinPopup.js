@@ -4,10 +4,6 @@ import Form from './form';
 import PinContent from './PinContent';
 
 export default class PinPopup extends Component {
-  constructor(props) {
-    super(props)
-
-  }
 
   componentWillReceiveProps(newProps){
     this.setState({
@@ -44,9 +40,9 @@ export default class PinPopup extends Component {
       return (
         <Form
           pin={this.state.pin}
-          deletePin={this.props.deletePin}
           reRenderPinPopup={this.reRenderPinPopup}
         />
+
       )
     }
   }
@@ -59,6 +55,7 @@ export default class PinPopup extends Component {
         }}
       >
         {this.renderPopupBody()}
+        <button onClick={this.props.deletePin}>Delete Pin</button>
       </Popup>
     )
   }
