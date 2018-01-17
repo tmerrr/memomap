@@ -8,7 +8,7 @@ let Pin = require('../models/pins.js')
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/')
+    cb(null, 'public/uploads/')
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
@@ -24,22 +24,20 @@ router.get('', function(req, res) {
 });
 
 router.post('/users_pins', function(req, res) {
-  console.log('--- Post Request for Pins Ran ---')
-  console.log(req.body)
   Pin.find({ userFbId: req.body.userFbId }, function(err, pins) {
-    console.log('--- Pins: ', pins)
     res.send(pins)
   })
 })
 
 router.post('/new', function(req, res) {
-  console.log(req.body)
   var pin = new Pin(req.body)
   pin.save(function(err) {
     if(err) throw err;
   });
   res.send(pin)
 });
+
+
 
 router.post('/update', function(req, res) {
   upload(req, res, function (err) {
@@ -49,7 +47,8 @@ router.post('/update', function(req, res) {
         memory: req.body.memory,
         imageurl: req.body.imageurl,
         activity: req.body.activity,
-        rating: req.body.rating
+        rating: req.body.rating,
+        date: new Date()
        }, function(err, pin) {
         if (err) throw err;
         console.log(pin)
@@ -63,7 +62,8 @@ router.post('/update', function(req, res) {
         memory: req.body.memory,
         imageurl: req.body.imageurl,
         activity: req.body.activity,
-        rating: req.body.rating
+        rating: req.body.rating,
+        date: new Date()
       })
   })
 });
