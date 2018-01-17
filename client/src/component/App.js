@@ -4,8 +4,7 @@ import Sidebar from './Sidebar'
 import Hamburger from './Hamburger'
 import PinToggle from './PinToggle'
 import LogIn from './login.js';
-import PinPopup from './PinPopup'
-import Pin from './Pin'
+
 
 
 class App extends Component {
@@ -77,7 +76,7 @@ class App extends Component {
   // POPUP && FORM COMPONENT
   showPopup = (pin) => {
     return(
-      <PinPopup
+      <this.props.PinPopupClass
         pin={pin}
         deletePin={this.deletePin}
       />
@@ -94,7 +93,7 @@ class App extends Component {
   // MARKER COMPONENT
   renderMarker = (pin, index) => {
     return (
-      <Pin
+      <this.props.PinClass
         index={index}
         pin={pin}
         handlePopupClick={this.handlePopupClick}

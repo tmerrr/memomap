@@ -13,9 +13,10 @@ chai.use(chaiEnzyme());
 
 import App from '../component/App';
 
-class FeatureDouble extends Component {}
-class LayerDouble extends Component {}
 class MapDouble extends Component {}
+class GeocoderDouble extends Component {}
+class PinDouble extends Component {}
+class PinPopupDouble extends Component {}
 
 describe ('App', () => {
   let wrapper;
@@ -23,41 +24,48 @@ describe ('App', () => {
   beforeEach( () => {
     wrapper = shallow(
       <App
-        FeatureClass={FeatureDouble}
-        LayerClass={LayerDouble}
         MapClass={MapDouble}
+        GeocoderClass={GeocoderDouble}
+        PinClass={PinDouble}
+        PinPopupClass={PinPopupDouble}
       />
     )
       app = wrapper.instance();
-      // sinon.stub(app, 'componentDidMount', () => { })
-      // app.componentDidMount = jest.fn()
-      app.forceUpdate()
-      wrapper.update()
   })
 
-  describe ('Props', () => {
-    it ('has an empty array of pins', () => {
-      expect(wrapper.state('pins')).to.be.a('array')
+  describe ('show Popup', () => {
+    it ('renders a Popup into the App', () => {
+      console.log(wrapper)
+      console.log(app)
+      expect(app.showPopup()).to.be.a(PinPopupDouble)
     })
   })
-
-  describe ('renderPin', () => {
-    it ('returns a FeatureDouble component', () => {
-      expect(app.renderPin(5, 5)).to.contain(FeatureDouble)
-    })
-  })
-
-  describe ('renderLayer', ()=> {
-    it ('returns a layer component', ()=>{
-      expect(app.renderLayer()).to.contain(LayerDouble)
-    })
-  })
-
-  describe('handleClick', () => {
-    it ('adds a pin to the state', () => {
-      let event = {lngLat: 'the coordinates'}
-      app.handleClick('map', event)
-      expect(wrapper.state('pins')[0]).to.equal('the coordinates')
-    })
-  })
+  //
+  //
+  //
+  // describe ('Props', () => {
+  //   it ('has an empty array of pins', () => {
+  //     expect(wrapper.state('pins')).to.be.a('array')
+  //   })
+  // })
+  //
+  // describe ('renderPin', () => {
+  //   it ('returns a FeatureDouble component', () => {
+  //     expect(app.renderPin(5, 5)).to.contain(FeatureDouble)
+  //   })
+  // })
+  //
+  // describe ('renderLayer', ()=> {
+  //   it ('returns a layer component', ()=>{
+  //     expect(app.renderLayer()).to.contain(LayerDouble)
+  //   })
+  // })
+  //
+  // describe('handleClick', () => {
+  //   it ('adds a pin to the state', () => {
+  //     let event = {lngLat: 'the coordinates'}
+  //     app.handleClick('map', event)
+  //     expect(wrapper.state('pins')[0]).to.equal('the coordinates')
+  //   })
+  // })
 })
