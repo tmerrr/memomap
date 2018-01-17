@@ -19,7 +19,7 @@ class Form extends Component {
     formData.append('place', document.getElementById('place').value)
     formData.append('memory', document.getElementById('memory').value)
     formData.append('_id', this.props.pin._id)
-    formData.append('imageurl', document.getElementById('image').files[0].name)
+    formData.append('imageurl', ('uploads/' + document.getElementById('image').files[0].name))
     formData.append('activity', document.getElementById('activity').value)
     formData.append('rating', document.getElementById('rating').innerHTML)
 
