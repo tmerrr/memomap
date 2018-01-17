@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Rating from 'react-rating';
+import '../styles/Formstyling.css';
 
 class Form extends Component {
   constructor(props) {
@@ -70,12 +71,16 @@ class Form extends Component {
     let placeMessage;
 
     if(this.state.placeValidation.length < 1) {
-      placeMessage = <h1>Please enter a Place</h1>
+      placeMessage = (
+        <h1></h1>
+      )
     }
 
     let memoryMessage;
     if (this.state.memoryValidation.length < 1) {
-      memoryMessage = <h1>Please enter a Memory</h1>
+      memoryMessage = (
+        <h1></h1>
+      )
     }
 
     const activityOptions = ['Nature', 'Monument', 'Restaurant', 'Activity']
@@ -88,15 +93,24 @@ class Form extends Component {
       </select>
     )
 
+
     return (
       <div>
         <form id="form" encType="multipart/form-data">
+
+        <h4>Add your memory to this place!</h4>
+
           <input id="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
           {placeMessage}
-          <input id="memory" type="text" name="memory" placeholder="Memory" onChange={this.handleMemoryChange}></input>
+
+
+          <input id="memory" type="text" name="memory" placeholder="Please enter a Memory" onChange={this.handleMemoryChange}></input>
           {dropdownMenu}
+
+
           <input id="image" type="file" name="image" onChange={this.handleFileUpload}></input>
           {memoryMessage}
+
             <Rating
               emptySymbol="fa fa-heart-o fa-2x"
               fullSymbol="fa fa-heart fa-2x"
@@ -104,11 +118,17 @@ class Form extends Component {
               onChange={(rating) => document.getElementById('rating').innerHTML = rating || 0}
             />
           <h1 id="rating">0</h1>
-          <button disabled={Placeresult} onClick={this.postComment} type="submit">"Click Me"</button>
+          <button className="submit" disabled={Placeresult} onClick={this.postComment} type="submit">Done!</button>
+
+
+        {content}
+        <button className="deletePin" onClick={this.props.deletePin}>Delete Pin</button>
         </form>
+
       </div>
     )
   }
 
 }
+
 export default Form;
