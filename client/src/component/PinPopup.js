@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Popup } from "react-mapbox-gl";
 import Form from './form';
 import PinContent from './PinContent';
+import '../styles/Formstyling.css';
+
 
 export default class PinPopup extends Component {
 
@@ -55,7 +57,7 @@ export default class PinPopup extends Component {
         }}
       >
         {this.renderPopupBody()}
-        <button onClick={this.props.deletePin}>Delete Pin</button>
+        <button className="deletePin" onClick={this.props.deletePin}>Delete Pin</button>
       </Popup>
     )
   }

@@ -1,49 +1,59 @@
-
-
-/*
-.form {
-  background-color: blue;
-}*/
-
-#activity {
-  top:65%;
-  left:50%;
+#pintitle{
+  margin-top: 5px;
+  margin-bottom: 2px;
 }
 
-#place {
-  width:120px;
+#activity {
+  position:relative;
+  left:60%;
+  right: 80px;
+  bottom: 191px;
+  margin-top: 47px;
+}
+
+#form {
+  width: 250px;
+  height:300px;
+}
+
+.place {
+  width:140px;
   top:20%;
-  left:5%;
+  left:12%;
+  /*margin-top:12px;
+  margin-bottom: 15px;*/
 }
 
 #memory {
   width: 250px;
   height: 80px;
+  margin-bottom: 25px;
+}
+
+#rating {
+  position:relative;
+  left:0.5%;
+  right: 80px;
+  bottom: 200px;
+  margin-top:100px;
 }
 
 #image {
-  padding: 0;
-  margin: 0;
-  border: none;
-  width: 220px;
-  position: absolute;
-  top: 65%;
-  left:5%;
-}
-
-#form {
-  width: 250px;
-  height:250px;
+  position:relative;
+  left:0.5%;
+  right: 80px;
+  bottom: 120px;
+  margin-top: 47px;
 }
 
 .deletePin{
   position: absolute;
-  left:70%;
-  top:85%;
+  left:74%;
+  top:89%;
 }
 
 .submit{
   position: absolute;
   left:5%;
-  top:85%;
+  top:89%;
 }

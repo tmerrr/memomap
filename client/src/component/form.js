@@ -98,31 +98,32 @@ class Form extends Component {
       <div>
         <form id="form" encType="multipart/form-data">
 
-        <h4>Add your memory to this place!</h4>
+        <h4 id="pintitle" >Add your memory to this place!</h4>
 
-          <input id="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
+          <input className="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
           {placeMessage}
 
 
-          <input id="memory" type="text" name="memory" placeholder="Please enter a Memory" onChange={this.handleMemoryChange}></input>
-          {dropdownMenu}
+          <input id="memory" type="textarea" name="memory" placeholder="Your Memory" onChange={this.handleMemoryChange}>
+        </input>
+         {dropdownMenu}
+                   <input id="image" type="file" name="image" onChange={this.handleFileUpload}></input>
+         <div>
+         <Rating
+           emptySymbol="fa fa-heart-o fa-2x"
+           fullSymbol="fa fa-heart fa-2x"
+           fractions={2}
+           onChange={(rating) => document.getElementById('rating').innerHTML = rating || 0}
+         />
+       </div>
 
-
-          <input id="image" type="file" name="image" onChange={this.handleFileUpload}></input>
           {memoryMessage}
 
-            <Rating
-              emptySymbol="fa fa-heart-o fa-2x"
-              fullSymbol="fa fa-heart fa-2x"
-              fractions={2}
-              onChange={(rating) => document.getElementById('rating').innerHTML = rating || 0}
-            />
           <h1 id="rating">0</h1>
+
           <button className="submit" disabled={Placeresult} onClick={this.postComment} type="submit">Done!</button>
 
-
-        {content}
-        <button className="deletePin" onClick={this.props.deletePin}>Delete Pin</button>
+        <button onClick={this.props.deletePin}></button>
         </form>
 
       </div>
