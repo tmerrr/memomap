@@ -12,15 +12,6 @@ import LogIn from './login.js';
 class App extends Component {
   constructor(props) {
     super(props)
-    this.handleClick    = this.handleClick.bind(this)
-    this.showPopup      = this.showPopup.bind(this)
-    this.postComment    = this.postComment.bind(this)
-    this.toggleDropPin  = this.toggleDropPin.bind(this)
-    this.clickHamburger = this.clickHamburger.bind(this)
-    this.deletePin      = this.deletePin.bind(this)
-    this.login          = this.login.bind(this)
-    this.logout         = this.logout.bind(this)
-
     this.state = {
       pins: [],
       clickedMarker:  { isClicked: false },
@@ -32,7 +23,7 @@ class App extends Component {
     }
   }
 
-  sendPostRequestForPins() {
+  sendPostRequestForPins = () => {
     let newPins = []
     axios.post('/pins/users_pins', {
       userFbId: this.state.user.id
@@ -52,7 +43,7 @@ class App extends Component {
     })
   }
 
-  postComment(evt){
+  postComment = (evt) => {
     evt.preventDefault();
     const self = this
     var forminput = document.getElementById('comment').value
@@ -70,7 +61,7 @@ class App extends Component {
     })
   }
 
-  deletePin(evt) {
+  deletePin = (evt) => {
     evt.preventDefault();
     const self = this
     axios.post('pins/delete', {
@@ -86,7 +77,7 @@ class App extends Component {
     this.setState({ clickedMarker: { isClicked: false } })
   }
 
-  showPopup(pin) {
+  showPopup = (pin) => {
     return(
       <Popup
         coordinates={[pin.longitude, pin.latitude]}
@@ -102,14 +93,14 @@ class App extends Component {
     )
   }
 
-  handlePopupClick(pin) {
+  handlePopupClick = (pin) => {
     this.sendPostRequestForPins()
     this.setState({
       clickedMarker: {isClicked: true, pin: pin}
     })
   }
 
-  renderMarker(pin, index){
+  renderMarker = (pin, index) => {
     return (
       <Marker
         key={index}
@@ -123,7 +114,7 @@ class App extends Component {
     )
   }
 
-  handleClick(map, evt) {
+  handleClick = (map, evt) => {
     const self = this
     this.setState({
       clickedMarker: { isClicked: false }
@@ -146,7 +137,7 @@ class App extends Component {
     this.sendPostRequestForPins()
   }
 
-  toggleDropPin() {
+  toggleDropPin = () => {
     let newDropPinStatus = this.state.isDropPin.on ? false : true;
     let newDropPinBackground = this.state.isDropPin.on ? "red" : "blue";
     this.setState({
@@ -155,7 +146,7 @@ class App extends Component {
     });
   }
 
-  clickHamburger() {
+  clickHamburger = () => {
     if(this.state.hamburger === true) {
       this.setState({
         sidebar: true,
@@ -169,7 +160,7 @@ class App extends Component {
     }
   }
 
-  sendLoginRequest(data){
+  sendLoginRequest = (data) => {
     axios.post('/users/login', {
       fbId:  data.id,
       name:  data.name,
@@ -178,7 +169,7 @@ class App extends Component {
     })
   }
 
-  login(facebookResponse) {
+  login = (facebookResponse) => {
     console.log(facebookResponse)
     if (facebookResponse.status != 'not_authorized') {
       this.sendLoginRequest(facebookResponse)
@@ -189,7 +180,7 @@ class App extends Component {
     }
   }
 
-  logout() {
+  logout = () => {
     this.setState({
       user: false
     })

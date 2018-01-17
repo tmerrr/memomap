@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 
 class Sidebar extends Component{
-  constructor(props){
-    super(props)
-    this.memoryChecker = this.memoryChecker.bind(this)
-    this.getnumberOf = this.getnumberOf.bind(this)
-    this.travellerType = this.travellerType.bind(this)
-  }
 
-  memoryChecker(number) {
+  memoryChecker = (number) => {
     if (number === 1) {
       return "You have " + number + " memory"
     } else {
@@ -16,13 +10,13 @@ class Sidebar extends Component{
     }
   }
 
-  getnumberOf(activity) {
+  getnumberOf = (activity) => {
     let type = this.props.pins.filter(pin => pin.activity === activity)
     return type.length
 
   }
 
-  travellerType(){
+  travellerType = () => {
     if (this.props.pins.length < 5) {
       return 'Hermit'
     } else if (this.props.pins.length < 10) {
@@ -35,8 +29,6 @@ class Sidebar extends Component{
       return 'Wandering Albatross'
     }
   }
-
-
 
   render(){
     return(

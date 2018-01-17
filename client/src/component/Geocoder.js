@@ -4,7 +4,7 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 class Geocoder extends Component {
-
+  
   componentDidMount() {
     const { map } = this.context;
 

@@ -5,9 +5,6 @@ import Rating from 'react-rating';
 class Form extends Component {
   constructor(props) {
     super(props)
-    this.postComment = this.postComment.bind(this)
-    this.dateConverter = this.dateConverter.bind(this)
-
     this.state = {
       placeValidation: '',
       memoryValidation: '',
@@ -40,12 +37,12 @@ class Form extends Component {
     })
   }
 
-  dateConverter(date){
+  dateConverter = (date) => {
     var dateone = date.split("T")[0]
     return dateone.split("-").reverse().join("-")
   }
 
-  postComment(evt) {
+  postComment = (evt) => {
     evt.preventDefault();
     var formData = new FormData()
     var image = document.getElementById('image')
