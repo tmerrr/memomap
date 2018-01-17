@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Marker } from "react-mapbox-gl";
+import styles from '../styles/Pin.css'
 
 export default class Pin extends Component {
   render() {
@@ -11,7 +12,7 @@ export default class Pin extends Component {
         onClick={() => this.props.handlePopupClick(this.props.pin)}
         anchor="bottom"
         >
-          <img src={"1.png"} alt="pin" style={{"width": "60px"}}/>
+          <img id="pin" src={"1.png"} alt="pin" style={{"width": "60px"}}/>
         </Marker>
     )
   }

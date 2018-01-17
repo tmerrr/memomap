@@ -9,7 +9,7 @@
   left: 37%;
   top: 48%;
   border-radius: 30px;
-  box-shadow:  0 13px hsla(210, 79%, 13%, 0.77);
+  box-shadow:  0 13px hsla(210, 79%, 13%, 0.80);
 }
 
 #fb {
@@ -43,10 +43,10 @@
   position: absolute;
   left: 37%;
   top: 63%;
-  box-shadow:  0 13px hsla(210, 79%, 13%, 0.77);
+  box-shadow:  0 13px hsla(210, 79%, 13%, 0.80);
 }
 
 .change:active {
-    box-shadow:  0 8px hsla(210, 79%, 13%, 0.77);
+    box-shadow:  0 8px hsla(210, 79%, 13%, 0.80);
   transform: translateY(5px);
 }
