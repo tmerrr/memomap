@@ -74,19 +74,15 @@ class Form extends Component {
   render() {
     const Placeresult = this.handleSubmit();
 
-    var placeMessage = null
+    let placeMessage;
 
     if(this.state.placeValidation.length < 1) {
-      placeMessage = (
-        <h1>Please enter a Place</h1>
-      )
+      placeMessage = <h1>Please enter a Place</h1>
     }
 
-    var memoryMessage = null
+    let memoryMessage;
     if (this.state.memoryValidation.length < 1) {
-      memoryMessage = (
-        <h1>Please enter a Memory</h1>
-      )
+      memoryMessage = <h1>Please enter a Memory</h1>
     }
 
     const activityOptions = ['Nature', 'Monument', 'Restaurant', 'Activity']
