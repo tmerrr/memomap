@@ -28,7 +28,6 @@ class App extends Component {
       userFbId: this.state.user.id
     })
     .then((res) => {
-      console.log(res)
       res.data.forEach((pin) => {
         newPins.push(pin)
       })
@@ -46,7 +45,6 @@ class App extends Component {
     evt.preventDefault();
     const self = this
     var forminput = document.getElementById('comment').value
-    console.log(forminput)
     axios.post('/pins/update', {
       comment: forminput,
       _id: this.state.clickedMarker.pin._id
