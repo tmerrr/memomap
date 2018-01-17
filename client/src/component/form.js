@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import '../styles/Formstyling.css';
+
+
 
 class Form extends Component {
   constructor(props) {
@@ -109,14 +112,14 @@ class Form extends Component {
 
     if(this.state.placeValidation.length < 1) {
       placeMessage = (
-        <h1>Please enter a Place</h1>
+        <h1></h1>
       )
     }
 
     var memoryMessage = null
     if (this.state.memoryValidation.length < 1) {
       memoryMessage = (
-        <h1>Please enter a Memory</h1>
+        <h1></h1>
       )
     }
 
@@ -143,25 +146,37 @@ class Form extends Component {
       )
     } else {
       content = (
+
         <form id="form" encType="multipart/form-data">
+
+        <h4>Add your memory to this place!</h4>
+
           <input id="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
           {placeMessage}
-          <input id="memory" type="text" name="memory" placeholder="Memory" onChange={this.handleMemoryChange}></input>
+
+
+          <input id="memory" type="text" name="memory" placeholder="Please enter a Memory" onChange={this.handleMemoryChange}></input>
           {dropdownMenu}
+
+
           <input id="image" type="file" name="image" onChange={this.handleFileUpload}></input>
           {memoryMessage}
-          <button disabled={Placeresult} onClick={this.postComment} type="submit">"Click Me"</button>
+
+
+          <button className="submit" disabled={Placeresult} onClick={this.postComment} type="submit">Done!</button>
         </form>
       )
     }
 
     return (
       <div>
+
         {content}
-        <button onClick={this.props.deletePin}>Delete Pin</button>
+        <button className="deletePin" onClick={this.props.deletePin}>Delete Pin</button>
       </div>
     )
   }
 
 }
+
 export default Form;
