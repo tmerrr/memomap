@@ -37,14 +37,14 @@
   height: 100px;
 }
 
-#image{
+.image{
   position: absolute;
-  top: 10%;
-  left: 25%;
-  width: 44%;
-  height: 24%;
+  top: 8%;
+  left: 28%;
+  width: 40%;
+  height: 40%;
   -webkit-clip-path: circle(45% at 45% 45%);
-  clip-path: circle(40% at 50% 45%);
+  clip-path: circle(30% at 50% 35%);
 }
 
 #usershadow {
@@ -94,8 +94,8 @@
 #memory {
   font-size: 20px;
   position: absolute;
-  top: 46%;
-  left: 47%;
+  top: 49.5%;
+  left: 53%;
   transform: translate(-50%, -50%);
   margin: 0px;
 }
@@ -175,13 +175,12 @@
   transform: translate(-50%, -50%);
 }
 
-#activity {
+.activity {
   font-size: 20px;
   font-weight: 500;
   position: absolute;
-  top: 61%;
-  left: 78%;
-  transform: translate(-50%, -50%);
+  top: 59.5%;
+  left: 76%;
 }
 
 #activitycaption {

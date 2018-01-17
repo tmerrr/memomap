@@ -121,7 +121,6 @@ class Form extends Component {
           <button className="submit" disabled={Placeresult} onClick={this.postComment} type="submit">Done!</button>
 
 
-        {content}
         <button className="deletePin" onClick={this.props.deletePin}>Delete Pin</button>
         </form>
 

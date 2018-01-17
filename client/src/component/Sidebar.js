@@ -38,9 +38,10 @@ class Sidebar extends Component{
         <div id='menu'></div>
         <button id="hamburger" name="hamburger" onClick={this.props.clickHamburger}><img src = "menuicon.png"/></button>
         <div id="usershadow"></div>
-        <img id="image" src={this.props.userDetails.picture.data.url}/>
+
         <h1 id="name">{this.props.userDetails.name}</h1>
         <h2 id="email">{this.props.userDetails.email}</h2>
+        <img class="image" src={this.props.userDetails.picture.data.url}/>
 
         <div id="block"></div>
 
@@ -58,12 +59,14 @@ class Sidebar extends Component{
         <h5 id="restaurantcaption"> Restaurant </h5>
         <img id="icon3" src = "restauranticon.png"/>
 
-        <h4 id="activity"> {this.getnumberOf("Activity")} </h4>
+        <h4 class="activity"> {this.getnumberOf("Activity")} </h4>
         <img id="icon0" src = "activityicon.png"/>
         <h5 id="activitycaption"> Activity </h5>
 
         <h4 id="header"> Currently, you are a</h4>
         <h4 id="level"> {this.travellerType()} </h4>
+
+
 
           <button id="logout" name="logout" onClick={this.props.logout}>Logout</button>
       </div>
