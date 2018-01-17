@@ -16,6 +16,11 @@
     color: white;
 }
 
+#navbar {
+  animation: slide .50s ease-out;
+  backface-visibility: hidden;
+}
+
 #menu {
   width: 330px;
   height: 60px;
@@ -24,23 +29,44 @@
   opacity: 0.75;
   position: absolute;
   top: 6%;
-  left: 48%;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 
 #hamburger {
   position: absolute;
   top: 6%;
-  left: 80%;
+  left: 82%;
   transform: translate(-50%, -50%);
   width: 100px;
   height: 100px;
+  backface-visibility: hidden;
+}
+
+@keyframes fade {
+  0%{
+    opacity:1;
+  }
+
+  100%{
+    opacity: 0;
+  }
+}
+
+@keyframes slide {
+  0%{
+    transform: translateX(-400px)
+  }
+
+  100%{
+    transform: translateX(0px)
+  }
 }
 
 .image{
   position: absolute;
   top: 8%;
-  left: 28%;
+  left: 30%;
   width: 40%;
   height: 40%;
   -webkit-clip-path: circle(45% at 45% 45%);
@@ -57,7 +83,7 @@
   background-color: #0b0d22;
   position: absolute;
   top: 23%;
-  left: 47%;
+  left: 50%;
   transform: translate(-50%, -50%);
   margin: 0px;
   opacity: 0.95;
@@ -69,13 +95,13 @@
   transform: translate(-50%, -50%);
   position: absolute;
   top: 36%;
-  left: 47%;
+  left: 50%;
 }
 
 #email {
   position: absolute;
   top: 39%;
-  left: 47%;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 
@@ -87,7 +113,7 @@
   border-radius: 30px;
   position: absolute;
   top: 53%;
-  left: 48.5%;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 
@@ -95,7 +121,7 @@
   font-size: 20px;
   position: absolute;
   top: 49.5%;
-  left: 53%;
+  left: 57%;
   transform: translate(-50%, -50%);
   margin: 0px;
 }
@@ -105,14 +131,14 @@
   font-weight: 500;
   position: absolute;
   top: 61%;
-  left: 18%;
+  left: 20%;
   transform: translate(-50%, -50%);
 }
 
 #naturecaption {
   position: absolute;
   top: 57%;
-  left: 18%;
+  left: 20%;
   transform: translate(-50%, -50%);
 }
 
@@ -121,7 +147,7 @@
   height: 60px;
   position: absolute;
   top: 52%;
-  left: 18%;
+  left: 20%;
   transform: translate(-50%, -50%);
 }
 
@@ -130,14 +156,14 @@
   font-weight: 500;
   position: absolute;
   top: 61%;
-  left: 38%;
+  left: 40%;
   transform: translate(-50%, -50%);
 }
 
 #monumentcaption {
   position: absolute;
   top: 57%;
-  left: 38%;
+  left: 40%;
   transform: translate(-50%, -50%);
 }
 
@@ -146,7 +172,7 @@
   height: 60px;
   position: absolute;
   top: 52%;
-  left: 38%;
+  left: 40%;
   transform: translate(-50%, -50%);
 }
 
@@ -155,14 +181,14 @@
   font-weight: 500;
   position: absolute;
   top: 61%;
-  left: 58%;
+  left: 62%;
   transform: translate(-50%, -50%);
 }
 
 #restaurantcaption {
   position: absolute;
   top: 57%;
-  left: 58%;
+  left: 62%;
   transform: translate(-50%, -50%);
 }
 
@@ -171,7 +197,7 @@
   height: 60px;
   position: absolute;
   top: 52%;
-  left: 58%;
+  left: 62%;
   transform: translate(-50%, -50%);
 }
 
@@ -180,13 +206,13 @@
   font-weight: 500;
   position: absolute;
   top: 59.5%;
-  left: 76%;
+  left: 78%;
 }
 
 #activitycaption {
   position: absolute;
   top: 57%;
-  left: 78%;
+  left: 80%;
   transform: translate(-50%, -50%);
 }
 
@@ -195,15 +221,15 @@
   height: 60px;
   position: absolute;
   top: 52%;
-  left: 78%;
+  left: 80%;
   transform: translate(-50%, -50%);
 }
 
 #header {
-  font-size: 25px;
+  font-size: 23px;
   position: absolute;
   top: 68%;
-  left: 47%;
+  left: 49%;
   transform: translate(-50%, -50%);
 }
 
@@ -214,7 +240,7 @@
   font-weight: 500;
   position: absolute;
   top: 72%;
-  left: 47%;
+  left: 49%;
   transform: translate(-50%, -50%);
 }
 

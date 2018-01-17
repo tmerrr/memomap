@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
+import styles from '../styles/login.css'
 
 
 export default class LogIn extends Component {
@@ -10,16 +11,18 @@ export default class LogIn extends Component {
 
   render() {
     return(
-      <div>
-      <FacebookLogin
+      <div id="body">
+      <div class='fbmask'></div>
+      <h1 class='slogans'> Places • Pictures • Memories </h1>
+      <div id="fb"><FacebookLogin
         appId="1382418925218617"
         autoLoad={false}
         fields="name,email,friends,picture"
         scope="public_profile,email,user_friends"
         callback={this.props.responseFacebook}
         // reAuthenticate={true}
-      />
-      <a href="https://www.facebook.com/" target="_blank">Change User</a>
+      /></div>
+      <a class="change" href="https://www.facebook.com/" target="_blank">Change User</a>
       </div>
     )
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from '../styles/Hamburger.css'
 
 class Hamburger extends Component{
   constructor(props){
@@ -15,7 +16,12 @@ class Hamburger extends Component{
         }}
         onClick={this.props.clickHamburger}
       >
-        Hamburger
+        <img id="slide" src="menumainicon.png"
+         style={{position: "relative",
+         top: 8,
+         left: 20,
+         width: 105,
+         height: 80 }}/>
       </button>
     )
   }

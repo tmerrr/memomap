@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from '../styles/pinToggle.css'
 
 class PinToggle extends Component{
   constructor(props){
@@ -8,16 +9,15 @@ class PinToggle extends Component{
   render() {
     var color = this.props.toggleBG
     return(
-      <button onClick={this.props.toggleDropPin}
-              style={{position: "absolute",
-                      zIndex: 1000,
-                      top: 55,
-                      right: 80,
-                      backgroundColor: color
+      <div>
+      <button id="button" onClick={this.props.toggleDropPin}
+              style={{
+                    backgroundColor: color
                     }}
-      >
-        Toggle
+      > Enable Map 
+
       </button>
+      </div>
     )
   }
 }
