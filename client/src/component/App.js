@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Popup } from "react-mapbox-gl";
 import { Marker } from "react-mapbox-gl";
 import axios from 'axios';
 import Form from './form';
@@ -7,6 +6,7 @@ import Sidebar from './Sidebar'
 import Hamburger from './Hamburger'
 import PinToggle from './PinToggle'
 import LogIn from './login.js';
+import PinPopup from './PinPopup'
 
 
 class App extends Component {
@@ -77,19 +77,13 @@ class App extends Component {
     this.setState({ clickedMarker: { isClicked: false } })
   }
 
+  // POPUP && FORM COMPONENT
   showPopup = (pin) => {
     return(
-      <Popup
-        coordinates={[pin.longitude, pin.latitude]}
-        offset={{
-          'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
-        }}
-      >
-        <Form
-          pin={pin}
-          deletePin={this.deletePin}
-         />
-      </Popup>
+      <PinPopup
+        pin={pin}
+        deletePin={this.deletePin}
+      />
     )
   }
 
@@ -100,6 +94,7 @@ class App extends Component {
     })
   }
 
+  // MARKER COMPONENT
   renderMarker = (pin, index) => {
     return (
       <Marker
@@ -213,6 +208,7 @@ class App extends Component {
 
     const loginContainer = <LogIn responseFacebook={this.login} />
 
+    // MAP COMPONENT:
     const MapContainer = (
       <div>
         {hamburger}
