@@ -28,7 +28,8 @@ export default class PinPopup extends Component {
         memory: pin.memory,
         imageurl: pin.imageurl,
         activity: pin.activity,
-        rating: pin.rating
+        rating: pin.rating,
+        date: pin.date
       }
     })
   }

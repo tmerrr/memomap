@@ -12,11 +12,6 @@ class Form extends Component {
     }
   }
 
-  dateConverter = (date) => {
-    var dateone = date.split("T")[0]
-    return dateone.split("-").reverse().join("-")
-  }
-
   postComment = (evt) => {
     evt.preventDefault();
     var formData = new FormData()

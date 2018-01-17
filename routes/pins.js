@@ -41,6 +41,8 @@ router.post('/new', function(req, res) {
   res.send(pin)
 });
 
+
+
 router.post('/update', function(req, res) {
   upload(req, res, function (err) {
     console.log("BODY", req.body)
@@ -49,7 +51,8 @@ router.post('/update', function(req, res) {
         memory: req.body.memory,
         imageurl: req.body.imageurl,
         activity: req.body.activity,
-        rating: req.body.rating
+        rating: req.body.rating,
+        date: new Date()
        }, function(err, pin) {
         if (err) throw err;
         console.log(pin)
@@ -63,7 +66,8 @@ router.post('/update', function(req, res) {
         memory: req.body.memory,
         imageurl: req.body.imageurl,
         activity: req.body.activity,
-        rating: req.body.rating
+        rating: req.body.rating,
+        date: new Date()
       })
   })
 });
