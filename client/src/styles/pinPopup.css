@@ -1,0 +1,22 @@
+
+#delete {
+  position: absolute;
+  top: 90%;
+  left: 27%;
+  transform: translate(-50%, -50%);
+  background-color: #0a398c;
+  font-family: 'Josefin Sans', sans-serif;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 20px;
+  width: 150px;
+  height: 45px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+#delete:hover{
+  border: 1px #f9d39b;
+  background-color: #d75766;
+}

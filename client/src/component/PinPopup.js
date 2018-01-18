@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Popup } from "react-mapbox-gl";
 import Form from './form';
 import PinContent from './PinContent';
+import '../styles/pinPopup.css';
 
 export default class PinPopup extends Component {
 
@@ -49,6 +50,7 @@ export default class PinPopup extends Component {
   }
   render() {
     return(
+      <div id="try">
       <Popup
         coordinates={[this.props.pin.longitude, this.props.pin.latitude]}
         offset={{
@@ -56,8 +58,9 @@ export default class PinPopup extends Component {
         }}
       >
         {this.renderPopupBody()}
-        <button onClick={this.props.deletePin}>Delete Pin</button>
+        <button id="delete" onClick={this.props.deletePin}>Delete Pin</button>
       </Popup>
+      </div>
     )
   }
 }

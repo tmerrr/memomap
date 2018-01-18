@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+
+#button {
+  position: absolute;
+  z-Index: 1000;
+  top: 9.3%;
+  right: 3%;
+  width: 160px;
+	height: 50px;
+  text-align: center;
+  -moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+  font-family: 'Josefin Sans', sans-serif;
+  color: white;
+  box-shadow: 1px 10px #07223d;
+  font-size: 20px;
+  line-height: 20px;
+
+}
+
+#button:active {
+  transform: translateY(5px);
+  box-shadow: 1px 5px #07223d;
+}

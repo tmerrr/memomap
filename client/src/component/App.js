@@ -16,7 +16,7 @@ class App extends Component {
       isDropPin:      { on: false },
       sidebar:        false,
       hamburger:      true,
-      toggleBG:       'red',
+      toggleBG:       '#0a398c',
       user:           false
     }
   }
@@ -127,7 +127,8 @@ class App extends Component {
 
   toggleDropPin = () => {
     let newDropPinStatus = this.state.isDropPin.on ? false : true;
-    let newDropPinBackground = this.state.isDropPin.on ? "red" : "blue";
+    let newDropPinBackground = this.state.isDropPin.on ? "#0a398c" : "    #d75766";
+
     this.setState({
       clickedMarker:  { isClicked: false },
       isDropPin: { on: newDropPinStatus },
