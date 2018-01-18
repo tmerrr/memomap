@@ -20,7 +20,7 @@ export default class LogIn extends Component {
         fields="name,email,friends,picture"
         scope="public_profile,email,user_friends"
         callback={this.props.responseFacebook}
-        // reAuthenticate={true}
+        reAuthenticate={true}
       /></div>
     <a className="change" href="https://www.facebook.com/" target="_blank">Change User</a>
       </div>
