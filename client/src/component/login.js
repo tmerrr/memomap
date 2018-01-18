@@ -12,8 +12,8 @@ export default class LogIn extends Component {
   render() {
     return(
       <div id="body">
-      <div class='fbmask'></div>
-      <h1 class='slogans'> Places • Pictures • Memories </h1>
+      <div className='fbmask'></div>
+      <h1 className='slogans'> Places • Pictures • Memories </h1>
       <div id="fb"><FacebookLogin
         appId="1382418925218617"
         autoLoad={false}
@@ -22,7 +22,7 @@ export default class LogIn extends Component {
         callback={this.props.responseFacebook}
         // reAuthenticate={true}
       /></div>
-      <a class="change" href="https://www.facebook.com/" target="_blank">Change User</a>
+    <a className="change" href="https://www.facebook.com/" target="_blank">Change User</a>
       </div>
     )
   }

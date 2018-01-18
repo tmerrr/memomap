@@ -20,7 +20,7 @@ class Form extends Component {
     formData.append('place', document.getElementById('placing').value)
     formData.append('memories', document.getElementById('memories').value)
     formData.append('_id', this.props.pin._id)
-    formData.append('imageurl', document.getElementById('image').files[0].name)
+    formData.append('imageurl', 'uploads/' + document.getElementById('image').files[0].name)
     formData.append('activities', document.getElementById('activities').value)
     formData.append('rating', document.getElementById('numberrating').innerHTML)
 
@@ -81,7 +81,7 @@ class Form extends Component {
     const activityOptions = ['Nature', 'Monument', 'Restaurant', 'Activity']
 
     let dropdownMenu = (
-      <select id="activities" class="activities" name="activity">
+      <select id="activities" className="activities" name="activity">
         {activityOptions.map((type, index) => {
           return(<option key={index} value={type}>{type}</option>)
         })}
@@ -104,7 +104,7 @@ class Form extends Component {
           {dropdownMenu}
 
 
-          <input id="image" class="images"type="file" name="image" onChange={this.handleFileUpload}></input>
+          <input id="image" className="images"type="file" name="image" onChange={this.handleFileUpload}></input>
           {memoryMessage}
 
           <div id="ratings">
