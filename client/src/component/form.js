@@ -18,10 +18,10 @@ class Form extends Component {
     var formData = new FormData()
     formData.append('image', document.getElementById('image').files[0])
     formData.append('place', document.getElementById('placing').value)
-    formData.append('memories', document.getElementById('memories').value)
+    formData.append('memory', document.getElementById('memories').value)
     formData.append('_id', this.props.pin._id)
     formData.append('imageurl', 'uploads/' + document.getElementById('image').files[0].name)
-    formData.append('activities', document.getElementById('activities').value)
+    formData.append('activity', document.getElementById('activities').value)
     formData.append('rating', document.getElementById('numberrating').innerHTML)
 
     var self = this
