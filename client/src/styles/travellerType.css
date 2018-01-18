@@ -1,0 +1,16 @@
+.animal {
+  width: 60px;
+  border-radius: 50%;
+  position: relative;
+  left: 43%;
+  top: 530px;
+}
+
+#headers {
+  text-align: center;
+  font-size: 23px;
+  position: absolute;
+  top: 70%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+}
