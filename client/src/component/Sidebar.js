@@ -64,7 +64,7 @@ class Sidebar extends Component{
         <img id="icon0" src = "activityicon.png"/>
         <h5 id="activitycaption"> Activity </h5>
 
-        <TravellerType animal={this.setTravellerType()} />
+        <TravellerType id="animal" animal={this.setTravellerType()} />
           <button id="logout" name="logout" onClick={this.props.logout}>Logout</button>
       </div>
     )

@@ -1,9 +1,10 @@
 .animal {
-  width: 60px;
+  width: 100px;
   border-radius: 50%;
-  position: relative;
-  left: 43%;
-  top: 530px;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #headers {

@@ -22,12 +22,20 @@ clip-path: polygon(0% 0%, 0 45%, 100% 45%, 100% 0%);
 
 }
 
+#activity {
+  position: absolute;
+  font-family: 'Josefin Sans', sans-serif;
+  top: 63%;
+  left: 74%;
+  font-size: 20px;
+}
+
 #date{
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 5px;
+  font-size: 15px;
   position: absolute;
-  top: 90%;
-  left: 65%;
+  top: 80%;
+  left: 60%;
 }
 
 #title{
