@@ -8,7 +8,7 @@ var pinsSchema = new Schema({
   memory:     String,
   activity:   String,
   rating:     Number,
-  date:       { type: Date, default: Date.now },
+  date:       { type: Date },
   imageurl:   String,
   userFbId:   Number
 });

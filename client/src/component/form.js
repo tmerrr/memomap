@@ -13,11 +13,6 @@ class Form extends Component {
     }
   }
 
-  dateConverter = (date) => {
-    var dateone = date.split("T")[0]
-    return dateone.split("-").reverse().join("-")
-  }
-
   postComment = (evt) => {
     evt.preventDefault();
     var formData = new FormData()
@@ -25,7 +20,7 @@ class Form extends Component {
     formData.append('place', document.getElementById('place').value)
     formData.append('memory', document.getElementById('memory').value)
     formData.append('_id', this.props.pin._id)
-    formData.append('imageurl', document.getElementById('image').files[0].name)
+    formData.append('imageurl', ('uploads/' + document.getElementById('image').files[0].name))
     formData.append('activity', document.getElementById('activity').value)
     formData.append('rating', document.getElementById('rating').innerHTML)
 
@@ -121,7 +116,6 @@ class Form extends Component {
           <button className="submit" disabled={Placeresult} onClick={this.postComment} type="submit">Done!</button>
 
 
-        {content}
         <button className="deletePin" onClick={this.props.deletePin}>Delete Pin</button>
         </form>
 
