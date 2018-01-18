@@ -1,49 +1,147 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 
-
-/*
-.form {
-  background-color: blue;
-}*/
-
-#activity {
-  top:65%;
-  left:50%;
+.activity{
+  top: 15.5%;
+  left: 63%;
+  width: 100px;
+  height: 30px;
+  font-size: 10px;
 }
 
-#place {
-  width:120px;
-  top:20%;
-  left:5%;
+#header{
+  font-size: 25px;
+  font-family: 'Josefin Sans', sans-serif;
+  position: absolute;
+  top: 10%;
+  left: 33%;
+  transform: translate(-50%, -50%);
 }
 
-#memory {
-  width: 250px;
-  height: 80px;
+#h2{
+  font-size: 25px;
+  font-family: 'Josefin Sans', sans-serif;
+  position: absolute;
+  top: 10%;
+  left: 68%;
+  transform: translate(-50%, -50%);
+}
+
+#place{
+  width: 180px;
+  padding: 2px 7px;
+  font-family: 'Josefin Sans', sans-serif;
+  position: absolute;
+  text-align: top;
+  top: 17%;
+  border-radius: 30px;
+  outline: none;
+}
+
+#forms{
+  width: 310px;
+  height: 300px;
+  border-radius: 100px;
+}
+
+.activities {
+  position: absolute;
+  width: 100px;
+  top:17%;
+  left:65%;
+  height: 31px;
+}
+
+#memories {
+  font-family: 'Josefin Sans', sans-serif;
+  position: absolute;
+  padding: 2px 7px;
+  position: absolute;
+  text-align: top;
+  top: 30%;
+  left: 3%;
+  width: 300px;
+  height: 90px;
+  outline: none;
+  border: 3px solid #e6e6e6;
+  border-radius: 10px;
 }
 
 #image {
-  padding: 0;
-  margin: 0;
+  position: absolute;
+  font-family: 'Josefin Sans', sans-serif;
+  top: 66%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  -webkit-clip-path: polygon(0% 0%, 0 80%, 100% 79%, 100% 0%);
+clip-path: polygon(0% 0%, 0 80%, 100% 79%, 100% 0%);
+
+}
+
+.images{
+  outline: none;
   border: none;
-  width: 220px;
-  position: absolute;
-  top: 65%;
-  left:5%;
+  cursor:pointer;
 }
 
-#form {
-  width: 250px;
-  height:250px;
+#ratings {
+  position: absolute;
+  top: 73%;
+  left: 20%;
 }
 
-.deletePin{
+
+.fa_custom{
+  color: #d75766;
+}
+
+.fa_custom2{
+  color: #d75766;
+}
+
+#rating {
   position: absolute;
-  left:70%;
-  top:85%;
+  top: 77%;
+  left: 70%;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 20px;
+  transform: translate(-50%, -50%);
 }
 
 .submit{
   position: absolute;
-  left:5%;
-  top:85%;
+  top: 90%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  background-color: #0a398c;
+  font-family: 'Josefin Sans', sans-serif;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 20px;
+  width: 200px;
+  height: 45px;
+}
+
+.submit {
+  position: absolute;
+  top: 90%;
+  left: 74%;
+  transform: translate(-50%, -50%);
+  background-color: #0a398c;
+  font-family: 'Josefin Sans', sans-serif;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 20px;
+  width: 150px;
+  height: 45px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.submit:hover{
+   border: 1px #f9d39b;
+   background-color: #3ab294;
+
+
 }

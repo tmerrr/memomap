@@ -23,10 +23,10 @@ class Form extends Component {
     var formData = new FormData()
     formData.append('image', document.getElementById('image').files[0])
     formData.append('place', document.getElementById('place').value)
-    formData.append('memory', document.getElementById('memory').value)
+    formData.append('memories', document.getElementById('memories').value)
     formData.append('_id', this.props.pin._id)
     formData.append('imageurl', document.getElementById('image').files[0].name)
-    formData.append('activity', document.getElementById('activity').value)
+    formData.append('activities', document.getElementById('activities').value)
     formData.append('rating', document.getElementById('rating').innerHTML)
 
     var self = this
@@ -86,7 +86,7 @@ class Form extends Component {
     const activityOptions = ['Nature', 'Monument', 'Restaurant', 'Activity']
 
     let dropdownMenu = (
-      <select id="activity" name="activity">
+      <select id="activities" class="activities" name="activity">
         {activityOptions.map((type, index) => {
           return(<option key={index} value={type}>{type}</option>)
         })}
@@ -95,33 +95,35 @@ class Form extends Component {
 
 
     return (
-      <div>
+      <div id="forms">
         <form id="form" encType="multipart/form-data">
 
-        <h4>Add your memory to this place!</h4>
+        <h4 id="header">Enter your</h4>
+        <h4 id="h2">Memory</h4>
 
           <input id="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
           {placeMessage}
 
 
-          <input id="memory" type="text" name="memory" placeholder="Please enter a Memory" onChange={this.handleMemoryChange}></input>
+          <textarea id="memories" cols="30" rows="5" placeholder="Enter your Memory" onChange={this.handleMemoryChange}></textarea>
           {dropdownMenu}
 
 
-          <input id="image" type="file" name="image" onChange={this.handleFileUpload}></input>
+          <input id="image" class="images"type="file" name="image" onChange={this.handleFileUpload}></input>
           {memoryMessage}
 
+          <div id="ratings">
             <Rating
-              emptySymbol="fa fa-heart-o fa-2x"
-              fullSymbol="fa fa-heart fa-2x"
+              class="hearts"
+              emptySymbol="fa fa-heart-o fa-2x fa_custom"
+              fullSymbol="fa fa-heart fa-2x fa_custom2"
+              style="color:red"
               fractions={2}
               onChange={(rating) => document.getElementById('rating').innerHTML = rating || 0}
             />
+          </div>
           <h1 id="rating">0</h1>
           <button className="submit" disabled={Placeresult} onClick={this.postComment} type="submit">Done!</button>
-
-
-        <button className="deletePin" onClick={this.props.deletePin}>Delete Pin</button>
         </form>
 
       </div>

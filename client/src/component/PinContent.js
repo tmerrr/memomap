@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import '../styles/pinContent.css';
 
 export default class PinContent extends Component {
 
   render() {
     return (
-      <div>
-        <img src={this.props.pin.imageurl} alt="Image Uploaded" style={{"width": "150px"}}/>
-        <h1>Place: {this.props.pin.place}</h1>
-        <h2>Title: {this.props.pin.memory}</h2>
-        <h5>Day: {this.props.pin.date}</h5>
-        <h5>{this.props.pin.activity}</h5>
-        <h5>Rating: {this.props.pin.rating}</h5>
+      <div id="try">
+        <img class="imaging" src={this.props.pin.imageurl} alt="Image Uploaded" />
+        <h1 id="place"> Place: {this.props.pin.place}</h1>
+        <h5 id="date">Day: {this.props.pin.date}</h5>
+        <h5 id="activity">{this.props.pin.activity}</h5>
+        <h5 id="rating">Rating: {this.props.pin.rating}</h5>
+        <h2 id="title">Title: {this.props.pin.memory}</h2>
       </div>
     )
   }

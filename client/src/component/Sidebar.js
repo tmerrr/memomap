@@ -59,11 +59,11 @@ class Sidebar extends Component{
         <h5 id="restaurantcaption"> Restaurant </h5>
         <img id="icon3" src = "restauranticon.png"/>
 
-        <h4 class="activity"> {this.getnumberOf("Activity")} </h4>
+        <h4 class="activitying"> {this.getnumberOf("Activity")} </h4>
         <img id="icon0" src = "activityicon.png"/>
         <h5 id="activitycaption"> Activity </h5>
 
-        <h4 id="header"> Currently, you are a</h4>
+        <h4 id="headers"> Currently, you are a</h4>
         <h4 id="level"> {this.travellerType()} </h4>
 
 

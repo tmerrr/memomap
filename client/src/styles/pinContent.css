@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+
+#try{
+  width: 300px;
+  height: 300px;
+}
+
+.imaging{
+  width: 400px;
+  height: 400px;
+  -webkit-clip-path: polygon(0% 0%, 0 45%, 100% 45%, 100% 0%);
+clip-path: polygon(0% 0%, 0 45%, 100% 45%, 100% 0%);
+}
+
+#place{
+  position: absolute;
+  top: 62%;
+  left: 3%;
+  font-size: 20px;
+  font-family: 'Josefin Sans', sans-serif;
+
+}
+
+#date{
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 5px;
+  position: absolute;
+  top: 90%;
+  left: 70%;
+}
+
+#title{
+  position: absolute;
+  font-family: 'Josefin Sans', sans-serif;
+  top: 72%;
+  left: 5%;
+  font-size: 20px;
+}
+
+#rating{
+  position: absolute;
+  font-family: 'Josefin Sans', sans-serif;
+  top: 87%;
+  left: 74%;
+  font-size: 20px;
+}
