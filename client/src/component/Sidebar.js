@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import styles from '../styles/Sidebar.css'
+import TravellerType from './TravellerType';
+import styles from '../styles/Sidebar.css';
 
 
 class Sidebar extends Component{
@@ -18,17 +19,17 @@ class Sidebar extends Component{
 
   }
 
-  travellerType = () => {
+  setTravellerType = () => {
     if (this.props.pins.length < 5) {
-      return 'Hermit'
+      return { name: "Hermit Crab", imageUrl: 'hermit.jpg'}
     } else if (this.props.pins.length < 10) {
-      return 'House Cat'
+      return { name: "House Cat", imageUrl: 'cat.jpg'}
     } else if (this.props.pins.length < 20){
-      return 'Swallow'
+      return { name: "Swallow", imageUrl: 'swallow.jpg'}
     } else if (this.props.pins.length < 30){
-      return 'Atlantic Salmon'
+      return { name: "Atlantic Salmon", imageUrl: 'salmon.png'}
     } else {
-      return 'Wandering Albatross'
+      return { name: "Wandering Albatross", imageUrl: 'albatross.jpg'}
     }
   }
 
@@ -63,11 +64,7 @@ class Sidebar extends Component{
         <img id="icon0" src = "activityicon.png"/>
         <h5 id="activitycaption"> Activity </h5>
 
-        <h4 id="headers"> Currently, you are a</h4>
-        <h4 id="level"> {this.travellerType()} </h4>
-
-
-
+        <TravellerType animal={this.setTravellerType()} />
           <button id="logout" name="logout" onClick={this.props.logout}>Logout</button>
       </div>
     )
