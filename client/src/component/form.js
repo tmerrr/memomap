@@ -101,7 +101,7 @@ class Form extends Component {
         <h4 id="header">Enter your</h4>
         <h4 id="h2">Memory</h4>
 
-          <input id="place" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
+          <input id="placing" type="text" name="place" placeholder="Place" onChange={this.handlePlaceChange}></input>
           {placeMessage}
 
 
@@ -122,7 +122,7 @@ class Form extends Component {
               onChange={(rating) => document.getElementById('rating').innerHTML = rating || 0}
             />
           </div>
-          <h1 id="rating">0</h1>
+          <h1 id="numberrating">0</h1>
           <button className="submit" disabled={Placeresult} onClick={this.postComment} type="submit">Done!</button>
         </form>
 

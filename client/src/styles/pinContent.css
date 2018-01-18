@@ -27,21 +27,21 @@ clip-path: polygon(0% 0%, 0 45%, 100% 45%, 100% 0%);
   font-size: 5px;
   position: absolute;
   top: 90%;
-  left: 70%;
+  left: 65%;
 }
 
 #title{
   position: absolute;
   font-family: 'Josefin Sans', sans-serif;
   top: 72%;
-  left: 5%;
+  left: 3%;
   font-size: 20px;
 }
 
-#rating{
+#ratingg{
   position: absolute;
   font-family: 'Josefin Sans', sans-serif;
-  top: 87%;
-  left: 74%;
   font-size: 20px;
+  top: 88%;
+  left: 62%;
 }

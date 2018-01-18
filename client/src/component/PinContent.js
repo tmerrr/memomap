@@ -10,7 +10,7 @@ export default class PinContent extends Component {
         <h1 id="place"> Place: {this.props.pin.place}</h1>
         <h5 id="date">Day: {this.props.pin.date}</h5>
         <h5 id="activity">{this.props.pin.activity}</h5>
-        <h5 id="rating">Rating: {this.props.pin.rating}</h5>
+        <h5 id="ratingg">Rating: {this.props.pin.rating}</h5>
         <h2 id="title">Title: {this.props.pin.memory}</h2>
       </div>
     )

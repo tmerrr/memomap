@@ -26,7 +26,7 @@
   transform: translate(-50%, -50%);
 }
 
-#place{
+#placing{
   width: 180px;
   padding: 2px 7px;
   font-family: 'Josefin Sans', sans-serif;
@@ -98,7 +98,7 @@ clip-path: polygon(0% 0%, 0 80%, 100% 79%, 100% 0%);
   color: #d75766;
 }
 
-#rating {
+#numberrating{
   position: absolute;
   top: 77%;
   left: 70%;
