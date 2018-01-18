@@ -11,11 +11,9 @@ class PinToggle extends Component{
     return(
       <div>
       <button id="button" onClick={this.props.toggleDropPin}
-              style={{
-                    backgroundColor: color
-                    }}
-      > Enable Map 
-
+              style={{ backgroundColor: color }}
+      >
+        Pin Drop: {this.props.toggleStatus ? "On" : "Off"}
       </button>
       </div>
     )

@@ -16,7 +16,7 @@ class App extends Component {
       isDropPin:      { on: false },
       sidebar:        false,
       hamburger:      true,
-      toggleBG:       '#0a398c',
+      toggleBG:       "#d75766",
       user:           false
     }
   }
@@ -127,7 +127,7 @@ class App extends Component {
 
   toggleDropPin = () => {
     let newDropPinStatus = this.state.isDropPin.on ? false : true;
-    let newDropPinBackground = this.state.isDropPin.on ? "#0a398c" : "    #d75766";
+    let newDropPinBackground = this.state.isDropPin.on ? "#d75766" : "#0a398c";
 
     this.setState({
       clickedMarker:  { isClicked: false },
@@ -209,7 +209,7 @@ class App extends Component {
       <div>
         {hamburger}
         {sidebar}
-        <PinToggle toggleBG={this.state.toggleBG} toggleDropPin={this.toggleDropPin}/>
+        <PinToggle toggleStatus={this.state.isDropPin.on} toggleBG={this.state.toggleBG} toggleDropPin={this.toggleDropPin}/>
         <this.props.MapClass
           style="mapbox://styles/mapbox/streets-v9"
           containerStyle={{
