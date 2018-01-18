@@ -41,7 +41,8 @@ router.post('/new', function(req, res) {
 
 router.post('/update', function(req, res) {
   upload(req, res, function (err) {
-    console.log("BODY", req.body)
+    console.log(req.body)
+    console.log("RATING", req.body.rating)
       Pin.findByIdAndUpdate(req.body._id, {
         place: req.body.place,
         memory: req.body.memory,
