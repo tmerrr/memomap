@@ -5,7 +5,7 @@
 <p float="left" align= "center">
   <img src="READMEimages/cover1.png" />
   <br>
-  <img src="READMEimages/cover3.png" />
+  <img src="READMEimages/cover2.png" />
 </p>
 
 **MemoMap** is a travel diary product done with an interactive map interface. It allows a user to personally document the places he or she has been, set some preferences and save it by their individual Facebook account. Memomap is an app that tracks one's memories whilst encourage one to make more. This was a Makers Academy's final project.
