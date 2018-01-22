@@ -9,6 +9,85 @@
 
 <h2> How to Use: </h2>
 
+We plan to deploy this App to Heroku, but until then you will need to follow these instructions in order to run MemoMap locally on your machine.
+
+<h4> Install & Setup MongoDB: </h4>
+
+If you don't already have MongoDB, follow the below steps.
+
+In your command line:
+
+```
+  brew update
+
+  brew install mongodb
+
+  mkdir -p /data/db
+
+  sudo chown -R `id -un` /data/db
+  # Enter your password
+```
+
+<h4> Clone and setup Repo: </h4>
+
+To setup the Repo on your local machine.
+
+From your command line:
+
+```
+  git clone git@github.com:tmerrr/map-app.git
+
+  cd map-app
+
+  npm i
+
+  mkdir public/uploads
+
+  cd client
+
+  npm i
+```
+
+<h4> Run App: </h4>
+
+To run the app locally on your machine, you will need to open 3 terminals.
+
+Terminal 1:
+
+```
+  mondgod
+```
+
+Terminal 2:
+
+Change into project directory:
+
+```
+  cd <path>/map-app
+
+  npm start
+```
+
+Terminal 3:
+
+Change into the client folder of project directory:
+
+```
+  cd <path>/map-app/client
+
+  npm start
+```
+
+<h4> Using the App </h4>
+
+1. Click the 'Login with Facebook' button to sign in.
+2. Use the roller on your mouse, or push up or pull down on your touchpad to zoom in and out.
+3. Click and drag on the map to move around.
+4. Use the search bar in the top right of the screen to search for a specific location.
+5. To drop a Pin, enable the Pin Drop by clicking the 'Pin Drop: Off' button under the search bar. Then click on the map where you would like to place the Pin.
+6. Click on the Pin and complete the form (all sections need to be completed) to upload a picture and create a Memory.
+7. Click on the 'Hamburger' icon in the top left of the screen to open the sidebar. Here lists your details, information about the pins you've dropped, and your current traveler level.
+8. To Logout, click the 'Logout' button in the sidebar.
 
 
 <h2> Technologies:  </h2>
@@ -68,4 +147,3 @@ PS: Yes, R3TRO was a thing in our team.
 - 🐰 [Eva Dinckel](https://github.com/evadinckel)
 - 🐸 [Lewis Youl](https://github.com/LewisYoul)
 - 🐨 [Tom Moir](https://github.com/tmerrr)
-
