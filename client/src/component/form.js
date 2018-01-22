@@ -23,6 +23,8 @@ class Form extends Component {
     formData.append('imageurl', 'uploads/' + document.getElementById('image').files[0].name)
     formData.append('activity', document.getElementById('activities').value)
     formData.append('rating', document.getElementById('numberrating').innerHTML)
+    console.log('rating', document.getElementById('numberrating').innerHTML)
+    console.log('FORM DATA --->', formData)
 
     var self = this
     axios.post('pins/update', formData, {
@@ -88,6 +90,7 @@ class Form extends Component {
       </select>
     )
 
+    console.log(this.props.pin)
 
     return (
       <div id="forms">

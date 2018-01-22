@@ -36,7 +36,8 @@ export default class PinPopup extends Component {
   }
 
   renderPopupBody = () => {
-    if(this.state.pin.place) {
+    console.log('POPUP STATE ---->', this.state)
+    if (this.state.pin.place) {
       return <PinContent pin={this.state.pin} />
     } else {
       return (

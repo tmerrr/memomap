@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Sidebar from './Sidebar'
-import Hamburger from './Hamburger'
-import PinToggle from './PinToggle'
+import Mapp from './Mapp'
 import LogIn from './login.js';
 
-
-
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      pins: [],
-      clickedMarker:  { isClicked: false },
-      isDropPin:      { on: false },
-      sidebar:        false,
-      hamburger:      true,
-      toggleBG:       "#d75766",
-      user:           false
+      pins      : [],
+      activePin : { isClicked: false },
+      user      : false
     }
   }
 
@@ -40,28 +32,11 @@ class App extends Component {
     })
   }
 
-  postComment = (evt) => {
-    evt.preventDefault();
-    const self = this
-    var forminput = document.getElementById('comment').value
-    axios.post('/pins/update', {
-      comment: forminput,
-      _id: this.state.clickedMarker.pin._id
-    })
-    .then(function(response) {
-      console.log(response)
-      self.sendPostRequestForPins()
-    })
-    .catch(function(error) {
-      console.log(error)
-    })
-  }
-
   deletePin = (evt) => {
     evt.preventDefault();
     const self = this
     axios.post('pins/delete', {
-      _id: this.state.clickedMarker.pin._id
+      _id: self.state.activePin.pin._id
     })
     .then((res) => {
       console.log(res)
@@ -70,45 +45,17 @@ class App extends Component {
     .catch((error) => {
       console.log(error)
     })
-    this.setState({ clickedMarker: { isClicked: false } })
+    self.resetActiveMarker()
   }
 
-  // POPUP && FORM COMPONENT
-  showPopup = (pin) => {
-    return(
-      <this.props.PinPopupClass
-        pin={pin}
-        deletePin={this.deletePin}
-      />
-    )
-  }
-
-  handlePopupClick = (pin) => {
-    this.sendPostRequestForPins()
+  resetActiveMarker = () => {
     this.setState({
-      clickedMarker: {isClicked: true, pin: pin}
+      activePin: { isClicked: false }
     })
   }
 
-  // MARKER COMPONENT
-  renderMarker = (pin, index) => {
-    return (
-      <this.props.PinClass
-        index={index}
-        pin={pin}
-        handlePopupClick={this.handlePopupClick}
-      />
-
-    )
-  }
-
-  handleClick = (map, evt) => {
+  dropPin = (map, evt) => {
     const self = this
-    this.setState({
-      clickedMarker: { isClicked: false }
-    })
-    if (this.state.isDropPin.on ) {
-      this.toggleDropPin()
       axios.post('/pins/new', {
         longitude:  evt.lngLat.lng,
         latitude:   evt.lngLat.lat,
@@ -121,9 +68,8 @@ class App extends Component {
       .catch(function(error) {
         console.log(error)
       });
+      self.sendPostRequestForPins()
     }
-    this.sendPostRequestForPins()
-  }
 
   toggleDropPin = () => {
     let newDropPinStatus = this.state.isDropPin.on ? false : true;
@@ -171,6 +117,13 @@ class App extends Component {
     }
   }
 
+  handlePinClick = (pin) => {
+    this.sendPostRequestForPins()
+    this.setState({
+      activePin: { isClicked: true, pin: pin }
+    })
+  }
+
   logout = () => {
     this.setState({
       user: false
@@ -178,55 +131,24 @@ class App extends Component {
   }
 
   render() {
-    var sidebar = null
-
-    if (this.state.sidebar) {
-      sidebar = (
-        <Sidebar
-          clickHamburger={this.clickHamburger}
-          userDetails={this.state.user}
-          pins={this.state.pins}
-          logout={this.logout}/>
-      )
-    }
-
-    var hamburger = null
-
-    if (this.state.hamburger){
-      hamburger = (
-        <Hamburger clickHamburger={this.clickHamburger} />
-      )
-    }
-
-    const allPins = this.state.pins.map((pin, index) => {
-      return this.renderMarker(pin, index)
-    })
-
     const loginContainer = <LogIn responseFacebook={this.login} />
 
     // MAP COMPONENT:
     const MapContainer = (
-      <div>
-        {hamburger}
-        {sidebar}
-        <PinToggle toggleStatus={this.state.isDropPin.on} toggleBG={this.state.toggleBG} toggleDropPin={this.toggleDropPin}/>
-        <this.props.MapClass
-          style="mapbox://styles/mapbox/streets-v9"
-          containerStyle={{
-            height: "100vh",
-            width: "100vw"
-          }}
-          onClick={this.handleClick}
-        >
-          {allPins}
-          <this.props.GeocoderClass />
-          {this.state.clickedMarker.isClicked ? this.showPopup(this.state.clickedMarker.pin) : null}
-        </this.props.MapClass>
-      </div>
+      <Mapp
+        MapClass={this.props.MapClass}
+        sendPostRequestForPins={this.sendPostRequestForPins}
+        deletePin={this.deletePin}
+        handlePinClick={this.handlePinClick}
+        userDetails={this.state.user}
+        pins={this.state.pins}
+        logout={this.logout}
+        activePin={this.state.activePin}
+        createNewPin={this.dropPin}
+        resetActiveMarker={this.resetActiveMarker}
+      />
     )
 
     return this.state.user ? MapContainer : loginContainer
   }
 }
-
-export default App;

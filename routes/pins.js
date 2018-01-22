@@ -37,11 +37,10 @@ router.post('/new', function(req, res) {
   res.send(pin)
 });
 
-
-
 router.post('/update', function(req, res) {
   upload(req, res, function (err) {
-    console.log("BODY", req.body)
+    console.log(req.body)
+    console.log("RATING", req.body.rating)
       Pin.findByIdAndUpdate(req.body._id, {
         place: req.body.place,
         memory: req.body.memory,
@@ -55,7 +54,6 @@ router.post('/update', function(req, res) {
       });
     if (err) {
       console.log("image not uploaded")
-      // An error occurred when uploading
     }
       res.send({
         place: req.body.place,

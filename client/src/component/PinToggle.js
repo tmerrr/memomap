@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import styles from '../styles/pinToggle.css'
 
 class PinToggle extends Component{
-  constructor(props){
-    super(props)
-  }
 
   render() {
-    var color = this.props.toggleBG
+    var color = this.props.isDropPin.on ? "#0a398c" : "#d75766";
     return(
       <div>
-      <button id="button" onClick={this.props.toggleDropPin}
-              style={{ backgroundColor: color }}
+      <button
+        id="button"
+        onClick={this.props.handleClick}
+        style={{ backgroundColor: color }}
       >
-        Pin Drop: {this.props.toggleStatus ? "On" : "Off"}
+        Pin Drop: {this.props.isDropPin.on ? "On" : "Off"}
       </button>
       </div>
     )
