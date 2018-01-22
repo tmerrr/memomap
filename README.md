@@ -2,20 +2,23 @@
   MemoMap 🗺
 </h1>
 
+<p float="left" align= "center">
+  <img src="READMEimages/cover1.png" />
+  <br>
+  <img src="READMEimages/cover3.png" />
+</p>
+
 **MemoMap** is a travel diary product done with an interactive map interface. It allows a user to personally document the places he or she has been, set some preferences and save it by their individual Facebook account. Memomap is an app that tracks one's memories whilst encourage one to make more. This was a Makers Academy's final project.
 
-<div align="center"> For More Info: </div>
-
+***
 
 <h2> How to Use: </h2>
 
-We plan to deploy this App to Heroku, but until then you will need to follow these instructions in order to run MemoMap locally on your machine.
+We plan to deploy this App to Heroku, but till then you will need to follow these instructions in order to run MemoMap locally on your machine.
 
-<h4> Install & Setup MongoDB: </h4>
+<h4> 1 - Install & Setup MongoDB: </h4>
 
-If you don't already have MongoDB, follow the below steps.
-
-In your command line:
+If you don't already have MongoDB, follow the below steps. In your command line:
 
 ```
   brew update
@@ -28,11 +31,9 @@ In your command line:
   # Enter your password
 ```
 
-<h4> Clone and setup Repo: </h4>
+<h4> 2 - Clone and setup Repo: </h4>
 
-To setup the Repo on your local machine.
-
-From your command line:
+To setup the Repo on your local machine. From your command line:
 
 ```
   git clone git@github.com:tmerrr/map-app.git
@@ -48,33 +49,27 @@ From your command line:
   npm i
 ```
 
-<h4> Run App: </h4>
+<h4> 3 - Run App: </h4>
 
 To run the app locally on your machine, you will need to open 3 terminals.
 
-Terminal 1:
+In your first terminal, run the following code for activating your databases.
 
 ```
   mondgod
 ```
 
-Terminal 2:
-
-Change into project directory:
+In your second terminal, change into the project folder of the  directory and run npm start. This runs the back-end of your program.
 
 ```
   cd <path>/map-app
-
   npm start
 ```
 
-Terminal 3:
-
-Change into the client folder of project directory:
+Finally, in your last terminal, change into the same project folder, except go into the client folder. When you run the following code, this will load the front-end.
 
 ```
   cd <path>/map-app/client
-
   npm start
 ```
 
@@ -89,11 +84,12 @@ Change into the client folder of project directory:
 7. Click on the 'Hamburger' icon in the top left of the screen to open the sidebar. Here lists your details, information about the pins you've dropped, and your current traveler level.
 8. To Logout, click the 'Logout' button in the sidebar.
 
+***
 
 <h2> Technologies:  </h2>
 
 Our team decided to implement this product as a MERN stack. A MERN stack is a full on javascript built product, which uses the following
-technologies ( Mongo, Express, React and Node )
+technologies ( Mongo, Express, React and Node ). More info on how we set it up => [Set Up](https://hackernoon.com/episode-43-the-art-of-setting-up-a-mern-stack-final-project-week-d554bffe2c0e)
 
 | Front-End     | Back-End      | Testing |
 | :---:         |:---:          | :---:   |
@@ -101,13 +97,9 @@ technologies ( Mongo, Express, React and Node )
 | Mapbox        | Express       | Mocha   |
 |               | Mongo         | Chai    |
 
+***
 
-How we set it up => [Set Up](https://hackernoon.com/episode-43-the-art-of-setting-up-a-mern-stack-final-project-week-d554bffe2c0e)
-
-
-
-
-<h2> Approach: </h2>
+<h2> Our Approach: </h2>
 
 <p float="left" align= "center">
   <img src="READMEimages/3.jpg" width="400" />
@@ -118,8 +110,6 @@ How we set it up => [Set Up](https://hackernoon.com/episode-43-the-art-of-settin
   <img src="READMEimages/2.jpg" width="400" />
   <img src="READMEimages/retro1.jpg" width="400" />
 </p>
-
-
 
 Our collective approach was to make sure that  "everyone was on the same page in terms of understanding the code. We had StandUps and Retros everyday to check in on what tasks needed to be
 done for the day and to check in how everyone was
@@ -132,16 +122,56 @@ down what we achieved today to reflect upon and decide what needed to be done to
 PS: Yes, R3TRO was a thing in our team.
 <br>
 
-
+***
 
 <h2> MVP & Functionalities: </h2>
 
+MVP, otherwise known as the Minimal Viable Product is to create the basic function of an app. Metaphorically, it's like wanting to build car but starting of with a skateboard first to see whether that is achievable. By listing down our MVP, this mindset allowed us to succeed at creating the simplest form of our application before expanding into other functionalities.
 
+```
+• User can see a map when the website in loaded
+• User can add the pin
+• User can save the pin onto the Map
+• User can refresh the page and load up the pin onto the map
+```
+ Our accomplished functions are listed below. We divided the functions into categories. For user interactivity functions:
 
+```
+• User can add image to a pin
+• User can add a caption to a pin
+  - The caption allows a user to document a place
+  - The caption allows a user to write a memory
+• User can see the date of the post
+• User can give a rating of the post
+• User can see how many memories they have made
+• User can categorise the activities of the post
+• User can delete a pin
 
+```
+For User details & settings:
 
-<h2 align="center"> Team </h2>
+```
+• User can sign in to the application
+• User can login to the application
+• User can logout from the application
+• User can see their name on the web app once logged in
+• User can see their email on the web app once
+logged out.
+```
 
+For The Interface:
+
+```
+• User can enjoy a nice interface while engaged with the app.
+• User can see the bounce of the pin when a pin is dropped
+• User can have a toggle to engage with the map by dropping a pin and locking the map to view changes.
+• User can see details on a snazzy navigation sidebar
+• User can see the level they have travelled
+depending on the amount of memories one has.
+```
+
+***
+## Team
 
 - 🐱 [Dania Mah](https://github.com/thatdania)
 - 🐰 [Eva Dinckel](https://github.com/evadinckel)
